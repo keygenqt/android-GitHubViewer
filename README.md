@@ -3,11 +3,10 @@ Stack 2021
 
 Best Tech Stack for Development in 2021
 
-## Tech stack & libraries
+### Tech stack & libraries
 
 - Minimum SDK level 21
-- MVVM Architecture (Declarative View - ViewModel - Model)
-
+- MVVM Architecture
 - [Kotlin](https://kotlinlang.org/)
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 - [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/)
