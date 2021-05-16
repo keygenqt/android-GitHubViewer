@@ -1,7 +1,4 @@
 buildscript {
-    val compose_version by extra("1.0.0-beta06")
-
-
     repositories {
         google()
         mavenCentral()
