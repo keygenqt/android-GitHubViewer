@@ -3,12 +3,11 @@ plugins {
     `java-gradle-plugin`
 }
 
-// To make it available as direct dependency
 group = "com.keygenqt.internal"
-version = "SNAPSHOT"
+version = "0.0.1"
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 gradlePlugin {
