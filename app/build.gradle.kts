@@ -5,6 +5,18 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("internal")
+    id("com.diffplug.spotless") version "5.12.5"
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        licenseHeaderFile("${project.rootProject.projectDir}/spotless.license.kt")
+    }
+    kotlinGradle {
+        target("*.gradle.kts")
+        ktlint()
+    }
 }
 
 android {
