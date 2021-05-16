@@ -7,3 +7,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "android-stack_2021"
 include(":app")
+
+// include plugins
+includeBuild("gradle/internal")
