@@ -1,11 +1,14 @@
-typealias ver = com.keygenqt.internal.Versions
+typealias and = com.keygenqt.internal.Android
 typealias dep = com.keygenqt.internal.Dependencies
 
 plugins {
+    id("dagger.hilt.android.plugin")
     id("com.android.application")
     id("kotlin-android")
     id("internal")
     id("com.diffplug.spotless") version "5.12.5"
+
+    kotlin("kapt")
 }
 
 spotless {
@@ -21,13 +24,13 @@ spotless {
 
 android {
 
-    compileSdk = ver.android.compileSdk
-    buildToolsVersion = ver.android.buildTools
+    compileSdk = and.compileSdk
+    buildToolsVersion = and.buildTools
 
     defaultConfig {
         applicationId = "com.keygenqt.stack_2021"
-        minSdk = ver.android.minSdk
-        targetSdk = ver.android.targetSdk
+        minSdk = and.minSdk
+        targetSdk = and.targetSdk
         versionCode = 1
         versionName = "1.0"
 
@@ -54,25 +57,65 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = ver.library.compose
+        kotlinCompilerExtensionVersion = com.keygenqt.internal.Versions.compose
     }
 }
 
 dependencies {
-    testImplementation(dep.test.junit)
+    dep.compose.apply { // https://developer.android.com/jetpack/compose
+        implementation(ui)
+        implementation(jetpack)
+        implementation(material)
+        implementation(tooling)
+        implementation(activity)
+        implementation(livedata)
+    }
 
-    androidTestImplementation(dep.test.junitExt)
-    androidTestImplementation(dep.test.junitUi)
-    androidTestImplementation(dep.test.espresso)
+    dep.hilt.apply { // https://dagger.dev/hilt/
+        implementation(hiltAndroid)
+        implementation(hiltNavigationCompose)
+        kapt(hiltCompiler)
+        kapt(daggerHiltCompiler)
+        kaptAndroidTest(daggerHiltCompiler)
+    }
 
-    implementation(dep.compose.ui)
-    implementation(dep.compose.material)
-    implementation(dep.compose.tooling)
-    implementation(dep.compose.activity)
+    dep.security.apply { // https://developer.android.com/topic/security/data
+        implementation(crypto)
+        implementation(identityCredential)
+    }
 
-    implementation(dep.ktx.core)
-    implementation(dep.ktx.lifecycleRuntime)
+    dep.lifecycle.apply { // https://developer.android.com/topic/libraries/architecture/lifecycle
+        implementation(extensions)
+        implementation(runtime)
+        implementation(livedata)
+        implementation(viewmodel)
+        implementation(lifecycleRuntime)
+    }
 
-    implementation(dep.android.material)
-    implementation(dep.android.appcompat)
+    dep.room.apply { // https://developer.android.com/jetpack/androidx/releases/room
+        implementation(runtime)
+        implementation(ktx)
+        kapt(compiler)
+    }
+
+    dep.retrofit.apply { // https://square.github.io/retrofit/
+        implementation(converterGson)
+        implementation(retrofit2)
+        implementation(interceptor)
+    }
+
+    dep.test.apply { // https://developer.android.com/studio/test
+        testImplementation(junit)
+        androidTestImplementation(junitExt)
+        androidTestImplementation(junitUi)
+        androidTestImplementation(espresso)
+        androidTestImplementation(hiltAndroidTesting)
+    }
+
+    dep.other.apply { // Miscellaneous required libraries
+        implementation(timber)
+        implementation(startup)
+        implementation(material)
+        implementation(appcompat)
+    }
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.keygenqt.stack_2021">
 
   <application
+      android:name=".App"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
@@ -10,7 +12,7 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.Androidstack_2021">
     <activity
-        android:name=".MainActivity"
+        android:name=".ui.main.MainActivity"
         android:exported="true"
         android:label="@string/app_name"
         android:theme="@style/Theme.Androidstack_2021.NoActionBar">
@@ -20,6 +22,17 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
+    <provider
+        android:name="androidx.startup.InitializationProvider"
+        android:authorities="com.keygenqt.stack_2021.androidx-startup"
+        android:exported="false"
+        tools:node="merge">
+
+      <meta-data
+          android:name="com.keygenqt.stack_2021.initializer.TimberInitializer"
+          android:value="androidx.startup" />
+    </provider>
   </application>
 
 </manifest>

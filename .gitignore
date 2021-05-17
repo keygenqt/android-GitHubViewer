@@ -4,5 +4,5 @@
 /app/build
 /.gradle
 /local.properties
-/gradle/internal/.gradle/
-/gradle/internal/build/
+/app/plugins/internal/build/
+/app/plugins/internal/.gradle/

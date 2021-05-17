@@ -14,21 +14,31 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021
+package com.keygenqt.stack_2021.ui.main
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.keygenqt.stack_2021.ui.theme.Androidstack_2021Theme
+import android.os.*
+import androidx.activity.*
+import androidx.activity.compose.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.*
+import com.keygenqt.stack_2021.ui.theme.*
+import dagger.hilt.android.*
+import timber.log.*
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.isLoading.observe(this) { value ->
+            Timber.e("++++++++++++++")
+            Timber.e(value.toString())
+        }
+
         setContent {
             Androidstack_2021Theme {
                 // A surface container using the 'background' color from the theme
