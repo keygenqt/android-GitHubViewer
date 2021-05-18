@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 @file:Suppress("unused")
 
 package com.keygenqt.internal.dependencies
@@ -52,4 +52,16 @@ object JetpackCompose {
      * [Runtime LiveData Compose](https://developer.android.com/jetpack/androidx/releases/compose-runtime#declaring_dependencies)
      */
     const val livedata = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
+
+    /**
+     * [Accompanist](https://github.com/google/accompanist)
+     * Accompanist is a group of libraries which aim to supplement Jetpack Compose with features which are commonly required by developers, but not
+     * yet available.
+     */
+    const val accompanist = "dev.chrisbanes.accompanist:accompanist-insets:${Versions.accompanist}"
+
+    /**
+     * [ConstraintLayout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
+     */
+    const val constraint = "androidx.constraintlayout:constraintlayout-compose:${Versions.constraint}"
 }

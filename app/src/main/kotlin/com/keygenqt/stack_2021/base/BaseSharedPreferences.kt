@@ -18,16 +18,13 @@ package com.keygenqt.stack_2021.base
 
 import android.content.*
 
-class BaseSharedPreferences(private val preferences: SharedPreferences) {
-    var token: String?
-        get() {
-            return preferences.getString("token", null)
-        }
-        set(value) {
-            if (value == null) {
-                preferences.edit().remove("token").apply()
-            } else {
-                preferences.edit().putString("token", value).apply()
-            }
-        }
+class BaseSharedPreferences(private val p: SharedPreferences) {
+
+    companion object {
+        private const val REPOS_URL = "REPOS_URL"
+    }
+
+    var reposUrl: String?
+        get() = p.getString(REPOS_URL, null)
+        set(value) = value?.let { p.edit().putString(REPOS_URL, value).apply() } ?: run { p.edit().remove(REPOS_URL).apply() }
 }

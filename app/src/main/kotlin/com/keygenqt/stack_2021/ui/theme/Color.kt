@@ -16,8 +16,14 @@
  
 package com.keygenqt.stack_2021.ui.theme
 
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.*
+import com.keygenqt.stack_2021.extension.*
 
+// custom
+val BlackLight = "#2d2f31".parseColor()
+
+// theme
+val Blue50_30 = Color(0x4DE8EAF6)
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)

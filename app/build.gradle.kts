@@ -4,13 +4,15 @@ typealias dep = com.keygenqt.internal.Dependencies
 plugins {
     id("dagger.hilt.android.plugin")
     id("com.android.application")
+    id("com.diffplug.spotless") version "5.12.5"
+    id("org.jetbrains.dokka")
     id("kotlin-android")
     id("internal")
-    id("com.diffplug.spotless") version "5.12.5"
 
     kotlin("kapt")
 }
 
+// https://github.com/diffplug/spotless/tree/main/plugin-gradle#kotlin
 spotless {
     kotlin {
         target("**/*.kt")
@@ -19,6 +21,17 @@ spotless {
     kotlinGradle {
         target("*.gradle.kts")
         ktlint()
+    }
+}
+
+// https://kotlin.github.io/dokka/1.4.0/user_guide/gradle/usage/#configuration-options
+tasks.dokkaHtml.configure {
+    outputDirectory.set(project.rootProject.projectDir.resolve("dokka"))
+    moduleName.set("app")
+    dokkaSourceSets {
+        named("main") {
+            noAndroidSdkLink.set(false)
+        }
     }
 }
 
@@ -69,6 +82,8 @@ dependencies {
         implementation(tooling)
         implementation(activity)
         implementation(livedata)
+        implementation(accompanist)
+        implementation(constraint)
     }
 
     dep.hilt.apply { // https://dagger.dev/hilt/
@@ -117,5 +132,7 @@ dependencies {
         implementation(startup)
         implementation(material)
         implementation(appcompat)
+        dokkaHtmlPlugin(dokka)
+        implementation(sandwich)
     }
 }

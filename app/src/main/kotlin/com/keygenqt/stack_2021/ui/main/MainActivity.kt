@@ -19,12 +19,8 @@ package com.keygenqt.stack_2021.ui.main
 import android.os.*
 import androidx.activity.*
 import androidx.activity.compose.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.tooling.preview.*
 import com.keygenqt.stack_2021.ui.theme.*
 import dagger.hilt.android.*
-import timber.log.*
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -33,32 +29,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel.isLoading.observe(this) { value ->
-            Timber.e("++++++++++++++")
-            Timber.e(value.toString())
-        }
-
         setContent {
-            Androidstack_2021Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+            StackTheme {
+                ComposableMain()
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Androidstack_2021Theme {
-        Greeting("Android")
     }
 }

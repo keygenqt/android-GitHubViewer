@@ -6,3 +6,4 @@
 /local.properties
 /app/plugins/internal/build/
 /app/plugins/internal/.gradle/
+/dokka/

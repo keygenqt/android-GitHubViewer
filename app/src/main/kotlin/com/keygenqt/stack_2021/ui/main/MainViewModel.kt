@@ -16,26 +16,51 @@
  
 package com.keygenqt.stack_2021.ui.main
 
+import android.content.*
+import androidx.annotation.*
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
+import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.base.*
+import com.keygenqt.stack_2021.data.models.*
+import com.keygenqt.stack_2021.repository.*
 import dagger.hilt.android.lifecycle.*
+import dagger.hilt.android.qualifiers.*
 import timber.log.*
 import javax.inject.*
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val preferences: BaseSharedPreferences
-) : LiveCoroutinesViewModel() {
+    @ApplicationContext context: Context,
+    private val mainRepository: MainRepository
+) : BaseLiveCoroutinesViewModel() {
+
+    private var _link: MutableLiveData<String> = MutableLiveData("")
+    val link: LiveData<String>
 
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    init {
-        Timber.e("-------------------------")
-        Timber.e(preferences.token ?: "NULL")
-        Timber.e("-------------------------")
-        preferences.token = "TOKEN"
+    private val _selectedTab: MutableState<Int> = mutableStateOf(0)
+    val selectedTab: State<Int> get() = _selectedTab
 
-        _isLoading.postValue(true)
+    init {
+        link = _link.switchMap {
+            _isLoading.postValue(true)
+            launchOnViewModelScope {
+                this.mainRepository.loadRepoUrl(
+                    context.getString(R.string.github_user),
+                    onSuccess = { _isLoading.postValue(false) },
+                    onError = { Timber.e(it) }
+                ).asLiveData()
+            }
+        }
+    }
+
+    @MainThread
+    fun selectTab(@StringRes tab: Int) {
+        _selectedTab.value = tab
     }
 }

@@ -1,3 +1,16 @@
 <resources>
-  <string name="app_name">android-stack_2021</string>
+  <!-- App name-->
+  <string name="app_name">Stack 2021</string>
+
+  <!-- Database name-->
+  <string name="database">stack_2021.db</string>
+
+  <!-- Github login-->
+  <string name="github_user">keygenqt</string>
+
+
+  <string name="menu_repos">Repos</string>
+  <string name="menu_followers">Followers</string>
+
+
 </resources>

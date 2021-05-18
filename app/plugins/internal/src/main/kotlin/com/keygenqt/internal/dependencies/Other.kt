@@ -43,4 +43,18 @@ object Other {
      * [Android App Startup Runtime](https://mvnrepository.com/artifact/androidx.startup/startup-runtime)
      */
     const val startup = "androidx.startup:startup-runtime:${Versions.startup}"
+
+    /**
+     * [Dokka](https://github.com/Kotlin/dokka)
+     * Dokka is a documentation engine for Kotlin, performing the same function as javadoc for Java. Just like Kotlin itself, Dokka fully
+     * supports mixed-language Java/Kotlin projects. It understands standard Javadoc comments in Java files and KDoc comments in Kotlin files,
+     * and can generate documentation in multiple formats including standard Javadoc, HTML and Markdown.
+     */
+    const val dokka = "org.jetbrains.dokka:kotlin-as-java-plugin:${Versions.dokka}"
+
+    /**
+     * [Sandwich](https://github.com/skydoves/Sandwich)
+     * A lightweight and standardized Android network response interface for handling successful data and error responses.
+     */
+    const val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
 }

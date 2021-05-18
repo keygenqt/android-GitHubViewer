@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keygenqt.stack_2021">
 
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
   <application
       android:name=".App"
       android:allowBackup="true"
@@ -10,12 +13,12 @@
       android:label="@string/app_name"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
-      android:theme="@style/Theme.Androidstack_2021">
+      android:theme="@style/Theme.Stack">
     <activity
         android:name=".ui.main.MainActivity"
         android:exported="true"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Androidstack_2021.NoActionBar">
+        android:theme="@style/Theme.Stack.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

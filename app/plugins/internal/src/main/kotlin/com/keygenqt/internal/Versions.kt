@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 @file:Suppress("unused")
 
 package com.keygenqt.internal
@@ -25,6 +25,8 @@ object Versions {
     // compose
     const val compose = "1.0.0-beta06"
     const val composeActivity = "1.3.0-alpha07"
+    const val accompanist = "0.6.2"
+    const val constraint = "1.0.0-alpha06"
 
     // android
     const val appcompat = "1.2.0"
@@ -57,4 +59,8 @@ object Versions {
     // retrofit2
     const val retrofit2 = "2.9.0"
     const val interceptor = "4.9.1"
+
+    // other
+    const val dokka = "1.4.32"
+    const val sandwich = "1.1.0"
 }
