@@ -24,6 +24,6 @@ import androidx.room.*
 data class Project(
     @PrimaryKey val id: Long,
     val name: String,
-    val description: String,
+    val description: String?,
     val created_at: String
 )

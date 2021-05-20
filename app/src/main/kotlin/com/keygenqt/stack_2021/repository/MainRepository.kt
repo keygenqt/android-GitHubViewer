@@ -52,26 +52,25 @@ class MainRepository @Inject constructor(
 
     @WorkerThread
     fun loadProjects(
+        page: Int,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) = flow {
-        val posters: List<Project> = projectDao.getProjectList()
-        if (posters.isEmpty()) {
-            // request API network call asynchronously.
-            mainService.fetchProjectList(preferences.reposUrl!!)
-                // handle the case when the API request gets a success response.
-                .suspendOnSuccess {
-                    data?.let {
-                        projectDao.insertProjectList(it)
-                        emit(it)
-                        onSuccess()
-                    }
-                }
-                .onError { onError(message()) }
-                .onException { onError(message()) }
-        } else {
-            emit(posters)
+        val models: List<Project> = projectDao.getProjectList()
+        if (models.isNotEmpty()) {
+            emit(models)
             onSuccess()
         }
+        mainService.fetchProjectList(preferences.reposUrl!!, page, 2)
+            .suspendOnSuccess {
+                data?.let {
+                    projectDao.delete()
+                    projectDao.insertProjectList(it)
+                    emit(it)
+                    onSuccess()
+                }
+            }
+            .onError { onError(message()) }
+            .onException { onError(message()) }
     }.flowOn(Dispatchers.IO)
 }

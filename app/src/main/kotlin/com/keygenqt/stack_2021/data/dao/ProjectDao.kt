@@ -26,9 +26,12 @@ interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProjectList(projects: List<Project>)
 
-    @Query("SELECT * FROM Project WHERE id = :id_")
-    fun getProject(id_: Long): LiveData<Project>
+    @Query("SELECT * FROM Project WHERE id = :id")
+    fun getProject(id: Long): LiveData<Project>
 
-    @Query("SELECT * FROM Project")
+    @Query("SELECT * FROM Project ORDER BY created_at DESC")
     suspend fun getProjectList(): List<Project>
+
+    @Query("DELETE FROM Project")
+    fun delete()
 }

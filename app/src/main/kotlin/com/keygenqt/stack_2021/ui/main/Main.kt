@@ -28,6 +28,7 @@ import com.keygenqt.stack_2021.ui.home.*
 import com.keygenqt.stack_2021.ui.main.*
 import com.keygenqt.stack_2021.ui.other.*
 import dev.chrisbanes.accompanist.insets.*
+import timber.log.Timber
 
 sealed class NavScreen(val route: String) {
     object Splash : NavScreen("Splash")
@@ -40,6 +41,8 @@ sealed class NavScreen(val route: String) {
 @Composable
 fun ComposableMain() {
     val navController = rememberNavController()
+    val context = LocalContext.current
+
     ProvideWindowInsets {
         NavHost(navController = navController, startDestination = NavScreen.Splash.route) {
             composable(NavScreen.Splash.route) { backStackEntry ->
@@ -50,6 +53,9 @@ fun ComposableMain() {
                         navController.navigate("${NavScreen.Repos.route}/$it")
                     }, 100)
                 }
+                viewModel.alert.observe(LocalLifecycleOwner.current) {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                }
             }
             composable(
                 route = NavScreen.Repos.routeWithArgument,
@@ -59,7 +65,10 @@ fun ComposableMain() {
             ) { backStackEntry ->
                 val viewModel = hiltNavGraphViewModel<MainViewModel>(backStackEntry = backStackEntry)
                 val title = backStackEntry.arguments?.getString(NavScreen.Repos.argument0) ?: return@composable
-                TabsHome(title, viewModel = viewModel)
+                TabsHome(title, viewModel = viewModel) { type, id ->
+                    Timber.e(type.name)
+                    Timber.e(id.toString())
+                }
             }
         }
     }

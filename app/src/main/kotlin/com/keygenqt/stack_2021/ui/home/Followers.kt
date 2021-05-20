@@ -13,33 +13,132 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
+import com.keygenqt.stack_2021.R
+import com.keygenqt.stack_2021.data.models.Project
+import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
 fun Followers(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    models: List<Project>,
+    selectItem: (HomeTab, Long) -> Unit
 ) {
+    val listState = rememberLazyListState()
     Column(
         modifier = modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxHeight()
+            .statusBarsPadding()
+            .background(MaterialTheme.colors.background)
+    ) {
+        LazyColumn(
+            state = listState,
+            contentPadding = PaddingValues(4.dp)
+        ) {
+            items(
+                items = models,
+                itemContent = { model ->
+                    ItemFollower(
+                        model = model,
+                        selectItem = selectItem
+                    )
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun ItemFollower(
+    model: Project,
+    selectItem: (HomeTab, Long) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+            .clickable(
+                onClick = { selectItem(HomeTab.FOLLOWERS, model.id) }
+            ),
+        elevation = 8.dp,
+        shape = RoundedCornerShape(8.dp)
     ) {
         ConstraintLayout(
             modifier = Modifier.padding(8.dp)
         ) {
-            Text(text = "Followers")
+            val (image, body) = createRefs()
+            Image(
+                painter = painterResource(R.drawable.ic_launcher),
+                contentDescription = null, // decorative
+                modifier = Modifier
+                    .size(56.dp, 56.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .constrainAs(image) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        bottom.linkTo(parent.bottom)
+                    }
+            )
+            ConstraintLayout(
+                modifier = Modifier
+                    .constrainAs(body) {
+                        top.linkTo(image.top)
+                        bottom.linkTo(image.bottom)
+                        start.linkTo(image.end)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    }
+            ) {
+                val (name, date) = createRefs()
+
+                Text(
+                    text = model.name,
+                    style = MaterialTheme.typography.h6,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
+                        .constrainAs(name) {
+                            top.linkTo(parent.top)
+                            start.linkTo(parent.start)
+                            bottom.linkTo(date.top)
+                        }
+                )
+                Text(
+                    text = model.created_at,
+                    style = MaterialTheme.typography.body2,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    modifier = Modifier
+                        .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
+                        .constrainAs(date) {
+                            top.linkTo(name.bottom)
+                            start.linkTo(parent.start)
+                            bottom.linkTo(parent.bottom)
+                        }
+                )
+            }
         }
     }
 }

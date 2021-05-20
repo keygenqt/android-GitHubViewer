@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.network
 
-import com.google.gson.*
-import com.keygenqt.stack_2021.data.models.*
-import com.skydoves.sandwich.*
-import retrofit2.http.*
+import com.google.gson.JsonObject
+import com.keygenqt.stack_2021.data.models.Project
+import com.skydoves.sandwich.ApiResponse
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface MainService {
 
@@ -27,5 +30,10 @@ interface MainService {
     suspend fun getUser(@Path("login") login: String): ApiResponse<JsonObject>
 
     @GET
-    suspend fun fetchProjectList(@Url reposUrl: String): ApiResponse<List<Project>>
+    suspend fun fetchProjectList(
+        @Url reposUrl: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int = 2,
+        @Query("sort") sort: String = "created"
+    ): ApiResponse<List<Project>>
 }

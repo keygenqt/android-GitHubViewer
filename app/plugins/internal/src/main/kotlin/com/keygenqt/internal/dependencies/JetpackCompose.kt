@@ -64,4 +64,9 @@ object JetpackCompose {
      * [ConstraintLayout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
      */
     const val constraint = "androidx.constraintlayout:constraintlayout-compose:${Versions.constraint}"
+
+    /**
+     * [Compose Layouts](https://mvnrepository.com/artifact/androidx.compose.foundation/foundation-layout)
+     */
+    const val layout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
 }

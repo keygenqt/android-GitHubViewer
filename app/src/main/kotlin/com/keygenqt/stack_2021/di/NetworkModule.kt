@@ -17,6 +17,7 @@
 package com.keygenqt.stack_2021.di
 
 import android.content.*
+import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.network.*
 import com.skydoves.sandwich.coroutines.*
 import dagger.*
@@ -44,6 +45,7 @@ object NetworkModule {
             .addInterceptor {
                 val original = it.request()
                 val request = original.newBuilder()
+                    .header("Authorization", "token ${context.getString(R.string.github_token)}")
                     .method(original.method, original.body)
                     .build()
                 it.proceed(request)

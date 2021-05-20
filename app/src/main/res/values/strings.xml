@@ -1,16 +1,19 @@
 <resources>
-  <!-- App name-->
-  <string name="app_name">Stack 2021</string>
+    <!-- App name-->
+    <string name="app_name">Stack 2021</string>
 
-  <!-- Database name-->
-  <string name="database">stack_2021.db</string>
+    <!-- Database name-->
+    <string name="database">stack_2021.db</string>
 
-  <!-- Github login-->
-  <string name="github_user">keygenqt</string>
+    <!-- Github login-->
+    <string name="github_user">keygenqt</string>
+    <string name="github_token">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</string>
 
+    <!-- Tabs-->
+    <string name="menu_repos">Repos</string>
+    <string name="menu_followers">Followers</string>
 
-  <string name="menu_repos">Repos</string>
-  <string name="menu_followers">Followers</string>
-
+    <!-- Common-->
+    <string name="error">An error has occurred</string>
 
 </resources>

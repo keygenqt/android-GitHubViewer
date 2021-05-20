@@ -84,6 +84,7 @@ dependencies {
         implementation(livedata)
         implementation(accompanist)
         implementation(constraint)
+        implementation(layout)
     }
 
     dep.hilt.apply { // https://dagger.dev/hilt/

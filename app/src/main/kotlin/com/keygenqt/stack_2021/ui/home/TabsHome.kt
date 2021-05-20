@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.StringRes
@@ -25,6 +25,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.keygenqt.stack_2021.R
+import com.keygenqt.stack_2021.data.models.Project
+import com.keygenqt.stack_2021.extension.visible
 import com.keygenqt.stack_2021.ui.main.MainViewModel
 import com.keygenqt.stack_2021.ui.theme.Purple700
 import dev.chrisbanes.accompanist.insets.navigationBarsHeight
@@ -43,13 +47,18 @@ import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 @Composable
 fun TabsHome(
     title: String,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    selectItem: (HomeTab, Long) -> Unit
 ) {
     val tabs = HomeTab.values()
     val selectedTab = HomeTab.getTabFromResource(viewModel.selectedTab.value)
 
+    val repos: List<Project> by viewModel.projectList.observeAsState(listOf())
+    val favorites: List<Project> by viewModel.projectList.observeAsState(listOf())
+    val isLoading: Boolean by viewModel.isLoading.observeAsState(false)
+
     ConstraintLayout {
-        val (body) = createRefs()
+        val (body, progress) = createRefs()
         Scaffold(
             topBar = { PosterAppBar(title) },
             modifier = Modifier.constrainAs(body) {
@@ -77,11 +86,21 @@ fun TabsHome(
             val modifier = Modifier.padding(innerPadding)
             Crossfade(selectedTab) { destination ->
                 when (destination) {
-                    HomeTab.REPOS -> Repos(modifier)
-                    HomeTab.FOLLOWERS -> Followers(modifier)
+                    HomeTab.REPOS -> Repos(modifier, repos, selectItem)
+                    HomeTab.FOLLOWERS -> Followers(modifier, favorites, selectItem)
                 }
             }
         }
+        CircularProgressIndicator(
+            modifier = Modifier
+                .constrainAs(progress) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .visible(isLoading)
+        )
     }
 }
 

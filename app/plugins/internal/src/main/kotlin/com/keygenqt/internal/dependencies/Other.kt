@@ -57,4 +57,11 @@ object Other {
      * A lightweight and standardized Android network response interface for handling successful data and error responses.
      */
     const val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
+
+    /**
+     * [Glide for Jetpack Compose](https://google.github.io/accompanist/glide/)
+     * This library brings easy-to-use Painter which can fetch and display images from external sources, such as network, using the Glide image
+     * loading library.
+     */
+    const val glide = "com.google.accompanist:accompanist-glide:${Versions.glide}"
 }

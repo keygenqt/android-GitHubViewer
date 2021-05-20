@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.main
 
-import android.content.*
-import androidx.annotation.*
+import android.content.Context
+import androidx.annotation.MainThread
+import androidx.annotation.StringRes
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.switchMap
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.base.*
-import com.keygenqt.stack_2021.data.models.*
-import com.keygenqt.stack_2021.repository.*
-import dagger.hilt.android.lifecycle.*
-import dagger.hilt.android.qualifiers.*
-import timber.log.*
-import javax.inject.*
+import com.keygenqt.stack_2021.base.BaseLiveCoroutinesViewModel
+import com.keygenqt.stack_2021.data.models.Project
+import com.keygenqt.stack_2021.repository.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -46,6 +50,12 @@ class MainViewModel @Inject constructor(
     private val _selectedTab: MutableState<Int> = mutableStateOf(0)
     val selectedTab: State<Int> get() = _selectedTab
 
+    private var _projectList: MutableLiveData<Boolean> = MutableLiveData(true)
+    val projectList: LiveData<List<Project>>
+
+    private val _alert: MutableLiveData<Int> = MutableLiveData()
+    val alert: LiveData<Int> get() = _alert
+
     init {
         link = _link.switchMap {
             _isLoading.postValue(true)
@@ -53,7 +63,24 @@ class MainViewModel @Inject constructor(
                 this.mainRepository.loadRepoUrl(
                     context.getString(R.string.github_user),
                     onSuccess = { _isLoading.postValue(false) },
-                    onError = { Timber.e(it) }
+                    onError = {
+                        _isLoading.postValue(false)
+                        _alert.postValue(R.string.error)
+                    }
+                ).asLiveData()
+            }
+        }
+
+        projectList = _projectList.switchMap {
+            _isLoading.postValue(true)
+            launchOnViewModelScope {
+                this.mainRepository.loadProjects(
+                    1,
+                    onSuccess = { _isLoading.postValue(false) },
+                    onError = {
+                        _isLoading.postValue(false)
+                        _alert.postValue(R.string.error)
+                    }
                 ).asLiveData()
             }
         }
