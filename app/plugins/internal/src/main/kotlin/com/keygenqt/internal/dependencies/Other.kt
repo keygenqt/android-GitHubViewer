@@ -69,4 +69,10 @@ object Other {
      * [Kotlin multiplatform serialization](https://github.com/Kotlin/kotlinx.serialization)
      */
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
+
+    /**
+     * [Custom Tabs]( https://developer.chrome.com/docs/android/custom-tabs/overview/)
+     */
+    const val customTabs = "androidx.browser:browser:${Versions.customTabs}"
+
 }

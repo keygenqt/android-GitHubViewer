@@ -44,8 +44,7 @@ import com.keygenqt.stack_2021.models.ModelFollower
 @Composable
 fun Followers(
     modifier: Modifier = Modifier,
-    models: List<ModelFollower>,
-    selectItem: (HomeTab, Long) -> Unit
+    models: List<ModelFollower>
 ) {
     val listState = rememberLazyListState()
     Column(

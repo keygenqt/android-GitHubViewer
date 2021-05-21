@@ -95,7 +95,7 @@ fun TabsHome(
             Crossfade(selectedTab) { destination ->
                 when (destination) {
                     HomeTab.REPOS -> Repos(modifier, repos, selectItem)
-                    HomeTab.FOLLOWERS -> Followers(modifier, followers, selectItem)
+                    HomeTab.FOLLOWERS -> Followers(modifier, followers)
                 }
             }
         }

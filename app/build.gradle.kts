@@ -91,8 +91,7 @@ dependencies {
         implementation(constraint)
         implementation(layout)
         implementation(accompanistInsets)
-        implementation("com.google.accompanist:accompanist-glide:${com.keygenqt.internal.Versions.accompanist}")
-        implementation("androidx.browser:browser:1.3.0") // https://developer.chrome.com/docs/android/custom-tabs/overview/
+        implementation(accompanistGlide)
     }
 
     dep.hilt.apply { // https://dagger.dev/hilt/
@@ -144,5 +143,6 @@ dependencies {
         dokkaHtmlPlugin(dokka)
         implementation(sandwich)
         implementation(serialization)
+        implementation(customTabs)
     }
 }
