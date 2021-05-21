@@ -13,23 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-@file:Suppress("unused")
 
-package com.keygenqt.stack_2021.initializer
+package com.keygenqt.stack_2021.repository
 
-import android.content.*
-import androidx.startup.*
-import com.keygenqt.stack_2021.*
-import timber.log.*
+import com.keygenqt.stack_2021.data.DaoFollower
+import javax.inject.Inject
 
-class TimberInitializer : Initializer<Unit> {
-
-    override fun create(context: Context) {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-    }
-
-    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+class DataRepositoryFollower @Inject constructor(
+    private val dao: DaoFollower
+) {
+    fun getById(id: Long) = dao.getModel(id)
 }

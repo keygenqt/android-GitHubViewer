@@ -58,7 +58,7 @@ object JetpackCompose {
      * Accompanist is a group of libraries which aim to supplement Jetpack Compose with features which are commonly required by developers, but not
      * yet available.
      */
-    const val accompanist = "dev.chrisbanes.accompanist:accompanist-insets:${Versions.accompanist}"
+    const val accompanistInsets = "com.google.accompanist:accompanist-insets:${Versions.accompanist}"
 
     /**
      * [ConstraintLayout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)

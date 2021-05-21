@@ -16,24 +16,18 @@
 
 package com.keygenqt.stack_2021.network
 
-import com.google.gson.JsonObject
-import com.keygenqt.stack_2021.data.models.Project
+import com.keygenqt.stack_2021.models.ModelRepo
 import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
 
-interface MainService {
-
-    @GET("/users/{login}")
-    suspend fun getUser(@Path("login") login: String): ApiResponse<JsonObject>
-
+interface ServiceRepo {
     @GET
-    suspend fun fetchProjectList(
+    suspend fun fetchRepoList(
         @Url reposUrl: String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int = 2,
         @Query("sort") sort: String = "created"
-    ): ApiResponse<List<Project>>
+    ): ApiResponse<List<ModelRepo>>
 }

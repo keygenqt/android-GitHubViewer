@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-package com.keygenqt.stack_2021.data.models
 
-import androidx.compose.runtime.*
-import androidx.room.*
+package com.keygenqt.stack_2021.network
 
-@Entity
-@Immutable
-data class Project(
-    @PrimaryKey val id: Long,
-    val name: String,
-    val description: String?,
-    val created_at: String
-)
+import com.keygenqt.stack_2021.models.ModelFollower
+import com.skydoves.sandwich.ApiResponse
+import retrofit2.http.GET
+import retrofit2.http.Query
+import retrofit2.http.Url
+
+interface ServiceFollower {
+    @GET
+    suspend fun fetchFollowerList(
+        @Url reposUrl: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int = 2,
+        @Query("sort") sort: String = "created"
+    ): ApiResponse<List<ModelFollower>>
+}

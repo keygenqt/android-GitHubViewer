@@ -7,9 +7,13 @@
 
     <!-- Github login-->
     <string name="github_user">keygenqt</string>
-    <string name="github_token">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</string>
+    <string name="github_token">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</string>
 
-    <!-- Tabs-->
+    <!-- Titles-->
+    <string name="title_repos">Repos</string>
+    <string name="title_followers">Followers</string>
+
+    <!-- Menu-->
     <string name="menu_repos">Repos</string>
     <string name="menu_followers">Followers</string>
 

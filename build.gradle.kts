@@ -1,4 +1,9 @@
 buildscript {
+
+    val kotlinVersion = "1.4.32"
+    val dokkaVersion = "1.4.32"
+    val gradleVersion = "7.1.0-alpha01"
+
     repositories {
         google()
         mavenCentral()
@@ -10,10 +15,13 @@ buildscript {
     }
 
     dependencies {
+        classpath("com.android.tools.build:gradle:$gradleVersion")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion")
+        classpath(kotlin("gradle-plugin", version = kotlinVersion))
+        classpath(kotlin("serialization", version = kotlinVersion))
+
         classpath("com.google.dagger:hilt-android-gradle-plugin:HEAD-SNAPSHOT")
-        classpath("com.android.tools.build:gradle:${findProperty("gradle_version")}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${findProperty("kotlin_version")}")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${findProperty("dokka_version")}")
     }
 }
 

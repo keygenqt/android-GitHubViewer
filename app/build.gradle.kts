@@ -10,6 +10,7 @@ plugins {
     id("internal")
 
     kotlin("kapt")
+    kotlin("plugin.serialization")
 }
 
 // https://github.com/diffplug/spotless/tree/main/plugin-gradle#kotlin
@@ -82,9 +83,10 @@ dependencies {
         implementation(tooling)
         implementation(activity)
         implementation(livedata)
-        implementation(accompanist)
         implementation(constraint)
         implementation(layout)
+        implementation(accompanistInsets)
+        implementation("com.google.accompanist:accompanist-glide:${com.keygenqt.internal.Versions.accompanist}")
     }
 
     dep.hilt.apply { // https://dagger.dev/hilt/
@@ -135,5 +137,6 @@ dependencies {
         implementation(appcompat)
         dokkaHtmlPlugin(dokka)
         implementation(sandwich)
+        implementation(serialization)
     }
 }

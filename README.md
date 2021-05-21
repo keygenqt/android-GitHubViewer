@@ -18,3 +18,5 @@ Best Tech Stack for Development in 2021
 - [Room](https://developer.android.com/training/data-storage/room)
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit)
 - [Dokka](https://github.com/Kotlin/dokka)
+- [Kotlin multiplatform serialization](https://github.com/Kotlin/kotlinx.serialization)
+- [Glide rememberGlidePainter](https://google.github.io/accompanist/glide/#rememberglidepainter)

@@ -13,7 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-package com.keygenqt.stack_2021.repository
 
-interface Repository
+package com.keygenqt.stack_2021.models
+
+import androidx.compose.runtime.Immutable
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+
+@Immutable
+@Serializable
+data class ModelUser(
+    @PrimaryKey val id: Long,
+    val login: String,
+    @SerializedName("avatar_url") val avatarUrl: String,
+    @SerializedName("followers_url") val followersUrl: String,
+    @SerializedName("repos_url") val reposUrl: String,
+    val name: String,
+    val bio: String?,
+    @SerializedName("created_at") val createdAt: String
+)

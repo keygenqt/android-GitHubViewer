@@ -16,43 +16,35 @@
 
 package com.keygenqt.stack_2021.di
 
-import android.app.Application
-import androidx.room.Room
-import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.data.AppDatabase
-import com.keygenqt.stack_2021.data.DaoFollower
-import com.keygenqt.stack_2021.data.DaoRepo
+import com.keygenqt.stack_2021.network.ServiceFollower
+import com.keygenqt.stack_2021.network.ServiceRepo
+import com.keygenqt.stack_2021.network.ServiceUser
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object ServicesModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(application: Application): AppDatabase {
-        return Room.databaseBuilder(
-            application,
-            AppDatabase::class.java,
-            application.getString(R.string.database)
-        )
-            .fallbackToDestructiveMigration()
-            .build()
+    fun provideServiceUser(retrofit: Retrofit): ServiceUser {
+        return retrofit.create(ServiceUser::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideDaoRepo(appDatabase: AppDatabase): DaoRepo {
-        return appDatabase.repo()
+    fun provideServiceFollower(retrofit: Retrofit): ServiceFollower {
+        return retrofit.create(ServiceFollower::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideDaoFollower(appDatabase: AppDatabase): DaoFollower {
-        return appDatabase.follower()
+    fun provideServiceRepo(retrofit: Retrofit): ServiceRepo {
+        return retrofit.create(ServiceRepo::class.java)
     }
 }

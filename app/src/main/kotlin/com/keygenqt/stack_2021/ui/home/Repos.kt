@@ -16,7 +16,6 @@
 
 package com.keygenqt.stack_2021.ui.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -31,17 +30,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.data.models.Project
-import dev.chrisbanes.accompanist.insets.statusBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
+import com.keygenqt.stack_2021.models.ModelRepo
+import com.keygenqt.stack_2021.utils.LanguageImage
 
 @Composable
 fun Repos(
     modifier: Modifier = Modifier,
-    models: List<Project>,
+    models: List<ModelRepo>,
     selectItem: (HomeTab, Long) -> Unit
 ) {
     val listState = rememberLazyListState()
@@ -69,7 +67,7 @@ fun Repos(
 
 @Composable
 fun ItemRepo(
-    model: Project,
+    model: ModelRepo,
     selectItem: (HomeTab, Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -84,9 +82,8 @@ fun ItemRepo(
         shape = RoundedCornerShape(8.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
-            Image(
-                painter = painterResource(R.drawable.ic_launcher),
-                contentDescription = null, // decorative
+            LanguageImage(
+                language = model.language,
                 modifier = Modifier
                     .size(56.dp, 56.dp)
                     .clip(RoundedCornerShape(4.dp))
@@ -101,7 +98,7 @@ fun ItemRepo(
                         .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
                 )
                 Text(
-                    text = model.created_at,
+                    text = model.createdAt,
                     style = MaterialTheme.typography.body2,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,

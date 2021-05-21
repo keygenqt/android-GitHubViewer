@@ -16,13 +16,25 @@
 
 package com.keygenqt.stack_2021.data
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.keygenqt.stack_2021.models.ModelFollower
-import com.keygenqt.stack_2021.models.ModelRepo
 
-@Database(entities = [ModelRepo::class, ModelFollower::class], version = 2, exportSchema = false)
-abstract class AppDatabase : RoomDatabase() {
-    abstract fun repo(): DaoRepo
-    abstract fun follower(): DaoFollower
+@Dao
+interface DaoFollower {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertList(ModelFollower: List<ModelFollower>)
+
+    @Query("SELECT * FROM ModelFollower WHERE id = :id")
+    fun getModel(id: Long): LiveData<ModelFollower>
+
+    @Query("SELECT * FROM ModelFollower")
+    suspend fun getList(): List<ModelFollower>
+
+    @Query("DELETE FROM ModelFollower")
+    fun delete()
 }

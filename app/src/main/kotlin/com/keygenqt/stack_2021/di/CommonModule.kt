@@ -18,7 +18,7 @@ package com.keygenqt.stack_2021.di
 
 import android.content.*
 import androidx.security.crypto.*
-import com.keygenqt.stack_2021.base.*
+import com.keygenqt.stack_2021.base.SharedPreferences
 import dagger.*
 import dagger.hilt.*
 import dagger.hilt.android.components.*
@@ -30,8 +30,8 @@ import dagger.hilt.android.scopes.*
 object CommonModule {
     @Provides
     @ViewModelScoped
-    fun provideBaseSharedPreferences(@ApplicationContext context: Context): BaseSharedPreferences {
-        return BaseSharedPreferences(
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return SharedPreferences(
             EncryptedSharedPreferences.create(
                 context,
                 "sharedPrefsFile",

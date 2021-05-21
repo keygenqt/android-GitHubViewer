@@ -64,4 +64,5 @@ object Versions {
     const val dokka = "1.4.32"
     const val sandwich = "1.1.0"
     const val glide = "0.10.0"
+    const val serialization = "1.2.1"
 }

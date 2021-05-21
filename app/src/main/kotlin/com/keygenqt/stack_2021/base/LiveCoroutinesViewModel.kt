@@ -14,24 +14,18 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.data.dao
+package com.keygenqt.stack_2021.base
 
-import androidx.lifecycle.*
-import androidx.room.*
-import com.keygenqt.stack_2021.data.models.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 
-@Dao
-interface ProjectDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertProjectList(projects: List<Project>)
-
-    @Query("SELECT * FROM Project WHERE id = :id")
-    fun getProject(id: Long): LiveData<Project>
-
-    @Query("SELECT * FROM Project ORDER BY created_at DESC")
-    suspend fun getProjectList(): List<Project>
-
-    @Query("DELETE FROM Project")
-    fun delete()
+abstract class LiveCoroutinesViewModel : ViewModel() {
+  inline fun <T> launchOnViewModelScope(crossinline block: suspend () -> LiveData<T>): LiveData<T> {
+    return liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+      emitSource(block())
+    }
+  }
 }

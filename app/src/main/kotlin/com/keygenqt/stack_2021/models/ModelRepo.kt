@@ -14,22 +14,17 @@
  * limitations under the License.
  */
  
-@file:Suppress("unused")
+package com.keygenqt.stack_2021.models
 
-package com.keygenqt.stack_2021.initializer
+import androidx.compose.runtime.*
+import androidx.room.*
+import com.google.gson.annotations.SerializedName
 
-import android.content.*
-import androidx.startup.*
-import com.keygenqt.stack_2021.*
-import timber.log.*
-
-class TimberInitializer : Initializer<Unit> {
-
-    override fun create(context: Context) {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-    }
-
-    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
-}
+@Entity
+@Immutable
+data class ModelRepo(
+    @PrimaryKey val id: Long,
+    val name: String,
+    val language: String,
+    @SerializedName("created_at") val createdAt: String
+)

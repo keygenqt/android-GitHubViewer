@@ -13,14 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-package com.keygenqt.stack_2021.repository
 
-import com.keygenqt.stack_2021.data.dao.*
-import javax.inject.*
+package com.keygenqt.stack_2021.models
 
-class DetailRepository @Inject constructor(
-    private val projectDao: ProjectDao
-) : Repository {
-    fun getProjectById(id: Long) = projectDao.getProject(id)
-}
+import androidx.compose.runtime.Immutable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+
+@Entity
+@Immutable
+data class ModelFollower(
+    @PrimaryKey val id: Long,
+    val login: String,
+    val type: String,
+    @SerializedName("avatar_url") val avatarUrl: String
+)

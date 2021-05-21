@@ -13,59 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.main
 
-import android.os.Handler
-import android.os.Looper
-import android.widget.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.platform.*
-import androidx.hilt.navigation.compose.*
-import androidx.navigation.*
-import androidx.navigation.compose.*
-import com.keygenqt.stack_2021.ui.home.*
-import com.keygenqt.stack_2021.ui.main.*
-import com.keygenqt.stack_2021.ui.other.*
-import dev.chrisbanes.accompanist.insets.*
+import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.keygenqt.stack_2021.ui.home.TabsHome
+import com.keygenqt.stack_2021.ui.home.ViewModelHome
+import com.keygenqt.stack_2021.ui.other.Splash
+import com.keygenqt.stack_2021.ui.other.ViewModelSplash
 import timber.log.Timber
 
 sealed class NavScreen(val route: String) {
     object Splash : NavScreen("Splash")
-    object Repos : NavScreen("Repos") {
-        const val routeWithArgument: String = "Repos/{title}"
-        const val argument0: String = "title"
-    }
+    object Repos : NavScreen("Repos")
 }
 
 @Composable
 fun ComposableMain() {
     val navController = rememberNavController()
-    val context = LocalContext.current
-
     ProvideWindowInsets {
         NavHost(navController = navController, startDestination = NavScreen.Splash.route) {
             composable(NavScreen.Splash.route) { backStackEntry ->
-                val viewModel = hiltNavGraphViewModel<MainViewModel>(backStackEntry = backStackEntry)
-                Splash(viewModel)
-                viewModel.link.observe(LocalLifecycleOwner.current) {
-                    Handler(Looper.getMainLooper()).postDelayed({ // some work
-                        navController.navigate("${NavScreen.Repos.route}/$it")
-                    }, 100)
-                }
-                viewModel.alert.observe(LocalLifecycleOwner.current) {
-                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                val viewModel = hiltNavGraphViewModel<ViewModelSplash>(backStackEntry = backStackEntry)
+                Splash(viewModel) {
+                    navController.navigate(NavScreen.Repos.route)
                 }
             }
-            composable(
-                route = NavScreen.Repos.routeWithArgument,
-                arguments = listOf(
-                    navArgument(NavScreen.Repos.argument0) { type = NavType.StringType }
-                )
-            ) { backStackEntry ->
-                val viewModel = hiltNavGraphViewModel<MainViewModel>(backStackEntry = backStackEntry)
-                val title = backStackEntry.arguments?.getString(NavScreen.Repos.argument0) ?: return@composable
-                TabsHome(title, viewModel = viewModel) { type, id ->
+            composable(NavScreen.Repos.route) { backStackEntry ->
+                val viewModel = hiltNavGraphViewModel<ViewModelHome>(backStackEntry = backStackEntry)
+                TabsHome(viewModel = viewModel) { type, id ->
                     Timber.e(type.name)
                     Timber.e(id.toString())
                 }

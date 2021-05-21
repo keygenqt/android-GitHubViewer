@@ -13,17 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.di
 
-import com.keygenqt.stack_2021.base.*
-import com.keygenqt.stack_2021.data.dao.*
-import com.keygenqt.stack_2021.network.*
-import com.keygenqt.stack_2021.repository.*
-import dagger.*
-import dagger.hilt.*
-import dagger.hilt.android.components.*
-import dagger.hilt.android.scopes.*
+import com.keygenqt.stack_2021.base.SharedPreferences
+import com.keygenqt.stack_2021.data.DaoFollower
+import com.keygenqt.stack_2021.data.DaoRepo
+import com.keygenqt.stack_2021.network.ServiceFollower
+import com.keygenqt.stack_2021.network.ServiceRepo
+import com.keygenqt.stack_2021.network.ServiceUser
+import com.keygenqt.stack_2021.repository.RepositoryFollower
+import com.keygenqt.stack_2021.repository.RepositoryRepo
+import com.keygenqt.stack_2021.repository.RepositoryUser
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -31,11 +37,30 @@ object RepositoryModule {
 
     @Provides
     @ViewModelScoped
-    fun provideMainRepository(
-        preferences: BaseSharedPreferences,
-        mainService: MainService,
-        projectDao: ProjectDao
-    ): MainRepository {
-        return MainRepository(preferences, mainService, projectDao)
+    fun provideRepositoryRepo(
+        preferences: SharedPreferences,
+        service: ServiceRepo,
+        dao: DaoRepo
+    ): RepositoryRepo {
+        return RepositoryRepo(preferences, service, dao)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideRepositoryFollower(
+        preferences: SharedPreferences,
+        service: ServiceFollower,
+        dao: DaoFollower
+    ): RepositoryFollower {
+        return RepositoryFollower(preferences, service, dao)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideRepositoryUser(
+        preferences: SharedPreferences,
+        service: ServiceUser
+    ): RepositoryUser {
+        return RepositoryUser(preferences, service)
     }
 }

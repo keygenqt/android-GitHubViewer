@@ -31,36 +31,44 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.google.accompanist.insets.navigationBarsHeight
+import com.google.accompanist.insets.navigationBarsPadding
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.data.models.Project
 import com.keygenqt.stack_2021.extension.visible
-import com.keygenqt.stack_2021.ui.main.MainViewModel
+import com.keygenqt.stack_2021.models.ModelFollower
+import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.ui.theme.Purple700
-import dev.chrisbanes.accompanist.insets.navigationBarsHeight
-import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
 fun TabsHome(
-    title: String,
-    viewModel: MainViewModel,
+    viewModel: ViewModelHome,
     selectItem: (HomeTab, Long) -> Unit
 ) {
+    val context = LocalContext.current
     val tabs = HomeTab.values()
     val selectedTab = HomeTab.getTabFromResource(viewModel.selectedTab.value)
 
-    val repos: List<Project> by viewModel.projectList.observeAsState(listOf())
-    val favorites: List<Project> by viewModel.projectList.observeAsState(listOf())
+    val repos: List<ModelRepo> by viewModel.listRepo.observeAsState(listOf())
+    val followers: List<ModelFollower> by viewModel.listFollower.observeAsState(listOf())
     val isLoading: Boolean by viewModel.isLoading.observeAsState(false)
 
     ConstraintLayout {
         val (body, progress) = createRefs()
         Scaffold(
-            topBar = { PosterAppBar(title) },
+            topBar = {
+                Crossfade(selectedTab) { destination ->
+                    when (destination) {
+                        HomeTab.REPOS -> PosterAppBar(context.getString(R.string.title_repos))
+                        HomeTab.FOLLOWERS -> PosterAppBar(context.getString(R.string.title_followers))
+                    }
+                }
+            },
             modifier = Modifier.constrainAs(body) {
                 top.linkTo(parent.top)
             },
@@ -87,7 +95,7 @@ fun TabsHome(
             Crossfade(selectedTab) { destination ->
                 when (destination) {
                     HomeTab.REPOS -> Repos(modifier, repos, selectItem)
-                    HomeTab.FOLLOWERS -> Followers(modifier, favorites, selectItem)
+                    HomeTab.FOLLOWERS -> Followers(modifier, followers, selectItem)
                 }
             }
         }

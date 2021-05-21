@@ -63,10 +63,4 @@ object NetworkModule {
             .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory())
             .build()
     }
-
-    @Provides
-    @Singleton
-    fun provideMainService(retrofit: Retrofit): MainService {
-        return retrofit.create(MainService::class.java)
-    }
 }

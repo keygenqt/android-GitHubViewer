@@ -64,4 +64,9 @@ object Other {
      * loading library.
      */
     const val glide = "com.google.accompanist:accompanist-glide:${Versions.glide}"
+
+    /**
+     * [Kotlin multiplatform serialization](https://github.com/Kotlin/kotlinx.serialization)
+     */
+    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
 }

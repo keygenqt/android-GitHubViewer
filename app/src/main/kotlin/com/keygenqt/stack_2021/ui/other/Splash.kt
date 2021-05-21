@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.other
 
 import androidx.compose.foundation.Image
@@ -34,14 +34,20 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.extension.visible
-import com.keygenqt.stack_2021.ui.main.MainViewModel
 import com.keygenqt.stack_2021.ui.theme.BlackLight
 import com.keygenqt.stack_2021.ui.theme.Blue50_30
 
 @Composable
-fun Splash(viewModel: MainViewModel) {
+fun Splash(
+    viewModel: ViewModelSplash,
+    loadingUserDone: () -> Unit
+) {
 
-    val isLoading: Boolean by viewModel.isLoading.observeAsState(false)
+    val isLoadingUser: Boolean by viewModel.isLoadingUser.observeAsState(true)
+
+    if (!isLoadingUser) {
+        loadingUserDone.invoke()
+    }
 
     ConstraintLayout(
         modifier = Modifier
@@ -71,8 +77,8 @@ fun Splash(viewModel: MainViewModel) {
                     color = Blue50_30,
                     modifier = Modifier
                         .width(24.dp)
-                        .visible(isLoading)
-                    )
+                        .visible(isLoadingUser)
+                )
             }
         }
     }

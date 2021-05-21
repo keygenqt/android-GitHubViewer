@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.base
 
-import android.content.*
+import com.keygenqt.stack_2021.models.ModelUser
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
-class BaseSharedPreferences(private val p: SharedPreferences) {
+class SharedPreferences(private val p: android.content.SharedPreferences) {
 
     companion object {
-        private const val REPOS_URL = "REPOS_URL"
+        private const val USER = "USER"
     }
 
-    var reposUrl: String?
-        get() = p.getString(REPOS_URL, null)
-        set(value) = value?.let { p.edit().putString(REPOS_URL, value).apply() } ?: run { p.edit().remove(REPOS_URL).apply() }
+    var modelUser: ModelUser?
+        get() = p.getString(USER, null)?.let { Json.decodeFromString<ModelUser>(it) }
+        set(value) = value?.let { p.edit().putString(USER, Json.encodeToString(value)).apply() } ?: run { p.edit().remove(USER).apply() }
 }

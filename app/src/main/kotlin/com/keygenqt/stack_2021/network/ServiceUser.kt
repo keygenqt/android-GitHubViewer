@@ -13,23 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-@file:Suppress("unused")
 
-package com.keygenqt.stack_2021.initializer
+package com.keygenqt.stack_2021.network
 
-import android.content.*
-import androidx.startup.*
-import com.keygenqt.stack_2021.*
-import timber.log.*
+import com.keygenqt.stack_2021.models.ModelUser
+import com.skydoves.sandwich.ApiResponse
+import retrofit2.http.GET
+import retrofit2.http.Path
 
-class TimberInitializer : Initializer<Unit> {
-
-    override fun create(context: Context) {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-    }
-
-    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+interface ServiceUser {
+    @GET("/users/{login}")
+    suspend fun getUser(@Path("login") login: String): ApiResponse<ModelUser>
 }

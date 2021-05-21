@@ -35,14 +35,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.insets.statusBarsPadding
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.data.models.Project
-import dev.chrisbanes.accompanist.insets.statusBarsPadding
+import com.keygenqt.stack_2021.models.ModelFollower
+
 
 @Composable
 fun Followers(
     modifier: Modifier = Modifier,
-    models: List<Project>,
+    models: List<ModelFollower>,
     selectItem: (HomeTab, Long) -> Unit
 ) {
     val listState = rememberLazyListState()
@@ -70,7 +72,7 @@ fun Followers(
 
 @Composable
 fun ItemFollower(
-    model: Project,
+    model: ModelFollower,
     selectItem: (HomeTab, Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -88,8 +90,9 @@ fun ItemFollower(
             modifier = Modifier.padding(8.dp)
         ) {
             val (image, body) = createRefs()
-            Image(
-                painter = painterResource(R.drawable.ic_launcher),
+
+            GlideImage(
+                data = model.avatarUrl,
                 contentDescription = null, // decorative
                 modifier = Modifier
                     .size(56.dp, 56.dp)
@@ -98,8 +101,8 @@ fun ItemFollower(
                         top.linkTo(parent.top)
                         start.linkTo(parent.start)
                         bottom.linkTo(parent.bottom)
-                    }
-            )
+                    })
+
             ConstraintLayout(
                 modifier = Modifier
                     .constrainAs(body) {
@@ -113,7 +116,7 @@ fun ItemFollower(
                 val (name, date) = createRefs()
 
                 Text(
-                    text = model.name,
+                    text = model.login,
                     style = MaterialTheme.typography.h6,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -126,7 +129,7 @@ fun ItemFollower(
                         }
                 )
                 Text(
-                    text = model.created_at,
+                    text = model.type,
                     style = MaterialTheme.typography.body2,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,

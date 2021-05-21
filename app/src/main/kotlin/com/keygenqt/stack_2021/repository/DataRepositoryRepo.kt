@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-package com.keygenqt.stack_2021.base
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
+package com.keygenqt.stack_2021.repository
 
-abstract class BaseLiveCoroutinesViewModel : ViewModel() {
-  inline fun <T> launchOnViewModelScope(crossinline block: suspend () -> LiveData<T>): LiveData<T> {
-    return liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-      emitSource(block())
-    }
-  }
+import com.keygenqt.stack_2021.data.DaoRepo
+import javax.inject.Inject
+
+class DataRepositoryRepo @Inject constructor(
+    private val dao: DaoRepo
+) {
+    fun getById(id: Long) = dao.getModel(id)
 }
