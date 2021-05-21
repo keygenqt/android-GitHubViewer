@@ -20,7 +20,6 @@ buildscript {
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion")
         classpath(kotlin("gradle-plugin", version = kotlinVersion))
         classpath(kotlin("serialization", version = kotlinVersion))
-
         classpath("com.google.dagger:hilt-android-gradle-plugin:HEAD-SNAPSHOT")
     }
 }

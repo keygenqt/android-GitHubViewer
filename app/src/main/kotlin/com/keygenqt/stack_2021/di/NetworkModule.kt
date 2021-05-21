@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.di
 
-import android.content.*
-import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.network.*
-import com.skydoves.sandwich.coroutines.*
-import dagger.*
-import dagger.hilt.*
-import dagger.hilt.android.qualifiers.*
-import dagger.hilt.components.*
-import okhttp3.*
-import okhttp3.logging.*
-import retrofit2.*
-import retrofit2.converter.gson.*
-import timber.log.*
-import javax.inject.*
+import com.keygenqt.stack_2021.BuildConfig
+import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -37,15 +35,16 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor { message -> Timber.i(message) }.apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
             .addInterceptor {
                 val original = it.request()
-                val request = original.newBuilder()
-                    .header("Authorization", "token ${context.getString(R.string.github_token)}")
+                val request = original.newBuilder().apply {
+                    BuildConfig.GITHUB_TOKEN?.let { token -> header("Authorization", "token $token") }
+                }
                     .method(original.method, original.body)
                     .build()
                 it.proceed(request)

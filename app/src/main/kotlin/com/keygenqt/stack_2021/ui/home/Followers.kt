@@ -16,7 +16,8 @@
 
 package com.keygenqt.stack_2021.ui.home
 
-import androidx.compose.foundation.Image
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -30,14 +31,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.google.accompanist.glide.GlideImage
 import com.google.accompanist.insets.statusBarsPadding
-import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.models.ModelFollower
 
 
@@ -60,10 +60,7 @@ fun Followers(
             items(
                 items = models,
                 itemContent = { model ->
-                    ItemFollower(
-                        model = model,
-                        selectItem = selectItem
-                    )
+                    ItemFollower(model = model)
                 }
             )
         }
@@ -73,15 +70,20 @@ fun Followers(
 @Composable
 fun ItemFollower(
     model: ModelFollower,
-    selectItem: (HomeTab, Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     Surface(
         modifier = modifier
             .fillMaxWidth()
             .padding(4.dp)
             .clickable(
-                onClick = { selectItem(HomeTab.FOLLOWERS, model.id) }
+                onClick = {
+                    CustomTabsIntent
+                        .Builder()
+                        .build()
+                        .launchUrl(context, Uri.parse("https://github.com/${model.login}"))
+                }
             ),
         elevation = 8.dp,
         shape = RoundedCornerShape(8.dp)
@@ -90,7 +92,6 @@ fun ItemFollower(
             modifier = Modifier.padding(8.dp)
         ) {
             val (image, body) = createRefs()
-
             GlideImage(
                 data = model.avatarUrl,
                 contentDescription = null, // decorative
@@ -105,6 +106,7 @@ fun ItemFollower(
 
             ConstraintLayout(
                 modifier = Modifier
+                    .padding(start = 6.dp)
                     .constrainAs(body) {
                         top.linkTo(image.top)
                         bottom.linkTo(image.bottom)
@@ -114,7 +116,6 @@ fun ItemFollower(
                     }
             ) {
                 val (name, date) = createRefs()
-
                 Text(
                     text = model.login,
                     style = MaterialTheme.typography.h6,

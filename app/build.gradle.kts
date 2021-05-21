@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 typealias and = com.keygenqt.internal.Android
 typealias dep = com.keygenqt.internal.Dependencies
 
@@ -42,6 +44,9 @@ android {
     buildToolsVersion = and.buildTools
 
     defaultConfig {
+        // secret token
+        buildConfigField("String", "GITHUB_TOKEN", findProperty("github_token").toString())
+
         applicationId = "com.keygenqt.stack_2021"
         minSdk = and.minSdk
         targetSdk = and.targetSdk
@@ -87,6 +92,7 @@ dependencies {
         implementation(layout)
         implementation(accompanistInsets)
         implementation("com.google.accompanist:accompanist-glide:${com.keygenqt.internal.Versions.accompanist}")
+        implementation("androidx.browser:browser:1.3.0") // https://developer.chrome.com/docs/android/custom-tabs/overview/
     }
 
     dep.hilt.apply { // https://dagger.dev/hilt/
