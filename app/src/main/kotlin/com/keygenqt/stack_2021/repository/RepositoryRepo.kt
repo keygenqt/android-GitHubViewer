@@ -21,15 +21,17 @@ import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.DaoRepo
 import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.network.ServiceRepo
-import com.keygenqt.stack_2021.network.ServiceUser
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
+
+class MyResponse<T>(val results: List<T>, val page: Int)
 
 class RepositoryRepo @Inject constructor(
     private val preferences: SharedPreferences,
@@ -37,27 +39,36 @@ class RepositoryRepo @Inject constructor(
     private val dao: DaoRepo
 ) {
 
+    suspend fun loadRepos2(page: Int): MyResponse<ModelRepo> {
+        mainService.fetchRepoList2(preferences.modelUser!!.reposUrl, page, 5).let {
+            return MyResponse(it.body()!!, page)
+        }
+    }
+
     @WorkerThread
     fun loadRepos(
         page: Int,
-        onDone: () -> Unit,
+        onDone: (isDb: Boolean) -> Unit,
         onError: (String) -> Unit
     ) = flow {
+
         val models: List<ModelRepo> = dao.getList()
         if (models.isNotEmpty()) {
             emit(models)
-            onDone()
+            onDone(true)
         }
         mainService.fetchRepoList(preferences.modelUser!!.reposUrl, page, 20)
             .suspendOnSuccess {
                 data?.let {
                     dao.delete()
                     dao.insertList(it)
+                    delay(2000) // Bad Internet
                     emit(it)
-                    onDone()
+                    onDone(false)
                 }
             }
             .onError { onError(message()) }
             .onException { onError(message()) }
     }.flowOn(Dispatchers.IO)
+
 }

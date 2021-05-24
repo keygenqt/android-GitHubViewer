@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 typealias and = com.keygenqt.internal.Android
 typealias dep = com.keygenqt.internal.Dependencies
 
@@ -90,10 +88,14 @@ dependencies {
         implementation(livedata)
         implementation(constraint)
         implementation(layout)
-        implementation(accompanistInsets)
-        implementation(accompanistGlide)
+        implementation(pagingCompose)
+        implementation(paging)
     }
-
+    dep.accompanist.apply { // https://google.github.io/accompanist/
+        implementation(insets)
+        implementation(glide)
+        implementation(swipeRefresh)
+    }
     dep.hilt.apply { // https://dagger.dev/hilt/
         implementation(hiltAndroid)
         implementation(hiltNavigationCompose)

@@ -17,10 +17,9 @@
 package com.keygenqt.stack_2021.ui.main
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.keygenqt.stack_2021.ui.home.TabsHome
@@ -40,13 +39,13 @@ fun ComposableMain() {
     ProvideWindowInsets {
         NavHost(navController = navController, startDestination = NavScreen.Splash.route) {
             composable(NavScreen.Splash.route) { backStackEntry ->
-                val viewModel = hiltNavGraphViewModel<ViewModelSplash>(backStackEntry = backStackEntry)
+                val viewModel = hiltViewModel<ViewModelSplash>(backStackEntry = backStackEntry)
                 Splash(viewModel) {
                     navController.navigate(NavScreen.Repos.route)
                 }
             }
             composable(NavScreen.Repos.route) { backStackEntry ->
-                val viewModel = hiltNavGraphViewModel<ViewModelHome>(backStackEntry = backStackEntry)
+                val viewModel = hiltViewModel<ViewModelHome>(backStackEntry = backStackEntry)
                 TabsHome(viewModel = viewModel) { type, id ->
                     Timber.e(type.name)
                     Timber.e(id.toString())

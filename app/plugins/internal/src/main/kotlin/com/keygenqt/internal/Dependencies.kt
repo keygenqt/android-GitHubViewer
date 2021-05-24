@@ -23,6 +23,7 @@ import com.keygenqt.internal.dependencies.*
 object Dependencies {
     val android = Android
     val compose = JetpackCompose
+    val accompanist = Accompanist
     val hilt = Di
     val security = Security
     val lifecycle = Lifecycle

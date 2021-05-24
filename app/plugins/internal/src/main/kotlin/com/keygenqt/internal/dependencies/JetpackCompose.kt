@@ -54,16 +54,6 @@ object JetpackCompose {
     const val livedata = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
 
     /**
-     * [Accompanist Insets](https://github.com/google/accompanist)
-     */
-    const val accompanistInsets = "com.google.accompanist:accompanist-insets:${Versions.accompanist}"
-
-    /**
-     * [Accompanist Glide](https://github.com/google/accompanist)
-     */
-    const val accompanistGlide = "com.google.accompanist:accompanist-glide:${Versions.accompanist}"
-
-    /**
      * [ConstraintLayout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
      */
     const val constraint = "androidx.constraintlayout:constraintlayout-compose:${Versions.constraint}"
@@ -72,4 +62,14 @@ object JetpackCompose {
      * [Compose Layouts](https://mvnrepository.com/artifact/androidx.compose.foundation/foundation-layout)
      */
     const val layout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
+
+    /**
+     * [Paging](https://developer.android.com/jetpack/androidx/releases/paging)
+     */
+    const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
+
+    /**
+     * [Paging Compose](https://developer.android.com/jetpack/androidx/releases/paging)
+     */
+    const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
 }

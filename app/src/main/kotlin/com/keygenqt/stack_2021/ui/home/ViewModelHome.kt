@@ -25,12 +25,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.keygenqt.stack_2021.base.LiveCoroutinesViewModel
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
+import com.keygenqt.stack_2021.network.PageSourceRepo
 import com.keygenqt.stack_2021.repository.RepositoryFollower
 import com.keygenqt.stack_2021.repository.RepositoryRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -40,29 +45,20 @@ class ViewModelHome @Inject constructor(
     private val repositoryFollower: RepositoryFollower
 ) : LiveCoroutinesViewModel() {
 
-    private var _listRepo: MutableLiveData<Boolean> = MutableLiveData(true)
-    val listRepo: LiveData<List<ModelRepo>>
-
     private var _listFollower: MutableLiveData<Boolean> = MutableLiveData(true)
     val listFollower: LiveData<List<ModelFollower>>
 
     private val _selectedTab: MutableState<Int> = mutableStateOf(0)
     val selectedTab: State<Int> get() = _selectedTab
 
-    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    val repos: Flow<PagingData<ModelRepo>> = Pager(PagingConfig(pageSize = 5)) {
+        PageSourceRepo(repositoryRepo)
+    }.flow
+
     init {
-        listRepo = _listRepo.switchMap {
-            _isLoading.postValue(true)
-            launchOnViewModelScope {
-                this.repositoryRepo.loadRepos(
-                    1,
-                    onDone = { _isLoading.postValue(false) },
-                    onError = { Timber.e(it) }
-                ).asLiveData()
-            }
-        }
         listFollower = _listFollower.switchMap {
             _isLoading.postValue(true)
             launchOnViewModelScope {

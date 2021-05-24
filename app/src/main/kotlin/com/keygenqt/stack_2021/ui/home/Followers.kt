@@ -18,6 +18,7 @@ package com.keygenqt.stack_2021.ui.home
 
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -36,7 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.glide.rememberGlidePainter
 import com.google.accompanist.insets.statusBarsPadding
 import com.keygenqt.stack_2021.models.ModelFollower
 
@@ -91,9 +92,9 @@ fun ItemFollower(
             modifier = Modifier.padding(8.dp)
         ) {
             val (image, body) = createRefs()
-            GlideImage(
-                data = model.avatarUrl,
-                contentDescription = null, // decorative
+            Image(
+                painter = rememberGlidePainter(model.avatarUrl),
+                contentDescription = model.login,
                 modifier = Modifier
                     .size(56.dp, 56.dp)
                     .clip(RoundedCornerShape(4.dp))
@@ -101,8 +102,8 @@ fun ItemFollower(
                         top.linkTo(parent.top)
                         start.linkTo(parent.start)
                         bottom.linkTo(parent.bottom)
-                    })
-
+                    }
+            )
             ConstraintLayout(
                 modifier = Modifier
                     .padding(start = 6.dp)

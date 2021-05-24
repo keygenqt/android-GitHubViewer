@@ -23,10 +23,12 @@ object Versions {
     const val ktxCore = "1.3.2"
 
     // compose
-    const val compose = "1.0.0-beta06"
+    const val compose = "1.0.0-beta07"
     const val composeActivity = "1.3.0-alpha07"
-    const val accompanist = "0.6.2"
-    const val constraint = "1.0.0-alpha06"
+    const val constraint = "1.0.0-alpha07"
+    const val pagingCompose = "1.0.0-alpha09"
+    const val paging = "3.0.0"
+    const val accompanist = "0.10.0"
 
     // android
     const val appcompat = "1.2.0"
@@ -36,7 +38,7 @@ object Versions {
     // di
     const val hilt = "1.0.0-beta01"
     const val hiltCore = "2.35.1"
-    const val hiltComposeNavigation = "1.0.0-alpha01"
+    const val hiltComposeNavigation = "1.0.0-alpha02"
 
     // security
     const val securityCrypto = "1.1.0-alpha03"

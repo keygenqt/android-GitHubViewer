@@ -53,13 +53,10 @@ fun TabsHome(
     val context = LocalContext.current
     val tabs = HomeTab.values()
     val selectedTab = HomeTab.getTabFromResource(viewModel.selectedTab.value)
-
-    val repos: List<ModelRepo> by viewModel.listRepo.observeAsState(listOf())
     val followers: List<ModelFollower> by viewModel.listFollower.observeAsState(listOf())
-    val isLoading: Boolean by viewModel.isLoading.observeAsState(false)
 
     ConstraintLayout {
-        val (body, progress) = createRefs()
+        val (body) = createRefs()
         Scaffold(
             topBar = {
                 Crossfade(selectedTab) { destination ->
@@ -94,21 +91,11 @@ fun TabsHome(
             val modifier = Modifier.padding(innerPadding)
             Crossfade(selectedTab) { destination ->
                 when (destination) {
-                    HomeTab.REPOS -> Repos(modifier, repos, selectItem)
+                    HomeTab.REPOS -> Repos(modifier, viewModel.repos, selectItem)
                     HomeTab.FOLLOWERS -> Followers(modifier, followers)
                 }
             }
         }
-        CircularProgressIndicator(
-            modifier = Modifier
-                .constrainAs(progress) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-                .visible(isLoading)
-        )
     }
 }
 

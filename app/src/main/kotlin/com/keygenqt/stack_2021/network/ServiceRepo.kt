@@ -16,18 +16,30 @@
 
 package com.keygenqt.stack_2021.network
 
+import androidx.annotation.IntRange
 import com.keygenqt.stack_2021.models.ModelRepo
 import com.skydoves.sandwich.ApiResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
 
+const val MAX_PAGE_SIZE = 100
+
 interface ServiceRepo {
+    @GET
+    suspend fun fetchRepoList2(
+        @Url reposUrl: String,
+        @Query("page") @IntRange(from = 1) page: Int = 1,
+        @Query("per_page") @IntRange(from = 1, to = MAX_PAGE_SIZE.toLong()) perPage: Int = 2,
+        @Query("sort") sort: String = "created"
+    ): Response<List<ModelRepo>>
+
     @GET
     suspend fun fetchRepoList(
         @Url reposUrl: String,
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int = 2,
+        @Query("page") @IntRange(from = 1) page: Int = 1,
+        @Query("per_page") @IntRange(from = 1, to = MAX_PAGE_SIZE.toLong()) perPage: Int = 2,
         @Query("sort") sort: String = "created"
     ): ApiResponse<List<ModelRepo>>
 }
