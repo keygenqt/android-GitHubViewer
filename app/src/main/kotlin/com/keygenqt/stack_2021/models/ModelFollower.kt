@@ -19,7 +19,6 @@ package com.keygenqt.stack_2021.models
 import androidx.compose.runtime.Immutable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 
 @Entity
 @Immutable
@@ -27,5 +26,14 @@ data class ModelFollower(
     @PrimaryKey val id: Long,
     val login: String,
     val type: String,
-    @SerializedName("avatar_url") val avatarUrl: String
-)
+    val avatarUrl: String
+) {
+    companion object {
+        fun mock() = ModelFollower(
+            id = 1,
+            login = "keygenqt",
+            type = "User",
+            avatarUrl = "https://avatars.githubusercontent.com/u/9665914?v=4",
+        )
+    }
+}

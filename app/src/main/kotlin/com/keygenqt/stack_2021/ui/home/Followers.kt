@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.ui.home
 
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -34,36 +32,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import com.google.accompanist.glide.rememberGlidePainter
-import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.keygenqt.stack_2021.models.ModelFollower
-
+import com.keygenqt.stack_2021.models.ModelRepo
+import com.keygenqt.stack_2021.ui.common.CommonList
+import com.keygenqt.stack_2021.ui.theme.StackTheme
 
 @Composable
 fun Followers(
     modifier: Modifier = Modifier,
-    models: List<ModelFollower>
+    models: LazyPagingItems<ModelFollower>
 ) {
-    val listState = rememberLazyListState()
-    Column(
-        modifier = modifier
-            .statusBarsPadding()
-            .background(MaterialTheme.colors.background)
-    ) {
-        LazyColumn(
-            state = listState,
-            contentPadding = PaddingValues(4.dp)
-        ) {
-            items(
-                items = models,
-                itemContent = { model ->
-                    ItemFollower(model = model)
-                }
-            )
-        }
+    CommonList(
+        modifier = modifier,
+        models = models,
+        state = rememberSwipeRefreshState(models.loadState.refresh is LoadState.Loading)
+    ) { model ->
+        ItemFollower(model = model)
     }
 }
 
@@ -144,5 +136,21 @@ fun ItemFollower(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun ItemFollowerPreviewLight() {
+    StackTheme(darkTheme = false) {
+        ItemFollower(model = ModelFollower.mock())
+    }
+}
+
+@Preview
+@Composable
+fun ItemFollowerPreviewDark() {
+    StackTheme(darkTheme = true) {
+        ItemFollower(model = ModelFollower.mock())
     }
 }

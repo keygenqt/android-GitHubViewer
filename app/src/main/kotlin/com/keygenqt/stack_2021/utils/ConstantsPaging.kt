@@ -14,21 +14,9 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.models
+package com.keygenqt.stack_2021.utils
 
-import androidx.compose.runtime.Immutable
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
-
-@Immutable
-@Serializable
-data class ModelUser(
-    @PrimaryKey val id: Long,
-    val login: String,
-    val avatarUrl: String,
-    val followersUrl: String,
-    val reposUrl: String,
-    val name: String,
-    val bio: String,
-    val createdAt: String
-)
+object ConstantsPaging {
+    const val MAX_PAGE_SIZE = 100
+    const val PER_PAGE = 20
+}

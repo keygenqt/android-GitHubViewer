@@ -14,27 +14,18 @@
  * limitations under the License.
  */
 
-package com.keygenqt.stack_2021.data
+package com.keygenqt.stack_2021.data.followers.impl
 
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.data.followers.DaoFollower
+import com.keygenqt.stack_2021.data.followers.FollowerRepository
 import com.keygenqt.stack_2021.models.ModelFollower
+import javax.inject.Inject
 
-@Dao
-interface DaoFollower {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertList(ModelFollower: List<ModelFollower>)
-
-    @Query("SELECT * FROM ModelFollower WHERE id = :id")
-    fun getModel(id: Long): LiveData<ModelFollower>
-
-    @Query("SELECT * FROM ModelFollower")
-    suspend fun getList(): List<ModelFollower>
-
-    @Query("DELETE FROM ModelFollower")
-    fun delete()
+class DataFollower @Inject constructor(
+    private val dao: DaoFollower
+) : FollowerRepository {
+    override suspend fun getModels(page: Int): ResponseResult<List<ModelFollower>> {
+        return ResponseResult.Success(dao.getModels())
+    }
 }

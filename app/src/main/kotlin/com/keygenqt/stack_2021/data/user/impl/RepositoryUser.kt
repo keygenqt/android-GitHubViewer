@@ -13,42 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+package com.keygenqt.stack_2021.data.user.impl
 
-package com.keygenqt.stack_2021.repository
-
+import android.content.Context
 import androidx.annotation.WorkerThread
+import com.keygenqt.stack_2021.R
+import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.base.SharedPreferences
-import com.keygenqt.stack_2021.network.ServiceUser
-import com.skydoves.sandwich.message
-import com.skydoves.sandwich.onError
-import com.skydoves.sandwich.onException
-import com.skydoves.sandwich.suspendOnSuccess
-import kotlinx.coroutines.Dispatchers
+import com.keygenqt.stack_2021.data.user.ServiceUser
+import com.keygenqt.stack_2021.data.user.UserRepository
+import com.keygenqt.stack_2021.extension.toModelUser
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import timber.log.Timber
 import javax.inject.Inject
 
 class RepositoryUser @Inject constructor(
     private val preferences: SharedPreferences,
-    private val service: ServiceUser
-) {
+    private val service: ServiceUser,
+    private val context: Context
+) : UserRepository {
 
     @WorkerThread
-    fun loadUser(
-        login: String,
-        onDone: () -> Unit,
-        onError: (String) -> Unit
-    ) = flow {
-        service.getUser(login)
-            .suspendOnSuccess {
-                data?.let {
-                    preferences.modelUser = it
-                    emit(false)
-                    onDone()
-                }
+    override fun observeModel() = flow {
+        try {
+            service.getUser(context.getString(R.string.github_user)).body()?.toModelUser()?.let { model ->
+                preferences.modelUser = model
+                emit(ResponseResult.Success(preferences.modelUser!!))
             }
-            .onError { onError(message()); onDone() }
-            .onException { onError(message()); onDone() }
-    }.flowOn(Dispatchers.IO)
+        } catch (ex: Exception) {
+            emit(ResponseResult.Error(ex))
+        }
+    }
 }

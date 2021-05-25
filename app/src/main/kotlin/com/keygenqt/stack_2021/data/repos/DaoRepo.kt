@@ -14,21 +14,23 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.models
+package com.keygenqt.stack_2021.data.repos
 
-import androidx.compose.runtime.Immutable
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.keygenqt.stack_2021.models.ModelRepo
 
-@Immutable
-@Serializable
-data class ModelUser(
-    @PrimaryKey val id: Long,
-    val login: String,
-    val avatarUrl: String,
-    val followersUrl: String,
-    val reposUrl: String,
-    val name: String,
-    val bio: String,
-    val createdAt: String
-)
+@Dao
+interface DaoRepo {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertList(modelRepos: List<ModelRepo>)
+
+    @Query("SELECT * FROM ModelRepo ORDER BY createdAt DESC")
+    suspend fun getModels(): List<ModelRepo>
+
+    @Query("DELETE FROM ModelRepo")
+    fun delete()
+}

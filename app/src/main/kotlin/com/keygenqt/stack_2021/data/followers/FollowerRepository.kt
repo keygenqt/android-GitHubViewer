@@ -14,21 +14,17 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.models
+package com.keygenqt.stack_2021.data.followers
 
-import androidx.compose.runtime.Immutable
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
+import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.models.ModelFollower
 
-@Immutable
-@Serializable
-data class ModelUser(
-    @PrimaryKey val id: Long,
-    val login: String,
-    val avatarUrl: String,
-    val followersUrl: String,
-    val reposUrl: String,
-    val name: String,
-    val bio: String,
-    val createdAt: String
-)
+/**
+ * Interface to the follower data layer.
+ */
+interface FollowerRepository {
+    /**
+     * Get [ModelFollower] posts.
+     */
+    suspend fun getModels(page: Int): ResponseResult<List<ModelFollower>>
+}

@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-package com.keygenqt.stack_2021.repository
+package com.keygenqt.stack_2021.data.followers
 
-import com.keygenqt.stack_2021.data.DaoRepo
-import javax.inject.Inject
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.keygenqt.stack_2021.models.ModelFollower
 
-class DataRepositoryRepo @Inject constructor(
-    private val dao: DaoRepo
-) {
-    fun getById(id: Long) = dao.getModel(id)
+@Dao
+interface DaoFollower {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertList(ModelFollower: List<ModelFollower>)
+
+    @Query("SELECT * FROM ModelFollower")
+    suspend fun getModels(): List<ModelFollower>
+
+    @Query("DELETE FROM ModelFollower")
+    fun delete()
 }

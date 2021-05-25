@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.base
 
 import com.keygenqt.stack_2021.models.ModelUser
@@ -26,6 +26,12 @@ class SharedPreferences(private val p: android.content.SharedPreferences) {
     companion object {
         private const val USER = "USER"
     }
+
+    val followersUrl: String
+        get() = modelUser!!.followersUrl
+
+    val reposUrl: String
+        get() = modelUser!!.reposUrl
 
     var modelUser: ModelUser?
         get() = p.getString(USER, null)?.let { Json.decodeFromString<ModelUser>(it) }

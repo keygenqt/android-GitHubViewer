@@ -14,21 +14,20 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.models
+package com.keygenqt.stack_2021.extension
 
-import androidx.compose.runtime.Immutable
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
+import com.keygenqt.stack_2021.data.followers.impl.ResponseFollower
+import com.keygenqt.stack_2021.models.ModelFollower
 
-@Immutable
-@Serializable
-data class ModelUser(
-    @PrimaryKey val id: Long,
-    val login: String,
-    val avatarUrl: String,
-    val followersUrl: String,
-    val reposUrl: String,
-    val name: String,
-    val bio: String,
-    val createdAt: String
-)
+fun ResponseFollower.toModelFollower(): ModelFollower {
+    return ModelFollower(
+        id = this.id,
+        login = this.login,
+        type = this.type,
+        avatarUrl = this.avatar_url
+    )
+}
+
+fun List<ResponseFollower>.toModelFollowers(): List<ModelFollower> {
+    return this.map { it.toModelFollower() }
+}

@@ -13,34 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.keygenqt.stack_2021.network
+ 
+package com.keygenqt.stack_2021.data.repos.impl
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.keygenqt.stack_2021.extension.pagingSucceeded
 import com.keygenqt.stack_2021.models.ModelRepo
-import com.keygenqt.stack_2021.repository.RepositoryRepo
-import kotlinx.coroutines.delay
-import timber.log.Timber
+
 
 class PageSourceRepo(
     private val repository: RepositoryRepo
 ) : PagingSource<Int, ModelRepo>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ModelRepo> {
-        return try {
-            val page = params.key ?: 1
-            val response = repository.loadRepos2(page)
-
-            Timber.e("Page load: $page")
-
+        val page = params.key ?: 1
+        return repository.getModels(page).pagingSucceeded { data ->
             LoadResult.Page(
-                data = response.results,
+                data = data,
                 prevKey = if (page == 1) null else page - 1,
-                nextKey = if (response.results.isEmpty()) null else response.page.plus(1)
+                nextKey = if (data.isEmpty()) null else page.plus(1)
             )
-        } catch (e: Exception) {
-            LoadResult.Error(e)
         }
     }
 

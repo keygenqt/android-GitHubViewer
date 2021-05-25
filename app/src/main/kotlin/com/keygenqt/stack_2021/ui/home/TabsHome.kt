@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.StringRes
@@ -38,10 +38,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.models.ModelFollower
+import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.ui.theme.Purple700
 
 @Composable
@@ -52,7 +55,8 @@ fun TabsHome(
     val context = LocalContext.current
     val tabs = HomeTab.values()
     val selectedTab = HomeTab.getTabFromResource(viewModel.selectedTab.value)
-    val followers: List<ModelFollower> by viewModel.listFollower.observeAsState(listOf())
+    val lazyRepos: LazyPagingItems<ModelRepo> = viewModel.repos.collectAsLazyPagingItems()
+    val lazyFollowers: LazyPagingItems<ModelFollower> = viewModel.followers.collectAsLazyPagingItems()
 
     ConstraintLayout {
         val (body) = createRefs()
@@ -89,8 +93,8 @@ fun TabsHome(
             val modifier = Modifier.padding(innerPadding)
             Crossfade(selectedTab) { destination ->
                 when (destination) {
-                    HomeTab.REPOS -> Repos(modifier, viewModel.repos, selectItem)
-                    HomeTab.FOLLOWERS -> Followers(modifier, followers)
+                    HomeTab.REPOS -> Repos(modifier, lazyRepos, selectItem)
+                    HomeTab.FOLLOWERS -> Followers(modifier, lazyFollowers)
                 }
             }
         }

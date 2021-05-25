@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.keygenqt.stack_2021.data.followers.DaoFollower
+import com.keygenqt.stack_2021.data.repos.DaoRepo
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
 
-@Database(entities = [ModelRepo::class, ModelFollower::class], version = 2, exportSchema = false)
+@Database(
+    entities = [
+        ModelRepo::class,
+        ModelFollower::class
+    ], version = 3, exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun repo(): DaoRepo
     abstract fun follower(): DaoFollower

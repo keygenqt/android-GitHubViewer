@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+package com.keygenqt.stack_2021.data.user
 
-package com.keygenqt.stack_2021.repository
+import com.keygenqt.stack_2021.data.user.impl.ResponseUser
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
 
-import com.keygenqt.stack_2021.base.SharedPreferences
-import javax.inject.Inject
-
-class DataRepositoryUser @Inject constructor(
-    private val preferences: SharedPreferences
-) {
-    fun getById(id: Long) = preferences.modelUser
+interface ServiceUser {
+    @GET("/users/{login}")
+    suspend fun getUser(@Path("login") login: String): Response<ResponseUser>
 }

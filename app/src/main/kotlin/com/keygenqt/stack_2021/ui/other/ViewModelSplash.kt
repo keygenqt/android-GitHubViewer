@@ -13,41 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.ui.other
 
-import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.switchMap
-import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.base.LiveCoroutinesViewModel
+import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
 import com.keygenqt.stack_2021.models.ModelUser
-import com.keygenqt.stack_2021.repository.RepositoryUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelSplash @Inject constructor(
-    @ApplicationContext context: Context,
     private val repository: RepositoryUser
 ) : LiveCoroutinesViewModel() {
-
-    private val _isLoadingUser: MutableLiveData<Boolean> = MutableLiveData(true)
-    val isLoadingUser: LiveData<Boolean>
-
-    init {
-        isLoadingUser = _isLoadingUser.switchMap {
-            launchOnViewModelScope {
-                this.repository.loadUser(
-                    context.getString(R.string.github_user),
-                    onDone = {  },
-                    onError = { Timber.e(it) }
-                ).asLiveData()
-            }
-        }
+    val isLoadingUser: LiveData<ResponseResult<ModelUser?>> = launchOnViewModelScope {
+        this.repository.observeModel().asLiveData()
     }
 }

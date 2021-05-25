@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.di
 
+import android.content.Context
 import com.keygenqt.stack_2021.base.SharedPreferences
-import com.keygenqt.stack_2021.data.DaoFollower
-import com.keygenqt.stack_2021.data.DaoRepo
-import com.keygenqt.stack_2021.network.ServiceFollower
-import com.keygenqt.stack_2021.network.ServiceRepo
-import com.keygenqt.stack_2021.network.ServiceUser
-import com.keygenqt.stack_2021.repository.RepositoryFollower
-import com.keygenqt.stack_2021.repository.RepositoryRepo
-import com.keygenqt.stack_2021.repository.RepositoryUser
+import com.keygenqt.stack_2021.data.followers.DaoFollower
+import com.keygenqt.stack_2021.data.repos.DaoRepo
+import com.keygenqt.stack_2021.data.repos.ServiceRepo
+import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
+import com.keygenqt.stack_2021.data.user.ServiceUser
+import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
+import com.keygenqt.stack_2021.data.followers.ServiceFollower
+import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
@@ -58,9 +60,10 @@ object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideRepositoryUser(
+        @ApplicationContext context: Context,
         preferences: SharedPreferences,
         service: ServiceUser
     ): RepositoryUser {
-        return RepositoryUser(preferences, service)
+        return RepositoryUser(preferences, service, context)
     }
 }

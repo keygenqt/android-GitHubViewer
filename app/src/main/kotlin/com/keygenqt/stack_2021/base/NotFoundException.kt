@@ -13,21 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+package com.keygenqt.stack_2021.base
 
-package com.keygenqt.stack_2021.network
-
-import com.keygenqt.stack_2021.models.ModelFollower
-import com.skydoves.sandwich.ApiResponse
-import retrofit2.http.GET
-import retrofit2.http.Query
-import retrofit2.http.Url
-
-interface ServiceFollower {
-    @GET
-    suspend fun fetchFollowerList(
-        @Url reposUrl: String,
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int = 2,
-        @Query("sort") sort: String = "created"
-    ): ApiResponse<List<ModelFollower>>
-}
+class NotFoundException : RuntimeException("Data not found")

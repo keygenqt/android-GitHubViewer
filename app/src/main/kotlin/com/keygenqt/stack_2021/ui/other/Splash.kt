@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.ui.other
 
 import androidx.compose.foundation.Image
@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.extension.visible
+import com.keygenqt.stack_2021.extension.runSucceeded
 import com.keygenqt.stack_2021.ui.theme.BlackLight
 import com.keygenqt.stack_2021.ui.theme.Blue50_30
 
@@ -42,13 +41,9 @@ fun Splash(
     viewModel: ViewModelSplash,
     loadingUserDone: () -> Unit
 ) {
-
-    val isLoadingUser: Boolean by viewModel.isLoadingUser.observeAsState(true)
-
-    if (!isLoadingUser) {
+    viewModel.isLoadingUser.observeAsState().value.runSucceeded {
         loadingUserDone.invoke()
     }
-
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -75,9 +70,7 @@ fun Splash(
                 )
                 CircularProgressIndicator(
                     color = Blue50_30,
-                    modifier = Modifier
-                        .width(24.dp)
-                        .visible(isLoadingUser)
+                    modifier = Modifier.width(24.dp)
                 )
             }
         }

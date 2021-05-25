@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.extension
 
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color
 
 fun String.parseColor(): Color {
     return Color(android.graphics.Color.parseColor(this))

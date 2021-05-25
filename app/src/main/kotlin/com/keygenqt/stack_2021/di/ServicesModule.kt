@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.di
 
-import com.keygenqt.stack_2021.network.ServiceFollower
-import com.keygenqt.stack_2021.network.ServiceRepo
-import com.keygenqt.stack_2021.network.ServiceUser
+import com.keygenqt.stack_2021.data.repos.ServiceRepo
+import com.keygenqt.stack_2021.data.followers.ServiceFollower
+import com.keygenqt.stack_2021.data.user.ServiceUser
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

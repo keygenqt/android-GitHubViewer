@@ -14,21 +14,19 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.models
+package com.keygenqt.stack_2021.data.user.impl
 
 import androidx.compose.runtime.Immutable
 import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
 
 @Immutable
-@Serializable
-data class ModelUser(
+class ResponseUser(
     @PrimaryKey val id: Long,
     val login: String,
-    val avatarUrl: String,
-    val followersUrl: String,
-    val reposUrl: String,
+    val avatar_url: String,
+    val followers_url: String,
+    val repos_url: String,
     val name: String,
-    val bio: String,
-    val createdAt: String
+    val bio: String? = null,
+    val created_at: String
 )

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.MainThread
@@ -21,22 +21,21 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.keygenqt.stack_2021.base.LiveCoroutinesViewModel
+import com.keygenqt.stack_2021.data.followers.impl.PageSourceFollower
+import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
+import com.keygenqt.stack_2021.data.repos.impl.PageSourceRepo
+import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
-import com.keygenqt.stack_2021.network.PageSourceRepo
-import com.keygenqt.stack_2021.repository.RepositoryFollower
-import com.keygenqt.stack_2021.repository.RepositoryRepo
+import com.keygenqt.stack_2021.utils.ConstantsPaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,31 +44,16 @@ class ViewModelHome @Inject constructor(
     private val repositoryFollower: RepositoryFollower
 ) : LiveCoroutinesViewModel() {
 
-    private var _listFollower: MutableLiveData<Boolean> = MutableLiveData(true)
-    val listFollower: LiveData<List<ModelFollower>>
-
     private val _selectedTab: MutableState<Int> = mutableStateOf(0)
     val selectedTab: State<Int> get() = _selectedTab
 
-    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
-    val isLoading: LiveData<Boolean> get() = _isLoading
-
-    val repos: Flow<PagingData<ModelRepo>> = Pager(PagingConfig(pageSize = 5)) {
+    val repos: Flow<PagingData<ModelRepo>> = Pager(PagingConfig(pageSize = ConstantsPaging.PER_PAGE)) {
         PageSourceRepo(repositoryRepo)
-    }.flow
+    }.flow.cachedIn(viewModelScope)
 
-    init {
-        listFollower = _listFollower.switchMap {
-            _isLoading.postValue(true)
-            launchOnViewModelScope {
-                this.repositoryFollower.loadFollower(
-                    1,
-                    onDone = { _isLoading.postValue(false) },
-                    onError = { Timber.e(it) }
-                ).asLiveData()
-            }
-        }
-    }
+    val followers: Flow<PagingData<ModelFollower>> = Pager(PagingConfig(pageSize = ConstantsPaging.PER_PAGE)) {
+        PageSourceFollower(repositoryFollower)
+    }.flow.cachedIn(viewModelScope)
 
     @MainThread
     fun selectTab(@StringRes tab: Int) {

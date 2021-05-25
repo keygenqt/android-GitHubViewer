@@ -14,21 +14,20 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.models
+package com.keygenqt.stack_2021.extension
 
-import androidx.compose.runtime.Immutable
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
+import com.keygenqt.stack_2021.data.repos.impl.ResponseRepo
+import com.keygenqt.stack_2021.models.ModelRepo
 
-@Immutable
-@Serializable
-data class ModelUser(
-    @PrimaryKey val id: Long,
-    val login: String,
-    val avatarUrl: String,
-    val followersUrl: String,
-    val reposUrl: String,
-    val name: String,
-    val bio: String,
-    val createdAt: String
-)
+fun ResponseRepo.toModelRepo(): ModelRepo {
+    return ModelRepo(
+        id = this.id,
+        name = this.name,
+        language = this.language ?: "",
+        createdAt = this.created_at
+    )
+}
+
+fun List<ResponseRepo>.toModelRepos(): List<ModelRepo> {
+    return this.map { it.toModelRepo() }
+}

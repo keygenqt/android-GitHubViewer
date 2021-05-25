@@ -13,28 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+package com.keygenqt.stack_2021.data.repos.impl
 
-package com.keygenqt.stack_2021.data
-
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.data.repos.DaoRepo
+import com.keygenqt.stack_2021.data.repos.RepoRepository
 import com.keygenqt.stack_2021.models.ModelRepo
+import javax.inject.Inject
 
-@Dao
-interface DaoRepo {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertList(modelRepos: List<ModelRepo>)
-
-    @Query("SELECT * FROM ModelRepo WHERE id = :id")
-    fun getModel(id: Long): LiveData<ModelRepo>
-
-    @Query("SELECT * FROM ModelRepo ORDER BY createdAt DESC")
-    suspend fun getList(): List<ModelRepo>
-
-    @Query("DELETE FROM ModelRepo")
-    fun delete()
+class DataRepo @Inject constructor(
+    private val dao: DaoRepo
+) : RepoRepository {
+    override suspend fun getModels(page: Int): ResponseResult<List<ModelRepo>> {
+        return ResponseResult.Success(dao.getModels())
+    }
 }

@@ -14,21 +14,12 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.models
+package com.keygenqt.stack_2021.data.user
 
-import androidx.compose.runtime.Immutable
-import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
+import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.models.ModelUser
+import kotlinx.coroutines.flow.Flow
 
-@Immutable
-@Serializable
-data class ModelUser(
-    @PrimaryKey val id: Long,
-    val login: String,
-    val avatarUrl: String,
-    val followersUrl: String,
-    val reposUrl: String,
-    val name: String,
-    val bio: String,
-    val createdAt: String
-)
+interface UserRepository {
+    fun observeModel(): Flow<ResponseResult<ModelUser>>
+}

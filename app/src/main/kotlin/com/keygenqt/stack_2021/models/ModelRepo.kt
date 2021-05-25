@@ -16,15 +16,24 @@
  
 package com.keygenqt.stack_2021.models
 
-import androidx.compose.runtime.*
-import androidx.room.*
-import com.google.gson.annotations.SerializedName
+import androidx.compose.runtime.Immutable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 @Immutable
 data class ModelRepo(
     @PrimaryKey val id: Long,
     val name: String,
-    val language: String? = null,
-    @SerializedName("created_at") val createdAt: String
-)
+    val language: String,
+    val createdAt: String
+) {
+    companion object {
+        fun mock() = ModelRepo(
+            id = 1,
+            name = "android-stack_2021",
+            language = "Kotlin",
+            createdAt = "2021-05-15T19:50:40Z",
+        )
+    }
+}

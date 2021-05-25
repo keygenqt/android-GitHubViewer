@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+package com.keygenqt.stack_2021.data.repos.impl
 
-package com.keygenqt.stack_2021.repository
+import androidx.compose.runtime.Immutable
 
-import com.keygenqt.stack_2021.data.DaoFollower
-import javax.inject.Inject
-
-class DataRepositoryFollower @Inject constructor(
-    private val dao: DaoFollower
-) {
-    fun getById(id: Long) = dao.getModel(id)
-}
+@Immutable
+class ResponseRepo(
+    val id: Long,
+    val name: String,
+    val language: String? = null,
+    val created_at: String
+)

@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+package com.keygenqt.stack_2021.data.repos
 
-package com.keygenqt.stack_2021.network
+import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.models.ModelRepo
 
-import com.keygenqt.stack_2021.models.ModelUser
-import com.skydoves.sandwich.ApiResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-
-interface ServiceUser {
-    @GET("/users/{login}")
-    suspend fun getUser(@Path("login") login: String): ApiResponse<ModelUser>
+/**
+ * Interface to the repos data layer.
+ */
+interface RepoRepository {
+    /**
+     * Get ModelRepo posts.
+     */
+    suspend fun getModels(page: Int): ResponseResult<List<ModelRepo>>
 }

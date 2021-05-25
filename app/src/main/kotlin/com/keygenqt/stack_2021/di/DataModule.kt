@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.di
 
 import android.app.Application
 import androidx.room.Room
 import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.data.AppDatabase
-import com.keygenqt.stack_2021.data.DaoFollower
-import com.keygenqt.stack_2021.data.DaoRepo
+import com.keygenqt.stack_2021.data.followers.DaoFollower
+import com.keygenqt.stack_2021.data.repos.DaoRepo
+import com.keygenqt.stack_2021.data.user.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
