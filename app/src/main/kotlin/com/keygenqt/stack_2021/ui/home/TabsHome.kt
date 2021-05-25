@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.StringRes
@@ -22,13 +22,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.People
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,7 +46,7 @@ import com.keygenqt.stack_2021.ui.theme.Purple700
 @Composable
 fun TabsHome(
     viewModel: ViewModelHome,
-    selectItem: (HomeTab, Long) -> Unit
+    navigateToDetailsRepo: (Long) -> Unit
 ) {
     val context = LocalContext.current
     val tabs = HomeTab.values()
@@ -93,8 +89,8 @@ fun TabsHome(
             val modifier = Modifier.padding(innerPadding)
             Crossfade(selectedTab) { destination ->
                 when (destination) {
-                    HomeTab.REPOS -> Repos(modifier, lazyRepos, selectItem)
-                    HomeTab.FOLLOWERS -> Followers(modifier, lazyFollowers)
+                    HomeTab.REPOS -> ReposList(modifier, lazyRepos, navigateToDetailsRepo)
+                    HomeTab.FOLLOWERS -> ListFollowers(modifier, lazyFollowers)
                 }
             }
         }

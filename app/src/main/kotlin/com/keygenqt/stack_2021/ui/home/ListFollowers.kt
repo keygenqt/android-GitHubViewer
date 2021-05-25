@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import android.net.Uri
@@ -41,12 +41,11 @@ import androidx.paging.compose.LazyPagingItems
 import com.google.accompanist.glide.rememberGlidePainter
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.keygenqt.stack_2021.models.ModelFollower
-import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.ui.common.CommonList
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 
 @Composable
-fun Followers(
+fun ListFollowers(
     modifier: Modifier = Modifier,
     models: LazyPagingItems<ModelFollower>
 ) {

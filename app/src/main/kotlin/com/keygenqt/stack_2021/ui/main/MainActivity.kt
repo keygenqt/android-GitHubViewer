@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StackTheme {
-                ComposableMain()
+                MainNavGraph()
             }
         }
     }

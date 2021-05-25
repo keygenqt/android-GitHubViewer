@@ -90,27 +90,5 @@ fun <T : Any> CommonList(
             }
         }
     }
-
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxSize()
-            .visible(models.loadState.refresh is LoadState.Loading)
-    ) {
-        val (loading) = createRefs()
-        Text(
-            text = "Loading...",
-            style = MaterialTheme.typography.h6,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
-                .background(Color.Transparent)
-                .constrainAs(loading) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-    }
+    CommonLoading(models.loadState.refresh is LoadState.Loading)
 }

@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.MainThread
 import androidx.annotation.StringRes
+import androidx.annotation.WorkerThread
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -29,6 +33,7 @@ import androidx.paging.cachedIn
 import com.keygenqt.stack_2021.base.LiveCoroutinesViewModel
 import com.keygenqt.stack_2021.data.followers.impl.PageSourceFollower
 import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
+import com.keygenqt.stack_2021.data.repos.impl.DataRepo
 import com.keygenqt.stack_2021.data.repos.impl.PageSourceRepo
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
 import com.keygenqt.stack_2021.models.ModelFollower
@@ -36,16 +41,21 @@ import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.utils.ConstantsPaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelHome @Inject constructor(
+    private val dataRepo: DataRepo,
     private val repositoryRepo: RepositoryRepo,
     private val repositoryFollower: RepositoryFollower
 ) : LiveCoroutinesViewModel() {
 
     private val _selectedTab: MutableState<Int> = mutableStateOf(0)
     val selectedTab: State<Int> get() = _selectedTab
+
+    private var _repoView: LiveData<ModelRepo> = MutableLiveData()
+    val repoView: LiveData<ModelRepo> get() = _repoView
 
     val repos: Flow<PagingData<ModelRepo>> = Pager(PagingConfig(pageSize = ConstantsPaging.PER_PAGE)) {
         PageSourceRepo(repositoryRepo)
@@ -58,5 +68,11 @@ class ViewModelHome @Inject constructor(
     @MainThread
     fun selectTab(@StringRes tab: Int) {
         _selectedTab.value = tab
+    }
+
+    @WorkerThread
+    fun getRepo(id: Long) {
+        Timber.e(id.toString())
+        _repoView = dataRepo.getModel(id)
     }
 }

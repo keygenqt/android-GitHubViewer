@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.data.repos.impl
 
 import com.keygenqt.stack_2021.base.ResponseResult
@@ -25,6 +25,9 @@ import javax.inject.Inject
 class DataRepo @Inject constructor(
     private val dao: DaoRepo
 ) : RepoRepository {
+
+    fun getModel(id: Long) = dao.getModel(id)
+
     override suspend fun getModels(page: Int): ResponseResult<List<ModelRepo>> {
         return ResponseResult.Success(dao.getModels())
     }

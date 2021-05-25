@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.compose.foundation.background
@@ -41,17 +41,17 @@ import com.keygenqt.stack_2021.ui.common.LanguageImage
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 
 @Composable
-fun Repos(
+fun ReposList(
     modifier: Modifier = Modifier,
     models: LazyPagingItems<ModelRepo>,
-    selectItem: (HomeTab, Long) -> Unit
+    navigateToDetailsRepo: (Long) -> Unit
 ) {
     CommonList(
         modifier = modifier,
         models = models,
         state = rememberSwipeRefreshState(models.loadState.refresh is LoadState.Loading)
     ) { model ->
-        ItemRepo(model = model, selectItem = selectItem)
+        ItemRepo(model = model, navigateToRepoView = navigateToDetailsRepo)
     }
 }
 
@@ -69,14 +69,14 @@ fun LoadingItem() {
 fun ItemRepo(
     model: ModelRepo,
     modifier: Modifier = Modifier,
-    selectItem: (HomeTab, Long) -> Unit = { _, _ -> },
+    navigateToRepoView: (Long) -> Unit = { },
 ) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
             .padding(4.dp)
             .clickable(
-                onClick = { selectItem(HomeTab.REPOS, model.id) }
+                onClick = { navigateToRepoView(model.id) }
             ),
         elevation = 8.dp,
         shape = RoundedCornerShape(8.dp)

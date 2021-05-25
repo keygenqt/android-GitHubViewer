@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.data.followers.impl
 
 import com.keygenqt.stack_2021.base.ResponseResult
@@ -37,7 +37,7 @@ class RepositoryFollower @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 service.listFollowers(preferences.followersUrl, page).body()?.toModelFollowers()?.let { models ->
-                    if (page == 1) dao.delete(); dao.insertList(models)
+                    dao.insertList(models)
                     delay(1000) // slow internet
                     ResponseResult.Success(models)
                 } ?: run {
