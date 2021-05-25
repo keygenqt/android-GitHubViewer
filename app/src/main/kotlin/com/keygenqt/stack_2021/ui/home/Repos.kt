@@ -156,7 +156,7 @@ fun ItemRepo(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
             LanguageImage(
-                language = model.language,
+                language = model.language ?: "",
                 modifier = Modifier
                     .size(56.dp, 56.dp)
                     .clip(RoundedCornerShape(4.dp))

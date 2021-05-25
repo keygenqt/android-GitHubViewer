@@ -24,6 +24,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.People
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -32,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,9 +41,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.extension.visible
 import com.keygenqt.stack_2021.models.ModelFollower
-import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.ui.theme.Purple700
 
 @Composable
@@ -77,7 +76,6 @@ fun TabsHome(
                     tabs.forEach { tab ->
                         BottomNavigationItem(
                             icon = { Icon(imageVector = tab.icon, contentDescription = null) },
-                            label = { Text(text = stringResource(tab.title), color = Color.White) },
                             selected = tab == selectedTab,
                             onClick = { viewModel.selectTab(tab.title) },
                             selectedContentColor = LocalContentColor.current,
@@ -123,8 +121,8 @@ enum class HomeTab(
     val icon: ImageVector
 ) {
 
-    REPOS(R.string.menu_repos, Icons.Filled.Home),
-    FOLLOWERS(R.string.menu_followers, Icons.Default.Favorite);
+    REPOS(R.string.menu_repos, Icons.Filled.List),
+    FOLLOWERS(R.string.menu_followers, Icons.Filled.People);
 
     companion object {
         fun getTabFromResource(@StringRes resource: Int): HomeTab {

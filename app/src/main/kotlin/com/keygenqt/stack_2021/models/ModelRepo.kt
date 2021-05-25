@@ -25,6 +25,6 @@ import com.google.gson.annotations.SerializedName
 data class ModelRepo(
     @PrimaryKey val id: Long,
     val name: String,
-    val language: String,
+    val language: String? = null,
     @SerializedName("created_at") val createdAt: String
 )

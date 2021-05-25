@@ -90,6 +90,7 @@ dependencies {
         implementation(layout)
         implementation(pagingCompose)
         implementation(paging)
+        implementation("androidx.compose.material:material-icons-extended:1.0.0-beta07")
     }
     dep.accompanist.apply { // https://google.github.io/accompanist/
         implementation(insets)
