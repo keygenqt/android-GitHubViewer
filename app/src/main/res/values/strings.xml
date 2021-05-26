@@ -18,4 +18,6 @@
 
     <!-- Common-->
     <string name="error">An error has occurred</string>
+    <string name="exit_info">Please click back again to exit</string>
+    <string name="cd_navigate_up">Navigate up</string>
 </resources>

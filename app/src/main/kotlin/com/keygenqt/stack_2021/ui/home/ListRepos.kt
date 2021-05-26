@@ -20,7 +20,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -39,6 +38,12 @@ import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.ui.common.CommonList
 import com.keygenqt.stack_2021.ui.common.LanguageImage
 import com.keygenqt.stack_2021.ui.theme.StackTheme
+import com.keygenqt.stack_2021.utils.ConstantsDateFormat
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toLocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun ReposList(
@@ -53,16 +58,6 @@ fun ReposList(
     ) { model ->
         ItemRepo(model = model, navigateToRepoView = navigateToDetailsRepo)
     }
-}
-
-@Composable
-fun LoadingItem() {
-    CircularProgressIndicator(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .wrapContentWidth(Alignment.CenterHorizontally)
-    )
 }
 
 @Composable
@@ -99,7 +94,12 @@ fun ItemRepo(
                         .padding(top = 2.dp, bottom = 2.dp, start = 8.dp, end = 4.dp)
                 )
                 Text(
-                    text = model.createdAt,
+                    text = "Created: ${
+                        model.createdAt.toInstant()
+                            .toLocalDateTime(TimeZone.currentSystemDefault())
+                            .toJavaLocalDateTime()
+                            .format(DateTimeFormatter.ofPattern(ConstantsDateFormat.DATE_TIME_LIST))
+                    }",
                     style = MaterialTheme.typography.body2,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,

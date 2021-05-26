@@ -13,23 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.main
 
-import android.os.*
-import androidx.activity.*
-import androidx.activity.compose.*
-import com.keygenqt.stack_2021.ui.theme.*
-import dagger.hilt.android.*
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.annotation.VisibleForTesting
+import com.keygenqt.stack_2021.ui.theme.StackTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @VisibleForTesting
+    val viewModel: ViewModelMain by viewModels()
+
+    private var route = NavScreen.Splash.route
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             StackTheme {
-                MainNavGraph()
+                MainNavGraph(viewModel) { route = it }
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        when (route) {
+            NavScreen.Splash.route -> finishAffinity()
+            NavScreen.Home.route -> if (viewModel.isShowSnackBar()) finishAffinity() else viewModel.toggleSnackBar()
+            else -> super.onBackPressed()
         }
     }
 }

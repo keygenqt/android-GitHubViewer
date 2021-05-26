@@ -37,7 +37,6 @@ fun CommonLoading(
         modifier = Modifier
             .fillMaxSize()
             .visible(visibility)
-            .background(MaterialTheme.colors.background)
     ) {
         val (loading) = createRefs()
         Text(

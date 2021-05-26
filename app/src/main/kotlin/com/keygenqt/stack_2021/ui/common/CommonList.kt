@@ -18,16 +18,16 @@ package com.keygenqt.stack_2021.ui.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
@@ -36,7 +36,6 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.keygenqt.stack_2021.extension.visible
-import com.keygenqt.stack_2021.ui.home.LoadingItem
 import timber.log.Timber
 
 @Composable
@@ -59,6 +58,7 @@ fun <T : Any> CommonList(
             )
         },
         modifier = modifier
+            .fillMaxSize()
             .statusBarsPadding()
             .background(MaterialTheme.colors.background)
     ) {
@@ -91,4 +91,15 @@ fun <T : Any> CommonList(
         }
     }
     CommonLoading(models.loadState.refresh is LoadState.Loading)
+}
+
+
+@Composable
+fun LoadingItem() {
+    CircularProgressIndicator(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .wrapContentWidth(Alignment.CenterHorizontally)
+    )
 }

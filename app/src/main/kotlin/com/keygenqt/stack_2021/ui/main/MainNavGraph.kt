@@ -19,7 +19,6 @@ package com.keygenqt.stack_2021.ui.main
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,29 +31,13 @@ import com.keygenqt.stack_2021.ui.home.ViewModelHome
 import com.keygenqt.stack_2021.ui.other.Splash
 import com.keygenqt.stack_2021.ui.other.ViewModelSplash
 
-sealed class NavScreen(val route: String) {
-    object Splash : NavScreen("Splash")
-    object Home : NavScreen("Home")
-    object DetailsRepo : NavScreen("DetailsRepo") {
-        const val routeWithArgument: String = "DetailsRepo/{repoId}"
-        const val argument0: String = "repoId"
-    }
-}
-
-class MainActions(navController: NavHostController) {
-    val navigateToDetailsRepo: (Long) -> Unit = { id: Long ->
-        NavScreen.DetailsRepo.apply {
-            navController.navigate(routeWithArgument.replace("{$argument0}", id.toString()))
+@Composable
+fun MainNavGraph(viewModelMain: ViewModelMain, changeRoute: (String) -> Unit) {
+    val navController = rememberNavController().apply {
+        addOnDestinationChangedListener { _, destination, _ ->
+            destination.route?.let { changeRoute.invoke(it) }
         }
     }
-    val upPress: () -> Unit = {
-        navController.navigateUp()
-    }
-}
-
-@Composable
-fun MainNavGraph() {
-    val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
     ProvideWindowInsets {
         NavHost(navController = navController, startDestination = NavScreen.Splash.route) {
@@ -66,7 +49,11 @@ fun MainNavGraph() {
             }
             composable(NavScreen.Home.route) { backStackEntry ->
                 val viewModel = hiltViewModel<ViewModelHome>(backStackEntry = backStackEntry)
-                TabsHome(viewModel = viewModel, navigateToDetailsRepo = actions.navigateToDetailsRepo)
+                TabsHome(
+                    viewModelMain = viewModelMain,
+                    viewModel = viewModel,
+                    navigateToDetailsRepo = actions.navigateToDetailsRepo,
+                )
             }
             composable(
                 route = NavScreen.DetailsRepo.routeWithArgument,
@@ -75,7 +62,10 @@ fun MainNavGraph() {
                 val id = backStackEntry.arguments?.getLong(NavScreen.DetailsRepo.argument0) ?: return@composable
                 val viewModel = hiltViewModel<ViewModelHome>(backStackEntry = backStackEntry)
                 viewModel.getRepo(id)
-                DetailsRepo(viewModel = viewModel, upPress = actions.upPress)
+                DetailsRepo(
+                    viewModel = viewModel,
+                    upPress = actions.upPress
+                )
             }
         }
     }

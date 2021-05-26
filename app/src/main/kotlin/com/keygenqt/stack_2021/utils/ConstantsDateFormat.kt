@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-@file:Suppress("unused")
 
-package com.keygenqt.internal
+package com.keygenqt.stack_2021.utils
 
-object Android {
-    const val buildTools = "30.0.3"
-    const val minSdk = 26
-    const val targetSdk = 30
-    const val compileSdk = 30
+object ConstantsDateFormat {
+    const val DATE_TIME_LIST = "MMM d yyyy"
+    const val DATE_TIME_DETAILS = "MMM d yyyy hh:mm a"
 }

@@ -21,7 +21,6 @@ import androidx.annotation.StringRes
 import androidx.annotation.WorkerThread
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,7 +40,6 @@ import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.utils.ConstantsPaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -72,7 +70,6 @@ class ViewModelHome @Inject constructor(
 
     @WorkerThread
     fun getRepo(id: Long) {
-        Timber.e(id.toString())
         _repoView = dataRepo.getModel(id)
     }
 }
