@@ -68,4 +68,5 @@ object Versions {
     const val glide = "0.10.0"
     const val serialization = "1.2.1"
     const val customTabs = "1.3.0"
+    const val kotlinxDatetime = "0.2.1"
 }

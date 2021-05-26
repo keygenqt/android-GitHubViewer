@@ -90,7 +90,7 @@ dependencies {
         implementation(layout)
         implementation(pagingCompose)
         implementation(paging)
-        implementation("androidx.compose.material:material-icons-extended:1.0.0-beta07")
+        implementation(icons)
     }
     dep.accompanist.apply { // https://google.github.io/accompanist/
         implementation(insets)
@@ -147,6 +147,6 @@ dependencies {
         implementation(sandwich)
         implementation(serialization)
         implementation(customTabs)
-        implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.2.1")
+        implementation(kotlinxDatetime)
     }
 }

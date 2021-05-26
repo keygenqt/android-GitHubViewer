@@ -72,4 +72,9 @@ object JetpackCompose {
      * [Paging Compose](https://developer.android.com/jetpack/androidx/releases/paging)
      */
     const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
+
+    /**
+     * [Material Icons Extended by Infragistics](https://github.com/IgniteUI/material-icons-extended)
+     */
+    const val icons = "androidx.compose.material:material-icons-extended:${Versions.compose}"
 }

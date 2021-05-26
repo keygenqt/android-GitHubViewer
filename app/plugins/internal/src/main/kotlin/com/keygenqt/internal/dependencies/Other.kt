@@ -75,4 +75,9 @@ object Other {
      */
     const val customTabs = "androidx.browser:browser:${Versions.customTabs}"
 
+    /**
+     * [Kotlinx DateTime](https://github.com/Kotlin/kotlinx-datetime)
+     */
+    const val kotlinxDatetime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDatetime}"
+
 }
