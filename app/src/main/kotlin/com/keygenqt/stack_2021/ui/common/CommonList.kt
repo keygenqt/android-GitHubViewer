@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.common
 
 import androidx.compose.foundation.background
@@ -45,52 +45,55 @@ fun <T : Any> CommonList(
     state: SwipeRefreshState,
     content: @Composable (T) -> Unit
 ) {
-    SwipeRefresh(
-        state = state,
-        onRefresh = {
-            models.refresh()
-        },
-        indicator = { st, tr ->
-            SwipeRefreshIndicator(
-                state = st,
-                refreshTriggerDistance = tr,
-                contentColor = MaterialTheme.colors.primary,
-            )
-        },
-        modifier = modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .background(MaterialTheme.colors.background)
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .visible(models.loadState.refresh !is LoadState.Loading)
+    if (models.itemCount == 0) {
+        CommonLoading(models.loadState.refresh is LoadState.Loading)
+    } else {
+        SwipeRefresh(
+            state = state,
+            onRefresh = {
+                models.refresh()
+            },
+            indicator = { st, tr ->
+                SwipeRefreshIndicator(
+                    state = st,
+                    refreshTriggerDistance = tr,
+                    contentColor = MaterialTheme.colors.primary,
+                )
+            },
+            modifier = modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .background(MaterialTheme.colors.background)
         ) {
-            items(models) { model ->
-                content.invoke(model!!)
-            }
-            models.apply {
-                when {
-                    loadState.append is LoadState.Loading -> {
-                        item { LoadingItem() }
-                    }
-                    loadState.refresh is LoadState.Error -> {
-                        val error = models.loadState.refresh as LoadState.Error
-                        item {
-                            Timber.e("Refresh error: $error.error.localizedMessage")
+            LazyColumn(
+                modifier = Modifier
+                    .visible(models.loadState.refresh !is LoadState.Loading)
+            ) {
+                items(models) { model ->
+                    content.invoke(model!!)
+                }
+                models.apply {
+                    when {
+                        loadState.append is LoadState.Loading -> {
+                            item { LoadingItem() }
                         }
-                    }
-                    loadState.append is LoadState.Error -> {
-                        val error = models.loadState.refresh as LoadState.Error
-                        item {
-                            Timber.e("Append error: $error.error.localizedMessage")
+                        loadState.refresh is LoadState.Error -> {
+                            val error = models.loadState.refresh as LoadState.Error
+                            item {
+                                Timber.e("Refresh error: $error.error.localizedMessage")
+                            }
+                        }
+                        loadState.append is LoadState.Error -> {
+                            val error = models.loadState.refresh as LoadState.Error
+                            item {
+                                Timber.e("Append error: $error.error.localizedMessage")
+                            }
                         }
                     }
                 }
             }
         }
     }
-    CommonLoading(models.loadState.refresh is LoadState.Loading)
 }
 
 
