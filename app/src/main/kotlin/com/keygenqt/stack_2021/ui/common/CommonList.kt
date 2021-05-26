@@ -45,9 +45,7 @@ fun <T : Any> CommonList(
     state: SwipeRefreshState,
     content: @Composable (T) -> Unit
 ) {
-    if (models.itemCount == 0) {
-        CommonLoading(models.loadState.refresh is LoadState.Loading)
-    } else {
+    if (models.itemCount != 0) {
         SwipeRefresh(
             state = state,
             onRefresh = {
@@ -94,6 +92,7 @@ fun <T : Any> CommonList(
             }
         }
     }
+    CommonLoading(models.loadState.refresh is LoadState.Loading)
 }
 
 
