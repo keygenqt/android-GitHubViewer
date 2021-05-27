@@ -132,7 +132,7 @@ fun RepoView(
                 )
                 Text(
                     text = (Clock.System.now() - model.createdAt.toInstant()).toInt(DurationUnit.SECONDS).let {
-                        return@let "Duration: ${
+                        return@let "Duration: ~${
                             listOf(
                                 ":%02d".format(it % 60),
                                 ":%02d".format((it % 3600) / 60),

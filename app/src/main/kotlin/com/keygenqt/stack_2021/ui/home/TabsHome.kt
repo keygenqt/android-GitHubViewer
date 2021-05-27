@@ -32,6 +32,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -90,8 +91,8 @@ fun TabsHome(
                                     icon = { Icon(imageVector = tab.icon, contentDescription = null) },
                                     selected = tab == selectedTab,
                                     onClick = { viewModel.selectTab(tab.title) },
-                                    selectedContentColor = LocalContentColor.current,
-                                    unselectedContentColor = LocalContentColor.current,
+                                    selectedContentColor = Color.White,
+                                    unselectedContentColor = Color.White,
                                     modifier = Modifier.navigationBarsPadding()
                                 )
                             }
