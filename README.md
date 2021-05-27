@@ -18,7 +18,7 @@ Implementation of the application using the latest Android stack as of early sum
 
 ### Preview
 
-<p align="center">
+<p>
 <img src="data/vokoscreen-2021-05-27_10-15-23.gif" width="34%"/>
 <img src="data/vokoscreen-2021-05-27_10-17-04.gif" width="34%"/>
 </p>
