@@ -17,8 +17,11 @@ Implementation of the application using the latest Android stack as of early sum
   [Flow](https://kotlinlang.org/docs/flow.html)
 
 ### Preview
-![Light](data/vokoscreen-2021-05-27_10-15-23.gif)
-![Dark](data/vokoscreen-2021-05-27_10-17-04.gif)
+
+<p align="center">
+<img src="data/vokoscreen-2021-05-27_10-15-23.gif" width="48%"/>
+<img src="data/vokoscreen-2021-05-27_10-17-04.gif" width="48%"/>
+</p>
 
 ### Libraries
 
@@ -67,3 +70,21 @@ Implementation of the application using the latest Android stack as of early sum
     * [Kotlinx DateTime](https://github.com/Kotlin/kotlinx-datetime)
     * [Paging](https://developer.android.com/jetpack/androidx/releases/paging)
     * [Core Kotlin Extensions](https://developer.android.com/kotlin/ktx#core)
+
+# License
+
+```
+Copyright 2021 Vitaliy Zarubin
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
