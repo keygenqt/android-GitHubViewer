@@ -37,7 +37,7 @@ object Versions {
 
     // di
     const val hilt = "1.0.0-beta01"
-    const val hiltCore = "2.35.1"
+    const val hiltCore = "2.36"
     const val hiltComposeNavigation = "1.0.0-alpha02"
 
     // security

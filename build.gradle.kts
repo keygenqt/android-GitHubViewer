@@ -1,5 +1,6 @@
 buildscript {
 
+    val hiltVersion = "2.36"
     val kotlinVersion = "1.4.32"
     val dokkaVersion = "1.4.32"
     val gradleVersion = "7.1.0-alpha01"
@@ -7,11 +8,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots") {
-            content {
-                includeModule("com.google.dagger", "hilt-android-gradle-plugin")
-            }
-        }
     }
 
     dependencies {
@@ -20,7 +16,7 @@ buildscript {
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion")
         classpath(kotlin("gradle-plugin", version = kotlinVersion))
         classpath(kotlin("serialization", version = kotlinVersion))
-        classpath("com.google.dagger:hilt-android-gradle-plugin:HEAD-SNAPSHOT")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:$hiltVersion")
     }
 }
 
