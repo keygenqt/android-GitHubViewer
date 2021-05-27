@@ -17,8 +17,8 @@ Implementation of the application using the latest Android stack as of early sum
   [Flow](https://kotlinlang.org/docs/flow.html)
 
 ### Preview
-![Light](data/vokoscreen-2021-05-27_10-15-23.mp4)
-![Dark](data/vokoscreen-2021-05-27_10-17-04.mp4)
+![Light](data/vokoscreen-2021-05-27_10-15-23.gif)
+![Dark](data/vokoscreen-2021-05-27_10-17-04.gif)
 
 ### Libraries
 
