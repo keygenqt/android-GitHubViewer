@@ -81,25 +81,24 @@ android {
 dependencies {
     dep.compose.apply { // https://developer.android.com/jetpack/compose
         implementation(ui)
-        implementation(jetpack)
         implementation(material)
         implementation(tooling)
-        implementation(activity)
-        implementation(livedata)
         implementation(constraint)
         implementation(layout)
         implementation(pagingCompose)
-        implementation(paging)
         implementation(icons)
+        implementation(hiltNavigationCompose)
+        implementation(livedata)
     }
+
     dep.accompanist.apply { // https://google.github.io/accompanist/
         implementation(insets)
         implementation(glide)
         implementation(swipeRefresh)
     }
+
     dep.hilt.apply { // https://dagger.dev/hilt/
         implementation(hiltAndroid)
-        implementation(hiltNavigationCompose)
         kapt(hiltCompiler)
         kapt(daggerHiltCompiler)
         kaptAndroidTest(daggerHiltCompiler)
@@ -108,14 +107,6 @@ dependencies {
     dep.security.apply { // https://developer.android.com/topic/security/data
         implementation(crypto)
         implementation(identityCredential)
-    }
-
-    dep.lifecycle.apply { // https://developer.android.com/topic/libraries/architecture/lifecycle
-        implementation(extensions)
-        implementation(runtime)
-        implementation(livedata)
-        implementation(viewmodel)
-        implementation(lifecycleRuntime)
     }
 
     dep.room.apply { // https://developer.android.com/jetpack/androidx/releases/room
@@ -142,11 +133,11 @@ dependencies {
         implementation(timber)
         implementation(startup)
         implementation(material)
-        implementation(appcompat)
-        dokkaHtmlPlugin(dokka)
-        implementation(sandwich)
         implementation(serialization)
         implementation(customTabs)
         implementation(kotlinxDatetime)
+        implementation(ktxCore)
+        implementation(paging)
+        dokkaHtmlPlugin(dokka)
     }
 }

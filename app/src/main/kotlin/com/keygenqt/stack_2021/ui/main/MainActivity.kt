@@ -23,6 +23,7 @@ import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.time.ExperimentalTime
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
 
     private var route = NavScreen.Splash.route
 
+    @ExperimentalTime
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

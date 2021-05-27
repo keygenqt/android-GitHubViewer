@@ -17,7 +17,6 @@
 package com.keygenqt.stack_2021.di
 
 import com.keygenqt.stack_2021.BuildConfig
-import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,7 +58,6 @@ object NetworkModule {
             .client(okHttpClient)
             .baseUrl("https://api.github.com/")
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory())
             .build()
     }
 }

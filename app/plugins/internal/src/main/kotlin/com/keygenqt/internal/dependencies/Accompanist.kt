@@ -27,7 +27,9 @@ object Accompanist {
     const val insets = "com.google.accompanist:accompanist-insets:${Versions.accompanist}"
 
     /**
-     * [Accompanist Glide](https://github.com/google/accompanist)
+     * [Glide for Jetpack Compose](https://google.github.io/accompanist/glide/)
+     * This library brings easy-to-use Painter which can fetch and display images from external sources, such as network, using the Glide image
+     * loading library.
      */
     const val glide = "com.google.accompanist:accompanist-glide:${Versions.accompanist}"
 
@@ -35,5 +37,4 @@ object Accompanist {
      * [Swipe Refresh](https://google.github.io/accompanist/swiperefresh/)
      */
     const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
-
 }

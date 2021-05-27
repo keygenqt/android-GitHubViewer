@@ -30,7 +30,9 @@ import com.keygenqt.stack_2021.ui.home.TabsHome
 import com.keygenqt.stack_2021.ui.home.ViewModelHome
 import com.keygenqt.stack_2021.ui.other.Splash
 import com.keygenqt.stack_2021.ui.other.ViewModelSplash
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @Composable
 fun MainNavGraph(viewModelMain: ViewModelMain, changeRoute: (String) -> Unit) {
     val navController = rememberNavController().apply {

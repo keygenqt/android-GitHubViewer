@@ -22,7 +22,8 @@ import com.keygenqt.internal.*
 
 object Test {
     /**
-     * [JUnit](https://mvnrepository.com/artifact/junit/junit) JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
+     * [JUnit](https://mvnrepository.com/artifact/junit/junit)
+     * JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
      */
     const val junit = "junit:junit:4.+"
 
@@ -32,7 +33,8 @@ object Test {
     const val junitExt = "androidx.test.ext:junit:${Versions.junit}"
 
     /**
-     * [Compose Testing For JUnit4](https://mvnrepository.com/artifact/androidx.compose.ui/ui-test-junit4) Compose testing integration with JUnit4
+     * [Compose Testing For JUnit4](https://mvnrepository.com/artifact/androidx.compose.ui/ui-test-junit4)
+     * Compose testing integration with JUnit4
      */
     const val junitUi = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 

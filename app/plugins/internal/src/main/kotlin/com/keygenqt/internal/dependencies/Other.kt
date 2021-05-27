@@ -21,13 +21,6 @@ import com.keygenqt.internal.*
 
 object Other {
     /**
-     * [Android AppCompat Library](https://mvnrepository.com/artifact/androidx.appcompat/appcompat)
-     * The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for
-     * older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later.
-     */
-    const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
-
-    /**
      * [Material Components For Android](https://mvnrepository.com/artifact/com.google.android.material/material)
      * Material Components for Android is a static library that you can add to your Android application in order to use APIs that provide
      * implementations of the Material Design specification. Compatible on devices running API 14 or later.
@@ -35,7 +28,8 @@ object Other {
     const val material = "com.google.android.material:material:${Versions.material}"
 
     /**
-     * [Timber](https://mvnrepository.com/artifact/com.jakewharton.timber/timber) No-nonsense injectable logging.
+     * [Timber](https://mvnrepository.com/artifact/com.jakewharton.timber/timber)
+     * No-nonsense injectable logging.
      */
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
@@ -53,19 +47,6 @@ object Other {
     const val dokka = "org.jetbrains.dokka:kotlin-as-java-plugin:${Versions.dokka}"
 
     /**
-     * [Sandwich](https://github.com/skydoves/Sandwich)
-     * A lightweight and standardized Android network response interface for handling successful data and error responses.
-     */
-    const val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
-
-    /**
-     * [Glide for Jetpack Compose](https://google.github.io/accompanist/glide/)
-     * This library brings easy-to-use Painter which can fetch and display images from external sources, such as network, using the Glide image
-     * loading library.
-     */
-    const val glide = "com.google.accompanist:accompanist-glide:${Versions.glide}"
-
-    /**
      * [Kotlin multiplatform serialization](https://github.com/Kotlin/kotlinx.serialization)
      */
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
@@ -79,5 +60,16 @@ object Other {
      * [Kotlinx DateTime](https://github.com/Kotlin/kotlinx-datetime)
      */
     const val kotlinxDatetime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDatetime}"
+
+    /**
+     * [Paging](https://developer.android.com/jetpack/androidx/releases/paging)
+     */
+    const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
+
+    /**
+     * [Core Kotlin Extensions](https://developer.android.com/kotlin/ktx#core)
+     * Kotlin extensions for 'core' artifact
+     */
+    const val ktxCore = "androidx.core:core-ktx:${Versions.ktxCore}"
 
 }

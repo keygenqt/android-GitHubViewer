@@ -1,11 +1,11 @@
 <resources>
     <!-- App name-->
-    <string name="app_name">Stack 2021</string>
+    <string name="app_name">GitHub Viewer</string>
 
     <!-- Database name-->
     <string name="database">stack_2021.db</string>
 
-    <!-- Github login-->
+    <!-- Github login. You can change the user to your own-->
     <string name="github_user">keygenqt</string>
 
     <!-- Titles-->

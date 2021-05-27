@@ -20,7 +20,7 @@ package com.keygenqt.internal
 
 object Versions {
     // jetpack
-    const val ktxCore = "1.3.2"
+    const val ktxCore = "1.5.0"
 
     // compose
     const val compose = "1.0.0-beta07"
