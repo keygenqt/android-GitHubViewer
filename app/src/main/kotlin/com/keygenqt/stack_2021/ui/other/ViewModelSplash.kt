@@ -20,6 +20,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.keygenqt.stack_2021.base.LiveCoroutinesViewModel
 import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
 import com.keygenqt.stack_2021.models.ModelUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,9 +28,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelSplash @Inject constructor(
+    private val preferences: SharedPreferences,
     private val repository: RepositoryUser
 ) : LiveCoroutinesViewModel() {
-    val isLoadingUser: LiveData<ResponseResult<ModelUser?>> = launchOnViewModelScope {
-        this.repository.observeModel().asLiveData()
-    }
+    val loadingUser: LiveData<ResponseResult<ModelUser>> = this.repository.observeModel {
+        preferences.modelUser = it
+    }.asLiveData()
 }

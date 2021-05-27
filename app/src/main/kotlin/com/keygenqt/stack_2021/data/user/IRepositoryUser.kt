@@ -14,17 +14,12 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.data.followers
+package com.keygenqt.stack_2021.data.user
 
 import com.keygenqt.stack_2021.base.ResponseResult
-import com.keygenqt.stack_2021.models.ModelFollower
+import com.keygenqt.stack_2021.models.ModelUser
+import kotlinx.coroutines.flow.Flow
 
-/**
- * Interface to the follower data layer.
- */
-interface FollowerRepository {
-    /**
-     * Get [ModelFollower] posts.
-     */
-    suspend fun getModels(page: Int): ResponseResult<List<ModelFollower>>
+interface IRepositoryUser {
+    fun observeModel(onSuccess: (ModelUser) -> Unit = {}): Flow<ResponseResult<ModelUser>>
 }

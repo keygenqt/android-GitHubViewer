@@ -52,8 +52,8 @@ object Versions {
     const val startup = "1.0.0"
 
     // test
-    const val junit = "1.1.2"
-    const val espresso = "3.3.0"
+    const val mockWebServer = "4.9.1"
+    const val mockitoCore = "3.10.0"
 
     // room
     const val room = "2.3.0"

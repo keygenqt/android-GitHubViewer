@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.data.followers.impl
 
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.data.followers.DaoFollower
-import com.keygenqt.stack_2021.data.followers.FollowerRepository
+import com.keygenqt.stack_2021.data.followers.IRepositoryFollower
 import com.keygenqt.stack_2021.models.ModelFollower
 import javax.inject.Inject
 
 class DataFollower @Inject constructor(
     private val dao: DaoFollower
-) : FollowerRepository {
+) : IRepositoryFollower {
     override suspend fun getModels(page: Int): ResponseResult<List<ModelFollower>> {
         return ResponseResult.Success(dao.getModels())
     }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.extension
 
 import androidx.paging.PagingSource
@@ -27,6 +27,19 @@ inline infix fun <T, Value : Any> ResponseResult<T>?.runSucceeded(predicate: (da
         return predicate.invoke(this.data)
     }
     return null
+}
+
+inline infix fun <T> ResponseResult<T>.success(predicate: (data: T) -> Unit): ResponseResult<T> {
+    if (this is ResponseResult.Success && this.data != null) {
+        predicate.invoke(this.data)
+    }
+    return this
+}
+
+inline infix fun <T> ResponseResult<T>.error(predicate: (data: Exception) -> Unit) {
+    if (this is ResponseResult.Error) {
+        predicate.invoke(this.exception)
+    }
 }
 
 inline infix fun <T, Value : Any> ResponseResult<T>.pagingSucceeded(

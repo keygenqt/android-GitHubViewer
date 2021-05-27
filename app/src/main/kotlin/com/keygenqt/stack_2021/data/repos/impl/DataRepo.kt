@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.data.repos.impl
 
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.data.repos.DaoRepo
-import com.keygenqt.stack_2021.data.repos.RepoRepository
+import com.keygenqt.stack_2021.data.repos.IRepositoryRepo
 import com.keygenqt.stack_2021.models.ModelRepo
 import javax.inject.Inject
 
 class DataRepo @Inject constructor(
     private val dao: DaoRepo
-) : RepoRepository {
+) : IRepositoryRepo {
 
     fun getModel(id: Long) = dao.getModel(id)
 

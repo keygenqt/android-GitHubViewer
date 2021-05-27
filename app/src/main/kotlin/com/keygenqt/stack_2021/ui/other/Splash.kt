@@ -41,7 +41,7 @@ fun Splash(
     viewModel: ViewModelSplash,
     loadingUserDone: () -> Unit
 ) {
-    viewModel.isLoadingUser.observeAsState().value.runSucceeded {
+    viewModel.loadingUser.observeAsState().value.runSucceeded {
         loadingUserDone.invoke()
     }
     ConstraintLayout(

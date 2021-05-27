@@ -17,6 +17,7 @@
 package com.keygenqt.stack_2021.di
 
 import android.content.Context
+import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.followers.DaoFollower
 import com.keygenqt.stack_2021.data.repos.DaoRepo
@@ -61,9 +62,8 @@ object RepositoryModule {
     @ViewModelScoped
     fun provideRepositoryUser(
         @ApplicationContext context: Context,
-        preferences: SharedPreferences,
         service: ServiceUser
     ): RepositoryUser {
-        return RepositoryUser(preferences, service, context)
+        return RepositoryUser(service, context.getString(R.string.github_user))
     }
 }

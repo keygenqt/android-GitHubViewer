@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 @file:Suppress("unused")
 
 package com.keygenqt.internal.dependencies
 
-import com.keygenqt.internal.*
+import com.keygenqt.internal.Versions
 
 object Test {
     /**
@@ -28,25 +28,24 @@ object Test {
     const val junit = "junit:junit:4.+"
 
     /**
-     * [Android JUnit](https://mvnrepository.com/artifact/androidx.test.ext/junit)
+     * [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver)
+     * A scriptable web server for testing HTTP clients
      */
-    const val junitExt = "androidx.test.ext:junit:${Versions.junit}"
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServer}"
 
     /**
-     * [Compose Testing For JUnit4](https://mvnrepository.com/artifact/androidx.compose.ui/ui-test-junit4)
-     * Compose testing integration with JUnit4
+     * [Mockito](https://github.com/mockito/mockito)
+     * Most popular mocking framework for Java
      */
-    const val junitUi = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+    const val mockitoCore = "org.mockito:mockito-core:${Versions.mockitoCore}"
 
     /**
-     * [AndroidX Test Library](https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core)
-     * The AndroidX Test Library provides an extensive framework for testing Android apps
+     * [UI Test Junit4](https://developer.android.com/jetpack/compose/testing#setup)
      */
-    const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val uiTestJunit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 
     /**
-     * [Hilt Android Testing](https://mvnrepository.com/artifact/com.google.dagger/hilt-android-testing)
-     * A fast dependency injector for Android and Java.
+     * [UI Test Manifest](https://developer.android.com/jetpack/compose/testing#setup)
      */
-    const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:${Versions.hiltCore}"
+    const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 }

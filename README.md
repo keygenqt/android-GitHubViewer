@@ -54,10 +54,10 @@ Implementation of the application using the latest Android stack as of early sum
     * [AndroidX Security](https://mvnrepository.com/artifact/androidx.security/security-identity-credential)
 * Test
     * [JUnit](https://mvnrepository.com/artifact/junit/junit)
-    * [Android JUnit](https://mvnrepository.com/artifact/androidx.test.ext/junit)
-    * [Compose Testing For JUnit4](https://mvnrepository.com/artifact/androidx.compose.ui/ui-test-junit4)
-    * [AndroidX Test Library](https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core)
-    * [Hilt Android Testing](https://mvnrepository.com/artifact/com.google.dagger/hilt-android-testing)
+    * [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver)
+    * [Mockito](https://github.com/mockito/mockito)
+    * [UI Test Junit4](https://developer.android.com/jetpack/compose/testing#setup)
+    * [UI Test Manifest](https://developer.android.com/jetpack/compose/testing#setup)
 * Other
     * [Material Components For Android](https://mvnrepository.com/artifact/com.google.android.material/material)
     * [Timber](https://mvnrepository.com/artifact/com.jakewharton.timber/timber)

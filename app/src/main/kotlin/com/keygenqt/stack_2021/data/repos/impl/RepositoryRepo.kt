@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.data.repos.impl
 
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.repos.DaoRepo
-import com.keygenqt.stack_2021.data.repos.RepoRepository
+import com.keygenqt.stack_2021.data.repos.IRepositoryRepo
 import com.keygenqt.stack_2021.data.repos.ServiceRepo
 import com.keygenqt.stack_2021.extension.toModelRepos
 import com.keygenqt.stack_2021.models.ModelRepo
@@ -32,7 +32,7 @@ class RepositoryRepo @Inject constructor(
     private val preferences: SharedPreferences,
     private val service: ServiceRepo,
     private val dao: DaoRepo
-) : RepoRepository {
+): IRepositoryRepo {
     override suspend fun getModels(page: Int): ResponseResult<List<ModelRepo>> {
         return withContext(Dispatchers.IO) {
             try {

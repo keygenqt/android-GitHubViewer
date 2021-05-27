@@ -22,7 +22,6 @@ import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.data.AppDatabase
 import com.keygenqt.stack_2021.data.followers.DaoFollower
 import com.keygenqt.stack_2021.data.repos.DaoRepo
-import com.keygenqt.stack_2021.data.user.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

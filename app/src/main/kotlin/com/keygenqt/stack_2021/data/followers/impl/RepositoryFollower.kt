@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.data.followers.impl
 
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.followers.DaoFollower
-import com.keygenqt.stack_2021.data.followers.FollowerRepository
+import com.keygenqt.stack_2021.data.followers.IRepositoryFollower
 import com.keygenqt.stack_2021.data.followers.ServiceFollower
 import com.keygenqt.stack_2021.extension.toModelFollowers
 import com.keygenqt.stack_2021.models.ModelFollower
@@ -32,7 +32,7 @@ class RepositoryFollower @Inject constructor(
     private val preferences: SharedPreferences,
     private val service: ServiceFollower,
     private val dao: DaoFollower
-) : FollowerRepository {
+) : IRepositoryFollower {
     override suspend fun getModels(page: Int): ResponseResult<List<ModelFollower>> {
         return withContext(Dispatchers.IO) {
             try {

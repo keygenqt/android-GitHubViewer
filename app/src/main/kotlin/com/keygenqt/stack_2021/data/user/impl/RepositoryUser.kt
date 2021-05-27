@@ -16,29 +16,29 @@
  
 package com.keygenqt.stack_2021.data.user.impl
 
-import android.content.Context
 import androidx.annotation.WorkerThread
-import com.keygenqt.stack_2021.R
+import com.keygenqt.stack_2021.base.NotFoundException
 import com.keygenqt.stack_2021.base.ResponseResult
-import com.keygenqt.stack_2021.base.SharedPreferences
+import com.keygenqt.stack_2021.data.user.IRepositoryUser
 import com.keygenqt.stack_2021.data.user.ServiceUser
-import com.keygenqt.stack_2021.data.user.UserRepository
 import com.keygenqt.stack_2021.extension.toModelUser
+import com.keygenqt.stack_2021.models.ModelUser
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RepositoryUser @Inject constructor(
-    private val preferences: SharedPreferences,
     private val service: ServiceUser,
-    private val context: Context
-) : UserRepository {
+    private val gitHubUser: String
+) : IRepositoryUser {
 
     @WorkerThread
-    override fun observeModel() = flow {
+    override fun observeModel(onSuccess: (ModelUser) -> Unit) = flow {
         try {
-            service.getUser(context.getString(R.string.github_user)).body()?.toModelUser()?.let { model ->
-                preferences.modelUser = model
-                emit(ResponseResult.Success(preferences.modelUser!!))
+            service.getUser(gitHubUser).body()?.toModelUser()?.let { model ->
+                onSuccess.invoke(model)
+                emit(ResponseResult.Success(model))
+            } ?: run {
+                throw NotFoundException()
             }
         } catch (ex: Exception) {
             emit(ResponseResult.Error(ex))

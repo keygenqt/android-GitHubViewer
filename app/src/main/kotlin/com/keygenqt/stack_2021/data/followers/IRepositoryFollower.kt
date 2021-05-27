@@ -14,20 +14,17 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021
+package com.keygenqt.stack_2021.data.followers
 
-import org.junit.Test
-
-import org.junit.Assert.*
+import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.models.ModelFollower
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * Interface to the follower data layer.
  */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+interface IRepositoryFollower {
+    /**
+     * Get [ModelFollower] posts.
+     */
+    suspend fun getModels(page: Int): ResponseResult<List<ModelFollower>>
 }

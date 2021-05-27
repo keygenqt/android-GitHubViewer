@@ -22,7 +22,7 @@ import com.keygenqt.stack_2021.models.ModelRepo
 /**
  * Interface to the repos data layer.
  */
-interface RepoRepository {
+interface IRepositoryRepo {
     /**
      * Get ModelRepo posts.
      */

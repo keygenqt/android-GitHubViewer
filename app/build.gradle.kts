@@ -121,12 +121,14 @@ dependencies {
         implementation(interceptor)
     }
 
-    dep.test.apply { // https://developer.android.com/studio/test
+    dep.test.apply {
+        // unit
         testImplementation(junit)
-        androidTestImplementation(junitExt)
-        androidTestImplementation(junitUi)
-        androidTestImplementation(espresso)
-        androidTestImplementation(hiltAndroidTesting)
+        testImplementation(mockWebServer)
+        testImplementation(mockitoCore)
+        // compose
+        androidTestImplementation(uiTestJunit4)
+        debugImplementation(uiTestManifest)
     }
 
     dep.other.apply { // Miscellaneous required libraries
