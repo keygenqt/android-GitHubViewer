@@ -3,7 +3,7 @@ GitHub Viewer
 
 ![picture](data/preview.png)
 
-Implementation of the application using the latest Android stack as of early summer 2021 and the [GitHub REST API](https://docs.github.com/en/rest).
+Implementation of the application using the latest Android Tech Stack and the [GitHub REST API](https://docs.github.com/en/rest).
 
 ```xml
 <!-- Github login. You can change the user to your own-->
