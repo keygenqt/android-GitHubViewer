@@ -35,7 +35,6 @@ Implementation of the application using the latest Android Tech Stack and the [G
     * [ConstraintLayout Compose](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
     * [Paging Compose](https://developer.android.com/jetpack/androidx/releases/paging)
     * [Compose tooling](https://developer.android.com/jetpack/compose/tooling)
-    * [Runtime LiveData Compose](https://developer.android.com/jetpack/androidx/releases/compose-runtime#declaring_dependencies)
     * [Navigation Compose Hilt Extension](https://mvnrepository.com/artifact/androidx.hilt/hilt-navigation-compose)
 * Di
     * [Hilt Compiler](https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager)

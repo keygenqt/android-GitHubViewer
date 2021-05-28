@@ -88,7 +88,6 @@ dependencies {
         implementation(pagingCompose)
         implementation(icons)
         implementation(hiltNavigationCompose)
-        implementation(livedata)
     }
 
     dep.accompanist.apply { // https://google.github.io/accompanist/

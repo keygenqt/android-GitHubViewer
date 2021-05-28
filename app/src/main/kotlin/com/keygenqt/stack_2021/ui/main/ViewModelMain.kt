@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.main
 
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.MainThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.keygenqt.stack_2021.base.LiveCoroutinesViewModel
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModelMain @Inject constructor() : LiveCoroutinesViewModel() {
+class ViewModelMain @Inject constructor() : ViewModel() {
 
-    private val _showSnackBar: MutableLiveData<Boolean> = MutableLiveData(false)
-    val showSnackBar: LiveData<Boolean> get() = _showSnackBar
+    private val _showSnackBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val showSnackBar: StateFlow<Boolean> get() = _showSnackBar
 
     @MainThread
     fun isShowSnackBar(): Boolean {
-        return _showSnackBar.value ?: false
+        return _showSnackBar.value
     }
 
     @MainThread
     fun toggleSnackBar() {
-        _showSnackBar.postValue(true)
+        _showSnackBar.tryEmit(true)
         Handler(Looper.getMainLooper()).postDelayed({
-            _showSnackBar.postValue(false)
+            _showSnackBar.tryEmit(false)
         }, 1500)
     }
 }

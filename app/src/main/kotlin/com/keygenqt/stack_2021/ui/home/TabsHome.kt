@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.StringRes
@@ -27,14 +27,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.People
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -57,16 +55,16 @@ fun TabsHome(
     navigateToDetailsRepo: (Long) -> Unit,
 ) {
     val tabs = HomeTab.values()
-    val selectedTab = HomeTab.getTabFromResource(viewModel.selectedTab.value)
+    val tabId: Int by viewModel.selectedTab.collectAsState(initial = 0)
     val lazyRepos: LazyPagingItems<ModelRepo> = viewModel.repos.collectAsLazyPagingItems()
     val lazyFollowers: LazyPagingItems<ModelFollower> = viewModel.followers.collectAsLazyPagingItems()
-    val showSnackBar: Boolean by viewModelMain.showSnackBar.observeAsState(false)
+    val showSnackBar: Boolean by viewModelMain.showSnackBar.collectAsState()
 
     ConstraintLayout {
         val (body) = createRefs()
         Scaffold(
             topBar = {
-                Crossfade(selectedTab) { destination ->
+                Crossfade(HomeTab.getTabFromResource(tabId)) { destination ->
                     when (destination) {
                         HomeTab.REPOS -> PosterAppBar(stringResource(id = R.string.title_repos))
                         HomeTab.FOLLOWERS -> PosterAppBar(stringResource(id = R.string.title_followers))
@@ -89,7 +87,7 @@ fun TabsHome(
                             tabs.forEach { tab ->
                                 BottomNavigationItem(
                                     icon = { Icon(imageVector = tab.icon, contentDescription = null) },
-                                    selected = tab == selectedTab,
+                                    selected = tab == HomeTab.getTabFromResource(tabId),
                                     onClick = { viewModel.selectTab(tab.title) },
                                     selectedContentColor = Color.White,
                                     unselectedContentColor = Color.White,
@@ -102,7 +100,7 @@ fun TabsHome(
             }
         ) { innerPadding ->
             val modifier = Modifier.padding(innerPadding)
-            Crossfade(selectedTab) { destination ->
+            Crossfade(HomeTab.getTabFromResource(tabId)) { destination ->
                 when (destination) {
                     HomeTab.REPOS -> ReposList(modifier, lazyRepos, navigateToDetailsRepo)
                     HomeTab.FOLLOWERS -> ListFollowers(modifier, lazyFollowers)

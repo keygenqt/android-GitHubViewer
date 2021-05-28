@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.compose.foundation.background
@@ -28,8 +28,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -50,10 +51,11 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 @Composable
 fun DetailsRepo(
+    repoId: Long,
     viewModel: ViewModelHome,
     upPress: () -> Unit
 ) {
-    val model: ModelRepo? by viewModel.repoView.observeAsState()
+    val model by remember(viewModel, repoId) { viewModel.findByIdRepo(repoId) }.collectAsState(null)
     model?.let {
         RepoView(it, upPress)
     }

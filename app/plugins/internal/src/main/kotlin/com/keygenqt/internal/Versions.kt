@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 @file:Suppress("unused")
 
 package com.keygenqt.internal
@@ -33,7 +33,6 @@ object Versions {
     // android
     const val appcompat = "1.2.0"
     const val material = "1.3.0"
-    const val ktxLifecycleRuntime = "2.3.1"
 
     // di
     const val hilt = "1.0.0-beta01"
@@ -48,7 +47,6 @@ object Versions {
     const val timber = "4.7.1"
 
     // architecture components
-    const val lifecycle = "2.2.0"
     const val startup = "1.0.0"
 
     // test

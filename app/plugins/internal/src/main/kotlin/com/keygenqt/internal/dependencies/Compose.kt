@@ -57,11 +57,6 @@ object Compose {
     const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
 
     /**
-     * [Runtime LiveData Compose](https://developer.android.com/jetpack/androidx/releases/compose-runtime#declaring_dependencies)
-     */
-    const val livedata = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
-
-    /**
      * [Navigation Compose Hilt Extension](https://mvnrepository.com/artifact/androidx.hilt/hilt-navigation-compose)
      * Navigation Compose Hilt Extension
      */

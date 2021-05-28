@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.data.repos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.keygenqt.stack_2021.models.ModelRepo
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DaoRepo {
 
-    @Query("SELECT * FROM ModelRepo WHERE id = :id_")
-    fun getModel(id_: Long): LiveData<ModelRepo>
+    @Query("SELECT * FROM ModelRepo WHERE id = :id")
+    fun getModel(id: Long): Flow<ModelRepo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(modelRepos: List<ModelRepo>)
