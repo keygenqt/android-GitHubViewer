@@ -24,7 +24,7 @@ Implementation of the application using the latest Android Tech Stack and the [G
 ### Libraries
 
 * Accompanist
-    * [Accompanist Insets](https://github.com/google/accompanist)
+    * [Accompanist Insets](https://google.github.io/accompanist/insets/)
     * [Glide for Jetpack Compose](https://google.github.io/accompanist/glide/)
     * [Swipe Refresh](https://google.github.io/accompanist/swiperefresh/)
 * Jetpack Compose
