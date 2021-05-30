@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.annotation.VisibleForTesting
+import androidx.compose.runtime.CompositionLocalProvider
+import com.keygenqt.stack_2021.base.LocalBaseViewModel
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.time.ExperimentalTime
@@ -28,8 +29,7 @@ import kotlin.time.ExperimentalTime
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @VisibleForTesting
-    val viewModel: ViewModelMain by viewModels()
+    private val viewModel: ViewModelMain by viewModels()
 
     private var route = NavScreen.Splash.route
 
@@ -37,8 +37,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            StackTheme {
-                MainNavGraph(viewModel) { route = it }
+            CompositionLocalProvider(LocalBaseViewModel provides viewModel) {
+                StackTheme {
+                    MainNavGraph { route = it }
+                }
             }
         }
     }

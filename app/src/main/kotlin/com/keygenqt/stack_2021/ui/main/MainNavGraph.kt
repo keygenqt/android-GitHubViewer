@@ -22,10 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.*
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.keygenqt.stack_2021.extension.isSucceeded
 import com.keygenqt.stack_2021.ui.home.DetailsRepo
@@ -37,13 +34,15 @@ import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
 @Composable
-fun MainNavGraph(viewModelMain: ViewModelMain, changeRoute: (String) -> Unit) {
+fun MainNavGraph(changeRoute: (String) -> Unit) {
     val navController = rememberNavController().apply {
         addOnDestinationChangedListener { _, destination, _ ->
             destination.route?.let { changeRoute.invoke(it) }
         }
     }
-    val actions = remember(navController) { MainActions(navController) }
+    val actions = remember(navController) {
+        MainActions(navController)
+    }
     ProvideWindowInsets {
         NavHost(navController = navController, startDestination = NavScreen.Splash.route) {
             composable(NavScreen.Splash.route) { backStackEntry ->
@@ -58,7 +57,6 @@ fun MainNavGraph(viewModelMain: ViewModelMain, changeRoute: (String) -> Unit) {
             composable(NavScreen.Home.route) { backStackEntry ->
                 val viewModel = hiltViewModel<ViewModelHome>(backStackEntry = backStackEntry)
                 TabsHome(
-                    viewModelMain = viewModelMain,
                     viewModel = viewModel,
                     navigateToDetailsRepo = actions.navigateToDetailsRepo,
                 )

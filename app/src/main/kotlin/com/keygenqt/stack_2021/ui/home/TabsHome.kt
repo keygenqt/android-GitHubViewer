@@ -43,14 +43,13 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import com.keygenqt.stack_2021.R
+import com.keygenqt.stack_2021.base.LocalBaseViewModel
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
-import com.keygenqt.stack_2021.ui.main.ViewModelMain
 import com.keygenqt.stack_2021.ui.theme.Purple700
 
 @Composable
 fun TabsHome(
-    viewModelMain: ViewModelMain,
     viewModel: ViewModelHome,
     navigateToDetailsRepo: (Long) -> Unit,
 ) {
@@ -58,7 +57,7 @@ fun TabsHome(
     val tabId: Int by viewModel.selectedTab.collectAsState(initial = 0)
     val lazyRepos: LazyPagingItems<ModelRepo> = viewModel.repos.collectAsLazyPagingItems()
     val lazyFollowers: LazyPagingItems<ModelFollower> = viewModel.followers.collectAsLazyPagingItems()
-    val showSnackBar: Boolean by viewModelMain.showSnackBar.collectAsState()
+    val showSnackBar: Boolean by LocalBaseViewModel.current.showSnackBar.collectAsState()
 
     ConstraintLayout {
         val (body) = createRefs()
