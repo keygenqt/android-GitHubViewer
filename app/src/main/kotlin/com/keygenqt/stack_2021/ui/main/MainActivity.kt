@@ -21,6 +21,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.keygenqt.stack_2021.base.LocalBaseViewModel
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,22 +33,23 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: ViewModelMain by viewModels()
 
-    private var route = NavScreen.Splash.route
+    private lateinit var navController: NavHostController
 
     @ExperimentalTime
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            navController = rememberNavController()
             CompositionLocalProvider(LocalBaseViewModel provides viewModel) {
                 StackTheme {
-                    MainNavGraph { route = it }
+                    MainNavGraph(navController)
                 }
             }
         }
     }
 
     override fun onBackPressed() {
-        when (route) {
+        when (navController.currentDestination?.route) {
             NavScreen.Splash.route -> finishAffinity()
             NavScreen.Home.route -> if (viewModel.isShowSnackBar()) finishAffinity() else viewModel.toggleSnackBar()
             else -> super.onBackPressed()

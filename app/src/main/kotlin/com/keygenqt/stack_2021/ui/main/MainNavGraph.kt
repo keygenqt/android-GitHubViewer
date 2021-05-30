@@ -21,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import com.google.accompanist.insets.ProvideWindowInsets
@@ -34,12 +35,7 @@ import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
 @Composable
-fun MainNavGraph(changeRoute: (String) -> Unit) {
-    val navController = rememberNavController().apply {
-        addOnDestinationChangedListener { _, destination, _ ->
-            destination.route?.let { changeRoute.invoke(it) }
-        }
-    }
+fun MainNavGraph(navController: NavHostController) {
     val actions = remember(navController) {
         MainActions(navController)
     }
