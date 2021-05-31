@@ -49,8 +49,7 @@ Implementation of the application using the latest Android Tech Stack and the [G
     * [Android Room Kotlin Extensions](https://mvnrepository.com/artifact/androidx.room/room-ktx)
     * [Android Room Compiler](https://mvnrepository.com/artifact/androidx.room/room-compiler)
 * Security
-    * [AndroidX Security](https://mvnrepository.com/artifact/androidx.security/security-crypto)
-    * [AndroidX Security](https://mvnrepository.com/artifact/androidx.security/security-identity-credential)
+    * [Crypto](https://developer.android.com/jetpack/androidx/releases/security)
 * Test
     * [JUnit](https://mvnrepository.com/artifact/junit/junit)
     * [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver)

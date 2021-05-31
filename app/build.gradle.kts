@@ -105,7 +105,6 @@ dependencies {
 
     dep.security.apply { // https://developer.android.com/topic/security/data
         implementation(crypto)
-        implementation(identityCredential)
     }
 
     dep.room.apply { // https://developer.android.com/jetpack/androidx/releases/room

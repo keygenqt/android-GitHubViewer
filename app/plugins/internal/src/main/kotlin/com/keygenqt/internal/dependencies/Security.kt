@@ -21,12 +21,7 @@ import com.keygenqt.internal.*
 
 object Security {
     /**
-     * [AndroidX Security](https://mvnrepository.com/artifact/androidx.security/security-crypto)
+     * [Crypto](https://developer.android.com/jetpack/androidx/releases/security)
      */
     const val crypto = "androidx.security:security-crypto:${Versions.securityCrypto}"
-
-    /**
-     * [AndroidX Security](https://mvnrepository.com/artifact/androidx.security/security-identity-credential)
-     */
-    const val identityCredential = "androidx.security:security-identity-credential:${Versions.securityIdentityCredential}"
 }
