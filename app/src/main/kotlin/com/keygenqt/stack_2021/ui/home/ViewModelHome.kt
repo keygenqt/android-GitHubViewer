@@ -19,20 +19,14 @@ package com.keygenqt.stack_2021.ui.home
 import androidx.annotation.MainThread
 import androidx.annotation.StringRes
 import androidx.annotation.WorkerThread
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.paging.*
+import com.keygenqt.stack_2021.data.AppDatabase
 import com.keygenqt.stack_2021.data.followers.impl.PageSourceFollower
 import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
-import com.keygenqt.stack_2021.data.repos.impl.DataRepo
-import com.keygenqt.stack_2021.data.repos.impl.PageSourceRepo
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
+import com.keygenqt.stack_2021.data.repos.paging.RemoteMediatorRepo
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.utils.ConstantsPaging
@@ -45,24 +39,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelHome @Inject constructor(
-    private val dataRepo: DataRepo,
-    private val repositoryRepo: RepositoryRepo,
+    private val db: AppDatabase,
+    repositoryRepo: RepositoryRepo,
     private val repositoryFollower: RepositoryFollower
 ) : ViewModel() {
 
     private val _selectedTab: MutableStateFlow<Int> = MutableStateFlow(0)
     val selectedTab: StateFlow<Int> = _selectedTab
 
-    val repos: Flow<PagingData<ModelRepo>> = Pager(PagingConfig(pageSize = ConstantsPaging.PER_PAGE)) {
-        PageSourceRepo(repositoryRepo)
-    }.flow.cachedIn(viewModelScope)
+    @ExperimentalPagingApi
+    val repos: Flow<PagingData<ModelRepo>> = Pager(
+        config = PagingConfig(pageSize = ConstantsPaging.PER_PAGE),
+        remoteMediator = RemoteMediatorRepo(db, repositoryRepo)
+    ) {
+        db.repo().pagingSource(1)
+    }.flow
 
     val followers: Flow<PagingData<ModelFollower>> = Pager(PagingConfig(pageSize = ConstantsPaging.PER_PAGE)) {
         PageSourceFollower(repositoryFollower)
     }.flow.cachedIn(viewModelScope)
 
     @WorkerThread
-    fun findByIdRepo(id: Long): Flow<ModelRepo?> = dataRepo.getModel(id).distinctUntilChanged()
+    fun findByIdRepo(id: Long): Flow<ModelRepo?> = db.repo().getModel(id).distinctUntilChanged()
 
     @MainThread
     fun selectTab(@StringRes tab: Int) {

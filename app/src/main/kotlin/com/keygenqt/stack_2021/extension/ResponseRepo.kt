@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.extension
 
 import com.keygenqt.stack_2021.data.repos.impl.ResponseRepo
 import com.keygenqt.stack_2021.models.ModelRepo
 
-fun ResponseRepo.toModelRepo(): ModelRepo {
+fun ResponseRepo.toModelRepo(page: Int): ModelRepo {
     return ModelRepo(
         id = this.id,
         name = this.name,
         language = this.language ?: "",
-        createdAt = this.created_at
+        createdAt = this.created_at,
+        page = page,
     )
 }
 
-fun List<ResponseRepo>.toModelRepos(): List<ModelRepo> {
-    return this.map { it.toModelRepo() }
+fun List<ResponseRepo>.toModelRepos(page: Int): List<ModelRepo> {
+    return this.map { it.toModelRepo(page) }
 }

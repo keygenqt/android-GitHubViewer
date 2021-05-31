@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.di
 
 import android.content.Context
 import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.followers.DaoFollower
-import com.keygenqt.stack_2021.data.repos.DaoRepo
+import com.keygenqt.stack_2021.data.followers.ServiceFollower
+import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import com.keygenqt.stack_2021.data.repos.ServiceRepo
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
 import com.keygenqt.stack_2021.data.user.ServiceUser
 import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
-import com.keygenqt.stack_2021.data.followers.ServiceFollower
-import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,10 +41,9 @@ object RepositoryModule {
     @ViewModelScoped
     fun provideRepositoryRepo(
         preferences: SharedPreferences,
-        service: ServiceRepo,
-        dao: DaoRepo
+        service: ServiceRepo
     ): RepositoryRepo {
-        return RepositoryRepo(preferences, service, dao)
+        return RepositoryRepo(preferences, service)
     }
 
     @Provides

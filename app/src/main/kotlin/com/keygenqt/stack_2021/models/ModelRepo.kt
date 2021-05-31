@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.models
 
 import androidx.compose.runtime.Immutable
@@ -26,7 +26,8 @@ data class ModelRepo(
     @PrimaryKey val id: Long,
     val name: String,
     val language: String,
-    val createdAt: String
+    val createdAt: String,
+    val page: Int,
 ) {
     companion object {
         fun mock() = ModelRepo(
@@ -34,6 +35,7 @@ data class ModelRepo(
             name = "android-stack_2021",
             language = "Kotlin",
             createdAt = "2021-05-15T19:50:40Z",
+            page = 0
         )
     }
 }

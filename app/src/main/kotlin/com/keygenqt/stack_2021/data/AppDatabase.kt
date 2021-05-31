@@ -27,7 +27,7 @@ import com.keygenqt.stack_2021.models.ModelRepo
     entities = [
         ModelRepo::class,
         ModelFollower::class
-    ], version = 3, exportSchema = false
+    ], version = 4, exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun repo(): DaoRepo

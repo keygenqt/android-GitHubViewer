@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import androidx.paging.ExperimentalPagingApi
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.keygenqt.stack_2021.extension.isSucceeded
 import com.keygenqt.stack_2021.ui.home.DetailsRepo
@@ -33,6 +34,7 @@ import com.keygenqt.stack_2021.ui.other.Splash
 import com.keygenqt.stack_2021.ui.other.ViewModelSplash
 import kotlin.time.ExperimentalTime
 
+@ExperimentalPagingApi
 @ExperimentalTime
 @Composable
 fun MainNavGraph(navController: NavHostController) {

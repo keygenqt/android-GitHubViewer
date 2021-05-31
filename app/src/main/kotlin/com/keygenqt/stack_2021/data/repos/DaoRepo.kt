@@ -16,6 +16,7 @@
 
 package com.keygenqt.stack_2021.data.repos
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -29,12 +30,19 @@ interface DaoRepo {
     @Query("SELECT * FROM ModelRepo WHERE id = :id")
     fun getModel(id: Long): Flow<ModelRepo>
 
+    ////////// RemoteMediator
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertList(modelRepos: List<ModelRepo>)
+    suspend fun insertAll(modelRepos: List<ModelRepo>)
 
-    @Query("SELECT * FROM ModelRepo ORDER BY createdAt DESC")
-    suspend fun getModels(): List<ModelRepo>
+    @Query("SELECT * FROM ModelRepo WHERE page = :page ORDER BY createdAt DESC")
+    fun pagingSource(page: Int): PagingSource<Int, ModelRepo>
 
     @Query("DELETE FROM ModelRepo")
-    fun delete()
+    suspend fun clearAll()
+
+    @Query("DELETE FROM ModelRepo WHERE page = :page")
+    fun deleteByPage(page: Int)
+
+    @Query("SELECT * FROM ModelRepo ORDER BY createdAt,page DESC LIMIT 1")
+    suspend fun lastItemOrNull(): ModelRepo
 }

@@ -13,39 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.data.repos.impl
 
-import com.keygenqt.stack_2021.base.ResponseResult
+import com.keygenqt.stack_2021.base.NotFoundException
 import com.keygenqt.stack_2021.base.SharedPreferences
-import com.keygenqt.stack_2021.data.repos.DaoRepo
-import com.keygenqt.stack_2021.data.repos.IRepositoryRepo
 import com.keygenqt.stack_2021.data.repos.ServiceRepo
 import com.keygenqt.stack_2021.extension.toModelRepos
 import com.keygenqt.stack_2021.models.ModelRepo
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RepositoryRepo @Inject constructor(
     private val preferences: SharedPreferences,
-    private val service: ServiceRepo,
-    private val dao: DaoRepo
-): IRepositoryRepo {
-    override suspend fun getModels(page: Int): ResponseResult<List<ModelRepo>> {
-        return withContext(Dispatchers.IO) {
-            try {
-                service.listRepo(preferences.reposUrl, page).body()?.toModelRepos()?.let { models ->
-                    dao.insertList(models)
-                    delay(1000) // slow internet
-                    ResponseResult.Success(models)
-                } ?: run {
-                    ResponseResult.Success(emptyList())
-                }
-            } catch (ex: Exception) {
-                ResponseResult.Error(ex)
-            }
+    private val service: ServiceRepo
+) {
+    suspend fun getModels(page: Int): List<ModelRepo> {
+        delay(3000)
+        return service.listRepo(preferences.reposUrl, page).body()?.toModelRepos(page)?.let { models ->
+            models
+        } ?: run {
+            throw NotFoundException()
         }
     }
 }
