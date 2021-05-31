@@ -68,7 +68,9 @@ fun <T : Any> CommonList(
                     .visible(models.loadState.refresh !is LoadState.Loading)
             ) {
                 items(models) { model ->
-                    content.invoke(model!!)
+                    model?.let {
+                        content.invoke(model)
+                    }
                 }
                 models.apply {
                     when {

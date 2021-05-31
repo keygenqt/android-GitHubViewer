@@ -30,19 +30,12 @@ interface DaoRepo {
     @Query("SELECT * FROM ModelRepo WHERE id = :id")
     fun getModel(id: Long): Flow<ModelRepo>
 
-    ////////// RemoteMediator
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(modelRepos: List<ModelRepo>)
 
-    @Query("SELECT * FROM ModelRepo WHERE page = :page ORDER BY createdAt DESC")
-    fun pagingSource(page: Int): PagingSource<Int, ModelRepo>
+    @Query("SELECT * FROM ModelRepo ORDER BY createdAt DESC")
+    fun pagingSource(): PagingSource<Int, ModelRepo>
 
     @Query("DELETE FROM ModelRepo")
     suspend fun clearAll()
-
-    @Query("DELETE FROM ModelRepo WHERE page = :page")
-    fun deleteByPage(page: Int)
-
-    @Query("SELECT * FROM ModelRepo ORDER BY createdAt,page DESC LIMIT 1")
-    suspend fun lastItemOrNull(): ModelRepo
 }

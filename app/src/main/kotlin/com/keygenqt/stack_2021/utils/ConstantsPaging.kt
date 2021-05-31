@@ -18,5 +18,5 @@ package com.keygenqt.stack_2021.utils
 
 object ConstantsPaging {
     const val MAX_PAGE_SIZE = 100
-    const val PER_PAGE = 20
+    const val PER_PAGE = 10
 }

@@ -20,7 +20,6 @@ import android.app.Application
 import androidx.room.Room
 import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.data.AppDatabase
-import com.keygenqt.stack_2021.data.followers.DaoFollower
 import com.keygenqt.stack_2021.data.repos.DaoRepo
 import dagger.Module
 import dagger.Provides
@@ -48,11 +47,5 @@ object DataModule {
     @Singleton
     fun provideDaoRepo(appDatabase: AppDatabase): DaoRepo {
         return appDatabase.repo()
-    }
-
-    @Provides
-    @Singleton
-    fun provideDaoFollower(appDatabase: AppDatabase): DaoFollower {
-        return appDatabase.follower()
     }
 }

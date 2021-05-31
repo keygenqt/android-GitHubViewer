@@ -29,7 +29,7 @@ class RepositoryRepo @Inject constructor(
     private val service: ServiceRepo
 ) {
     suspend fun getModels(page: Int): List<ModelRepo> {
-        delay(3000)
+        delay(1000) // slow internet
         return service.listRepo(preferences.reposUrl, page).body()?.toModelRepos(page)?.let { models ->
             models
         } ?: run {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.base
 
 import com.keygenqt.stack_2021.models.ModelUser
@@ -25,7 +25,12 @@ class SharedPreferences(private val p: android.content.SharedPreferences) {
 
     companion object {
         private const val USER = "USER"
+        private const val LAST_UPDATE_REPOS = "LAST_UPDATE_REPOS_"
     }
+
+    var lastUpdateRepos: Long
+        get() = p.getLong(LAST_UPDATE_REPOS, 0L)
+        set(value) = p.edit().putLong(LAST_UPDATE_REPOS, value).apply()
 
     val followersUrl: String
         get() = modelUser!!.followersUrl

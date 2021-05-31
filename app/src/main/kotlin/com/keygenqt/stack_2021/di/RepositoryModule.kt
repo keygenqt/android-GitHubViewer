@@ -19,7 +19,6 @@ package com.keygenqt.stack_2021.di
 import android.content.Context
 import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.base.SharedPreferences
-import com.keygenqt.stack_2021.data.followers.DaoFollower
 import com.keygenqt.stack_2021.data.followers.ServiceFollower
 import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import com.keygenqt.stack_2021.data.repos.ServiceRepo
@@ -51,9 +50,8 @@ object RepositoryModule {
     fun provideRepositoryFollower(
         preferences: SharedPreferences,
         service: ServiceFollower,
-        dao: DaoFollower
     ): RepositoryFollower {
-        return RepositoryFollower(preferences, service, dao)
+        return RepositoryFollower(preferences, service)
     }
 
     @Provides

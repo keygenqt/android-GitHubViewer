@@ -58,6 +58,7 @@ fun ListFollowers(
     }
 }
 
+// Example of use ConstraintLayout
 @Composable
 fun ItemFollower(
     model: ModelFollower,

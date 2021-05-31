@@ -14,10 +14,11 @@
  * limitations under the License.
  */
  
-package com.keygenqt.stack_2021.data.followers.impl
+package com.keygenqt.stack_2021.data.followers.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import com.keygenqt.stack_2021.extension.pagingSucceeded
 import com.keygenqt.stack_2021.models.ModelFollower
 

@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.data.user.impl
 
 import androidx.annotation.WorkerThread
 import com.keygenqt.stack_2021.base.NotFoundException
 import com.keygenqt.stack_2021.base.ResponseResult
-import com.keygenqt.stack_2021.data.user.IRepositoryUser
 import com.keygenqt.stack_2021.data.user.ServiceUser
 import com.keygenqt.stack_2021.extension.toModelUser
 import com.keygenqt.stack_2021.models.ModelUser
@@ -29,10 +28,10 @@ import javax.inject.Inject
 class RepositoryUser @Inject constructor(
     private val service: ServiceUser,
     private val gitHubUser: String
-) : IRepositoryUser {
+) {
 
     @WorkerThread
-    override fun observeModel(onSuccess: (ModelUser) -> Unit) = flow {
+    fun observeModel(onSuccess: (ModelUser) -> Unit) = flow {
         try {
             service.getUser(gitHubUser).body()?.toModelUser()?.let { model ->
                 onSuccess.invoke(model)

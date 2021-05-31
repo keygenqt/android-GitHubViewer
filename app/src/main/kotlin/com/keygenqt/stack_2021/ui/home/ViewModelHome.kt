@@ -22,9 +22,10 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
+import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.AppDatabase
-import com.keygenqt.stack_2021.data.followers.impl.PageSourceFollower
 import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
+import com.keygenqt.stack_2021.data.followers.paging.PageSourceFollower
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
 import com.keygenqt.stack_2021.data.repos.paging.RemoteMediatorRepo
 import com.keygenqt.stack_2021.models.ModelFollower
@@ -40,6 +41,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewModelHome @Inject constructor(
     private val db: AppDatabase,
+    preferences: SharedPreferences,
     repositoryRepo: RepositoryRepo,
     private val repositoryFollower: RepositoryFollower
 ) : ViewModel() {
@@ -47,14 +49,16 @@ class ViewModelHome @Inject constructor(
     private val _selectedTab: MutableStateFlow<Int> = MutableStateFlow(0)
     val selectedTab: StateFlow<Int> = _selectedTab
 
+    // Example of use RemoteMediatorRepo
     @ExperimentalPagingApi
     val repos: Flow<PagingData<ModelRepo>> = Pager(
         config = PagingConfig(pageSize = ConstantsPaging.PER_PAGE),
-        remoteMediator = RemoteMediatorRepo(db, repositoryRepo)
+        remoteMediator = RemoteMediatorRepo(db, preferences, repositoryRepo)
     ) {
-        db.repo().pagingSource(1)
+        db.repo().pagingSource()
     }.flow
 
+    // Example of use PagingSource
     val followers: Flow<PagingData<ModelFollower>> = Pager(PagingConfig(pageSize = ConstantsPaging.PER_PAGE)) {
         PageSourceFollower(repositoryFollower)
     }.flow.cachedIn(viewModelScope)

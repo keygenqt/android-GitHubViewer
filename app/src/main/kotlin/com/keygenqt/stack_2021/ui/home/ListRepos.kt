@@ -60,6 +60,7 @@ fun ReposList(
     }
 }
 
+// Example of use Row/Column
 @Composable
 fun ItemRepo(
     model: ModelRepo,
