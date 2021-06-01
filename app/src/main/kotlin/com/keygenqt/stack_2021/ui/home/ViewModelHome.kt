@@ -55,7 +55,7 @@ class ViewModelHome @Inject constructor(
     val selectedTab: StateFlow<Int> = _selectedTab
 
     // first query to get user
-    private var _loadingUser: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    private val _loadingUser: MutableStateFlow<Boolean> = MutableStateFlow(true)
     val loadingUser: Flow<ResponseResult<ModelUser>> = _loadingUser.flatMapLatest {
         this.repositoryUser.loadingUser().onEach {
             it.runSucceeded { user -> preferences.modelUser = user }
