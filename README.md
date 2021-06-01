@@ -20,6 +20,7 @@ Implementation of the application using the latest Android Tech Stack and the [G
 
 ![picture](data/vokoscreen-2021-05-27_10-53-31.gif)
 ![picture](data/vokoscreen-2021-05-27_10-50-27.gif)
+![picture](data/vokoscreen-2021-06-01_16-25-26.gif)
 
 ### Libraries
 
