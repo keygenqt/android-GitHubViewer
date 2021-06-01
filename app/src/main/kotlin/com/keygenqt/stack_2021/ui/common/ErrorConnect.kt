@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.keygenqt.stack_2021.ui.other
+package com.keygenqt.stack_2021.ui.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

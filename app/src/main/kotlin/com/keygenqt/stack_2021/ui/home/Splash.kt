@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.keygenqt.stack_2021.ui.other
+package com.keygenqt.stack_2021.ui.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,10 +23,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,22 +32,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.models.ModelFollower
-import com.keygenqt.stack_2021.ui.home.ItemFollower
 import com.keygenqt.stack_2021.ui.theme.BlackLight
 import com.keygenqt.stack_2021.ui.theme.Blue50_30
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 
 @Composable
-fun Splash(
-    scaffoldState: ScaffoldState = rememberScaffoldState()
-) {
-
-    LaunchedEffect(scaffoldState.snackbarHostState) {
-
-    }
-
-
+fun Splash() {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()

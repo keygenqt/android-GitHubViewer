@@ -27,6 +27,7 @@ import androidx.paging.ExperimentalPagingApi
 import com.keygenqt.stack_2021.base.LocalBaseViewModel
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.time.ExperimentalTime
 
 @AndroidEntryPoint
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var navController: NavHostController
 
+    @ExperimentalCoroutinesApi
     @ExperimentalPagingApi
     @ExperimentalTime
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +54,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onBackPressed() {
         when (navController.currentDestination?.route) {
-            NavScreen.Splash.route -> finishAffinity()
             NavScreen.Home.route -> if (viewModel.isShowSnackBar()) finishAffinity() else viewModel.toggleSnackBar()
             else -> super.onBackPressed()
         }

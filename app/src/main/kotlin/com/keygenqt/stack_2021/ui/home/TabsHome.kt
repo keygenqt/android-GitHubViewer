@@ -48,7 +48,9 @@ import com.keygenqt.stack_2021.base.LocalBaseViewModel
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.ui.theme.Purple700
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @ExperimentalPagingApi
 @Composable
 fun TabsHome(

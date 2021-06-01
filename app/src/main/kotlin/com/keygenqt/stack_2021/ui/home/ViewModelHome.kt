@@ -22,32 +22,45 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
+import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.AppDatabase
 import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import com.keygenqt.stack_2021.data.followers.paging.PageSourceFollower
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
 import com.keygenqt.stack_2021.data.repos.paging.RemoteMediatorRepo
+import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
+import com.keygenqt.stack_2021.extension.runSucceeded
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
+import com.keygenqt.stack_2021.models.ModelUser
 import com.keygenqt.stack_2021.utils.ConstantsPaging
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
+@ExperimentalCoroutinesApi
 class ViewModelHome @Inject constructor(
     private val db: AppDatabase,
     preferences: SharedPreferences,
     repositoryRepo: RepositoryRepo,
-    private val repositoryFollower: RepositoryFollower
+    private val repositoryFollower: RepositoryFollower,
+    private val repository: RepositoryUser
 ) : ViewModel() {
 
+    // change tabs
     private val _selectedTab: MutableStateFlow<Int> = MutableStateFlow(0)
     val selectedTab: StateFlow<Int> = _selectedTab
+
+    // first query to get user
+    private var _loadingUser: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    val loadingUser: Flow<ResponseResult<ModelUser>> = _loadingUser.flatMapLatest {
+        this.repository.loadingUser().onEach {
+            it.runSucceeded { user -> preferences.modelUser = user }
+        }
+    }
 
     // Example of use RemoteMediatorRepo
     @ExperimentalPagingApi
@@ -62,6 +75,9 @@ class ViewModelHome @Inject constructor(
     val followers: Flow<PagingData<ModelFollower>> = Pager(PagingConfig(pageSize = ConstantsPaging.PER_PAGE)) {
         PageSourceFollower(repositoryFollower)
     }.flow.cachedIn(viewModelScope)
+
+    @WorkerThread
+    suspend fun repeatLoadingUser() = _loadingUser.emit(!_loadingUser.value)
 
     @WorkerThread
     fun findByIdRepo(id: Long): Flow<ModelRepo?> = db.repo().getModel(id).distinctUntilChanged()

@@ -17,47 +17,37 @@
 package com.keygenqt.stack_2021.ui.main
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import androidx.paging.ExperimentalPagingApi
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.keygenqt.stack_2021.extension.isError
-import com.keygenqt.stack_2021.extension.isSucceeded
 import com.keygenqt.stack_2021.ui.home.DetailsRepo
+import com.keygenqt.stack_2021.ui.home.StartApp
 import com.keygenqt.stack_2021.ui.home.TabsHome
-import com.keygenqt.stack_2021.ui.home.ViewModelHome
-import com.keygenqt.stack_2021.ui.other.ErrorConnect
-import com.keygenqt.stack_2021.ui.other.Splash
-import com.keygenqt.stack_2021.ui.other.ViewModelSplash
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.time.ExperimentalTime
 
+@ExperimentalCoroutinesApi
 @ExperimentalPagingApi
 @ExperimentalTime
 @Composable
-fun MainNavGraph(navController: NavHostController) {
+fun MainNavGraph(
+    navController: NavHostController
+) {
     val actions = remember(navController) {
         MainActions(navController)
     }
     ProvideWindowInsets {
-        NavHost(navController = navController, startDestination = NavScreen.Splash.route) {
-            composable(NavScreen.Splash.route) { backStackEntry ->
-                val viewModel = hiltViewModel<ViewModelSplash>(backStackEntry = backStackEntry)
-                val user by viewModel.loadingUser.collectAsState(initial = null)
-                when {
-                    user.isSucceeded -> navController.navigate(NavScreen.Home.route)
-                    user.isError -> ErrorConnect { viewModel.repeat() }
-                    else -> Splash()
-                }
-            }
+        NavHost(navController = navController, startDestination = NavScreen.Home.route) {
             composable(NavScreen.Home.route) { backStackEntry ->
-                val viewModel = hiltViewModel<ViewModelHome>(backStackEntry = backStackEntry)
-                TabsHome(
-                    viewModel = viewModel,
+                StartApp(
+                    viewModel = hiltViewModel(backStackEntry = backStackEntry),
                     navigateToDetailsRepo = actions.navigateToDetailsRepo,
                 )
             }
@@ -65,13 +55,13 @@ fun MainNavGraph(navController: NavHostController) {
                 route = NavScreen.DetailsRepo.routeWithArgument,
                 arguments = listOf(navArgument(NavScreen.DetailsRepo.argument0) { type = NavType.LongType })
             ) { backStackEntry ->
-                val id = backStackEntry.arguments?.getLong(NavScreen.DetailsRepo.argument0) ?: return@composable
-                val viewModel = hiltViewModel<ViewModelHome>(backStackEntry = backStackEntry)
-                DetailsRepo(
-                    id,
-                    viewModel = viewModel,
-                    upPress = actions.upPress
-                )
+                backStackEntry.arguments?.let {
+                    DetailsRepo(
+                        it.getLong(NavScreen.DetailsRepo.argument0),
+                        viewModel = hiltViewModel(backStackEntry = backStackEntry),
+                        upPress = actions.upPress
+                    )
+                }
             }
         }
     }
