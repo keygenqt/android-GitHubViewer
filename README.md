@@ -17,10 +17,11 @@ Implementation of the application using the latest Android Tech Stack and the [G
   [Flow](https://kotlinlang.org/docs/flow.html)
 
 ### Preview
-
-![picture](data/vokoscreen-2021-05-27_10-53-31.gif)
-![picture](data/vokoscreen-2021-05-27_10-50-27.gif)
-![picture](data/vokoscreen-2021-06-01_16-25-26.gif)
+<p align="center">
+<img src="data/vokoscreen-2021-05-27_10-53-31.gif" width="32%"/>
+<img src="data/vokoscreen-2021-05-27_10-50-27.gif" width="32%"/>
+<img src="data/vokoscreen-2021-06-01_16-25-26.gif" width="32%"/>
+</p>
 
 ### Libraries
 
