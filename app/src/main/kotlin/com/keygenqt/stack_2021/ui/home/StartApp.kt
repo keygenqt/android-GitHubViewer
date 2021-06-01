@@ -18,7 +18,6 @@ fun StartApp(
     viewModel: ViewModelHome,
     navigateToDetailsRepo: (Long) -> Unit,
 ) {
-    val scope = rememberCoroutineScope()
     val user by viewModel.loadingUser.collectAsState(initial = null)
     when {
         user.isSucceeded -> {
@@ -27,7 +26,7 @@ fun StartApp(
                 navigateToDetailsRepo = navigateToDetailsRepo,
             )
         }
-        user.isError -> ErrorConnect { scope.launch { viewModel.repeatLoadingUser() } }
+        user.isError -> ErrorConnect { viewModel.repeatLoadingUser() }
         else -> Splash()
     }
 }

@@ -55,12 +55,8 @@ class ViewModelHome @Inject constructor(
     val selectedTab: StateFlow<Int> = _selectedTab
 
     // first query to get user
-    private val _loadingUser: MutableStateFlow<Boolean> = MutableStateFlow(true)
-    val loadingUser: Flow<ResponseResult<ModelUser>> = _loadingUser.flatMapLatest {
-        this.repositoryUser.loadingUser().onEach {
-            it.runSucceeded { user -> preferences.modelUser = user }
-        }
-    }
+    private val _loadingUser: MutableStateFlow<ResponseResult<ModelUser>?> = MutableStateFlow(null)
+    val loadingUser = _loadingUser.asStateFlow()
 
     // Example of use RemoteMediatorRepo
     @ExperimentalPagingApi
@@ -76,11 +72,19 @@ class ViewModelHome @Inject constructor(
         PageSourceFollower(repositoryFollower)
     }.flow.cachedIn(viewModelScope)
 
-    @WorkerThread
-    suspend fun repeatLoadingUser() = _loadingUser.emit(!_loadingUser.value)
+    init {
+        repeatLoadingUser()
+    }
 
-    @WorkerThread
-    fun findByIdRepo(id: Long): Flow<ModelRepo?> = db.repo().getModel(id).distinctUntilChanged()
+    fun repeatLoadingUser() {
+        repositoryUser.loadingUser()
+            .onEach { _loadingUser.value = it }
+            .launchIn(viewModelScope)
+    }
+
+    fun findByIdRepo(id: Long): Flow<ModelRepo?> {
+        return db.repo().getModel(id).distinctUntilChanged()
+    }
 
     @MainThread
     fun selectTab(@StringRes tab: Int) {
