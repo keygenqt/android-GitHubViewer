@@ -17,12 +17,19 @@
 package com.keygenqt.stack_2021.ui.other
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.base.SharedPreferences
 import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
+import com.keygenqt.stack_2021.extension.isSucceeded
+import com.keygenqt.stack_2021.extension.runSucceeded
 import com.keygenqt.stack_2021.models.ModelUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,7 +37,17 @@ class ViewModelSplash @Inject constructor(
     private val preferences: SharedPreferences,
     private val repository: RepositoryUser
 ) : ViewModel() {
-    val loadingUser = this.repository.observeModel {
-        preferences.modelUser = it
+
+    val loadingUser: Flow<ResponseResult<ModelUser>> = this.repository.loadingUser().onEach {
+        it.runSucceeded { user ->
+            preferences.modelUser = user
+        }
+        Timber.e("Loading user result: ${it.isSucceeded}")
+    }
+
+    fun repeat() {
+        viewModelScope.launch {
+            loadingUser.collect()
+        }
     }
 }

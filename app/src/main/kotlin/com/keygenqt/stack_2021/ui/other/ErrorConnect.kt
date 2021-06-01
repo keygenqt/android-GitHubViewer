@@ -16,41 +16,31 @@
 
 package com.keygenqt.stack_2021.ui.other
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SignalWifiBad
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.models.ModelFollower
-import com.keygenqt.stack_2021.ui.home.ItemFollower
 import com.keygenqt.stack_2021.ui.theme.BlackLight
-import com.keygenqt.stack_2021.ui.theme.Blue50_30
+import com.keygenqt.stack_2021.ui.theme.Purple700
+import com.keygenqt.stack_2021.ui.theme.Red100
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 
 @Composable
-fun Splash(
-    scaffoldState: ScaffoldState = rememberScaffoldState()
-) {
-
-    LaunchedEffect(scaffoldState.snackbarHostState) {
-
-    }
-
-
+fun ErrorConnect(repeat: () -> Unit) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -71,15 +61,30 @@ fun Splash(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(10.dp)
             ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_launcher),
-                    contentDescription = null,
-                    modifier = Modifier.width(200.dp)
+                Icon(
+                    imageVector = Icons.Filled.SignalWifiBad,
+                    contentDescription = "Signal Wifi Bad",
+                    tint = Red100,
+                    modifier = Modifier.size(100.dp)
                 )
-                CircularProgressIndicator(
-                    color = Blue50_30,
-                    modifier = Modifier.width(24.dp)
+                Text(
+                    text = stringResource(id = R.string.no_connection),
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier
+                        .padding(30.dp)
                 )
+                Button(
+                    onClick = repeat,
+                    colors = ButtonDefaults.textButtonColors(backgroundColor = Color.White)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.no_connection_button),
+                        color = Purple700
+                    )
+                }
+
             }
         }
     }
@@ -87,16 +92,16 @@ fun Splash(
 
 @Preview
 @Composable
-fun SplashPreviewLight() {
+fun ErrorConnectPreviewLight() {
     StackTheme(darkTheme = false) {
-        Splash()
+        ErrorConnect {}
     }
 }
 
 @Preview
 @Composable
-fun SplashPreviewDark() {
+fun ErrorConnectPreviewDark() {
     StackTheme(darkTheme = true) {
-        Splash()
+        ErrorConnect {}
     }
 }

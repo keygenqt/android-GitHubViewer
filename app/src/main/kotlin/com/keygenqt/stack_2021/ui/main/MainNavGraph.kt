@@ -26,10 +26,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.paging.ExperimentalPagingApi
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.keygenqt.stack_2021.extension.isError
 import com.keygenqt.stack_2021.extension.isSucceeded
 import com.keygenqt.stack_2021.ui.home.DetailsRepo
 import com.keygenqt.stack_2021.ui.home.TabsHome
 import com.keygenqt.stack_2021.ui.home.ViewModelHome
+import com.keygenqt.stack_2021.ui.other.ErrorConnect
 import com.keygenqt.stack_2021.ui.other.Splash
 import com.keygenqt.stack_2021.ui.other.ViewModelSplash
 import kotlin.time.ExperimentalTime
@@ -45,11 +47,11 @@ fun MainNavGraph(navController: NavHostController) {
         NavHost(navController = navController, startDestination = NavScreen.Splash.route) {
             composable(NavScreen.Splash.route) { backStackEntry ->
                 val viewModel = hiltViewModel<ViewModelSplash>(backStackEntry = backStackEntry)
-                val tabId by viewModel.loadingUser.collectAsState(initial = null)
-                if (tabId.isSucceeded) {
-                    navController.navigate(NavScreen.Home.route)
-                } else {
-                    Splash()
+                val user by viewModel.loadingUser.collectAsState(initial = null)
+                when {
+                    user.isSucceeded -> navController.navigate(NavScreen.Home.route)
+                    user.isError -> ErrorConnect { viewModel.repeat() }
+                    else -> Splash()
                 }
             }
             composable(NavScreen.Home.route) { backStackEntry ->

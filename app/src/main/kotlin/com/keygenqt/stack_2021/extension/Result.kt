@@ -22,6 +22,8 @@ import com.keygenqt.stack_2021.base.ResponseResult
 
 val ResponseResult<*>?.isSucceeded get() = this != null && this is ResponseResult.Success && data != null
 
+val ResponseResult<*>?.isError get() = this != null && this is ResponseResult.Error
+
 inline infix fun <T, Value : Any> ResponseResult<T>?.runSucceeded(predicate: (data: T) -> Value): Value? {
     if (this != null && this.isSucceeded && this is ResponseResult.Success && this.data != null) {
         return predicate.invoke(this.data)

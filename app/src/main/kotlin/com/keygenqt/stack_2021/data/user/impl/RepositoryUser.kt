@@ -21,7 +21,6 @@ import com.keygenqt.stack_2021.base.NotFoundException
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.data.user.ServiceUser
 import com.keygenqt.stack_2021.extension.toModelUser
-import com.keygenqt.stack_2021.models.ModelUser
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -29,12 +28,10 @@ class RepositoryUser @Inject constructor(
     private val service: ServiceUser,
     private val gitHubUser: String
 ) {
-
     @WorkerThread
-    fun observeModel(onSuccess: (ModelUser) -> Unit) = flow {
+    fun loadingUser() = flow {
         try {
             service.getUser(gitHubUser).body()?.toModelUser()?.let { model ->
-                onSuccess.invoke(model)
                 emit(ResponseResult.Success(model))
             } ?: run {
                 throw NotFoundException()
