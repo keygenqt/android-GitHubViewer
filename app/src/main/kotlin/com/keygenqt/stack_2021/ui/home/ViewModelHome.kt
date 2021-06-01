@@ -46,8 +46,8 @@ class ViewModelHome @Inject constructor(
     private val db: AppDatabase,
     preferences: SharedPreferences,
     repositoryRepo: RepositoryRepo,
-    private val repositoryFollower: RepositoryFollower,
-    private val repository: RepositoryUser
+    repositoryFollower: RepositoryFollower,
+    private val repositoryUser: RepositoryUser
 ) : ViewModel() {
 
     // change tabs
@@ -57,7 +57,7 @@ class ViewModelHome @Inject constructor(
     // first query to get user
     private var _loadingUser: MutableStateFlow<Boolean> = MutableStateFlow(true)
     val loadingUser: Flow<ResponseResult<ModelUser>> = _loadingUser.flatMapLatest {
-        this.repository.loadingUser().onEach {
+        this.repositoryUser.loadingUser().onEach {
             it.runSucceeded { user -> preferences.modelUser = user }
         }
     }
