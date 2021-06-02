@@ -19,7 +19,6 @@ package com.keygenqt.stack_2021
 import com.keygenqt.stack_2021.base.NotFoundException
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
-import kotlinx.coroutines.flow.single
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

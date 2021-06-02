@@ -27,8 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.models.ModelRepo
-import com.keygenqt.stack_2021.ui.home.ItemRepo
 import com.keygenqt.stack_2021.ui.theme.StackTheme
 import com.keygenqt.stack_2021.utils.ConstantsLanguage
 import java.util.*

@@ -42,7 +42,7 @@ object NetworkModule {
             .addInterceptor {
                 val original = it.request()
                 val request = original.newBuilder().apply {
-                    BuildConfig.GITHUB_TOKEN?.let { token -> header("Authorization", "token $token") }
+                    BuildConfig.GITHUB_TOKEN.let { token -> header("Authorization", "token $token") }
                 }
                     .method(original.method, original.body)
                     .build()

@@ -18,10 +18,10 @@
 
 package com.keygenqt.stack_2021.initializer
 
-import android.content.*
-import androidx.startup.*
-import com.keygenqt.stack_2021.*
-import timber.log.*
+import android.content.Context
+import androidx.startup.Initializer
+import com.keygenqt.stack_2021.BuildConfig
+import timber.log.Timber
 
 class TimberInitializer : Initializer<Unit> {
 

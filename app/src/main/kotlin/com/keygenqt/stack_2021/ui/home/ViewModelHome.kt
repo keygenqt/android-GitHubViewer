@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.MainThread
 import androidx.annotation.StringRes
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
@@ -30,7 +29,6 @@ import com.keygenqt.stack_2021.data.followers.paging.PageSourceFollower
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
 import com.keygenqt.stack_2021.data.repos.paging.RemoteMediatorRepo
 import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
-import com.keygenqt.stack_2021.extension.runSucceeded
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.models.ModelUser

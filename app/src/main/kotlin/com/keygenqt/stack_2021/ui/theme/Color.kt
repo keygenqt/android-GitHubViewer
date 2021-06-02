@@ -16,8 +16,8 @@
  
 package com.keygenqt.stack_2021.ui.theme
 
-import androidx.compose.ui.graphics.*
-import com.keygenqt.stack_2021.extension.*
+import androidx.compose.ui.graphics.Color
+import com.keygenqt.stack_2021.extension.parseColor
 
 // custom
 val BlackLight = "#2d2f31".parseColor()

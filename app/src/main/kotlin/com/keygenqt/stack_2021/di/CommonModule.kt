@@ -16,14 +16,16 @@
  
 package com.keygenqt.stack_2021.di
 
-import android.content.*
-import androidx.security.crypto.*
+import android.content.Context
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.keygenqt.stack_2021.base.SharedPreferences
-import dagger.*
-import dagger.hilt.*
-import dagger.hilt.android.components.*
-import dagger.hilt.android.qualifiers.*
-import dagger.hilt.android.scopes.*
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
