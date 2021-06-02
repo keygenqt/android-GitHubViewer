@@ -31,12 +31,10 @@ class ViewModelMain @Inject constructor() : ViewModel() {
     private val _showSnackBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val showSnackBar: StateFlow<Boolean> get() = _showSnackBar
 
-    @MainThread
     fun isShowSnackBar(): Boolean {
         return _showSnackBar.value
     }
 
-    @MainThread
     fun toggleSnackBar() {
         _showSnackBar.tryEmit(true)
         Handler(Looper.getMainLooper()).postDelayed({
