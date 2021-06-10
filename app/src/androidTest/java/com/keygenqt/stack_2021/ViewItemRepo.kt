@@ -30,7 +30,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class ViewItemRepo { // @todo Bumblebee problem 'META-INF/LGPL2.1'
+class ViewItemRepo {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()

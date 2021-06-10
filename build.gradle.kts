@@ -1,9 +1,9 @@
 buildscript {
 
     val hiltVersion = "2.36"
-    val kotlinVersion = "1.4.32"
+    val kotlinVersion = "1.5.10"
     val dokkaVersion = "1.4.32"
-    val gradleVersion = "7.1.0-alpha01"
+    val gradleVersion = "7.1.0-alpha02"
 
     repositories {
         google()

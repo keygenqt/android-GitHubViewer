@@ -76,6 +76,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = com.keygenqt.internal.Versions.compose
     }
+    packagingOptions {
+        resources {
+            excludes.add("META-INF/AL2.0")
+            excludes.add("META-INF/LGPL2.1")
+        }
+    }
 }
 
 dependencies {

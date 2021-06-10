@@ -19,6 +19,7 @@ package com.keygenqt.stack_2021
 import com.keygenqt.stack_2021.base.NotFoundException
 import com.keygenqt.stack_2021.base.ResponseResult
 import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
+import kotlinx.coroutines.flow.single
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,7 +34,7 @@ class MoviesNetworkDataSourceTest : ApiAbstract() {
             // Arrange
             val sut = RepositoryUser(api, "keygenqt")
             // Act
-            val response = sut.observeModel().single()
+            val response = sut.loadingUser().single()
             // Assert
             assert(response is ResponseResult.Success)
             assertEquals((response as ResponseResult.Success).data.login, "keygenqt")
@@ -46,7 +47,7 @@ class MoviesNetworkDataSourceTest : ApiAbstract() {
             // Arrange
             val sut = RepositoryUser(api, "keygenqt")
             // Act
-            val response = sut.observeModel().single()
+            val response = sut.loadingUser().single()
             // Assert
             assertEquals(response::class, ResponseResult.Error::class)
             assertEquals((response as ResponseResult.Error).exception::class, NotFoundException::class)

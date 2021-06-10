@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.StringRes
@@ -37,7 +37,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -63,51 +62,45 @@ fun TabsHome(
     val lazyFollowers: LazyPagingItems<ModelFollower> = viewModel.followers.collectAsLazyPagingItems()
     val showSnackBar: Boolean by LocalBaseViewModel.current.showSnackBar.collectAsState()
 
-    ConstraintLayout {
-        val (body) = createRefs()
-        Scaffold(
-            topBar = {
-                Crossfade(HomeTab.getTabFromResource(tabId)) { destination ->
-                    when (destination) {
-                        HomeTab.REPOS -> PosterAppBar(stringResource(id = R.string.title_repos))
-                        HomeTab.FOLLOWERS -> PosterAppBar(stringResource(id = R.string.title_followers))
-                    }
+    Scaffold(
+        topBar = {
+            Crossfade(HomeTab.getTabFromResource(tabId)) { destination ->
+                when (destination) {
+                    HomeTab.REPOS -> PosterAppBar(stringResource(id = R.string.title_repos))
+                    HomeTab.FOLLOWERS -> PosterAppBar(stringResource(id = R.string.title_followers))
                 }
-            },
-            modifier = Modifier.constrainAs(body) {
-                top.linkTo(parent.top)
-            },
-            bottomBar = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Column {
-                        if (showSnackBar) {
-                            SnackbarInfo()
-                        }
-                        BottomNavigation(
-                            backgroundColor = Purple700,
-                            modifier = Modifier.navigationBarsHeight(56.dp)
-                        ) {
-                            tabs.forEach { tab ->
-                                BottomNavigationItem(
-                                    icon = { Icon(imageVector = tab.icon, contentDescription = null) },
-                                    selected = tab == HomeTab.getTabFromResource(tabId),
-                                    onClick = { viewModel.selectTab(tab.title) },
-                                    selectedContentColor = Color.White,
-                                    unselectedContentColor = Color.White,
-                                    modifier = Modifier.navigationBarsPadding()
-                                )
-                            }
+            }
+        },
+        bottomBar = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column {
+                    if (showSnackBar) {
+                        SnackbarInfo()
+                    }
+                    BottomNavigation(
+                        backgroundColor = Purple700,
+                        modifier = Modifier.navigationBarsHeight(56.dp)
+                    ) {
+                        tabs.forEach { tab ->
+                            BottomNavigationItem(
+                                icon = { Icon(imageVector = tab.icon, contentDescription = null) },
+                                selected = tab == HomeTab.getTabFromResource(tabId),
+                                onClick = { viewModel.selectTab(tab.title) },
+                                selectedContentColor = Color.White,
+                                unselectedContentColor = Color.White,
+                                modifier = Modifier.navigationBarsPadding()
+                            )
                         }
                     }
                 }
             }
-        ) { innerPadding ->
-            val modifier = Modifier.padding(innerPadding)
-            Crossfade(HomeTab.getTabFromResource(tabId)) { destination ->
-                when (destination) {
-                    HomeTab.REPOS -> ReposList(modifier, lazyRepos, navigateToDetailsRepo)
-                    HomeTab.FOLLOWERS -> ListFollowers(modifier, lazyFollowers)
-                }
+        }
+    ) { innerPadding ->
+        val modifier = Modifier.padding(innerPadding)
+        Crossfade(HomeTab.getTabFromResource(tabId)) { destination ->
+            when (destination) {
+                HomeTab.REPOS -> ReposList(modifier, lazyRepos, navigateToDetailsRepo)
+                HomeTab.FOLLOWERS -> ListFollowers(modifier, lazyFollowers)
             }
         }
     }
