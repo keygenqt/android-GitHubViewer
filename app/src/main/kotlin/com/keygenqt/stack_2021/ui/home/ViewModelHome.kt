@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.MainThread
@@ -29,6 +29,7 @@ import com.keygenqt.stack_2021.data.followers.paging.PageSourceFollower
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
 import com.keygenqt.stack_2021.data.repos.paging.RemoteMediatorRepo
 import com.keygenqt.stack_2021.data.user.impl.RepositoryUser
+import com.keygenqt.stack_2021.extension.success
 import com.keygenqt.stack_2021.models.ModelFollower
 import com.keygenqt.stack_2021.models.ModelRepo
 import com.keygenqt.stack_2021.models.ModelUser
@@ -42,7 +43,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class ViewModelHome @Inject constructor(
     private val db: AppDatabase,
-    preferences: SharedPreferences,
+    private val preferences: SharedPreferences,
     repositoryRepo: RepositoryRepo,
     repositoryFollower: RepositoryFollower,
     private val repositoryUser: RepositoryUser
@@ -76,7 +77,10 @@ class ViewModelHome @Inject constructor(
 
     fun repeatLoadingUser() {
         repositoryUser.loadingUser()
-            .onEach { _loadingUser.value = it }
+            .onEach {
+                it.success { preferences.modelUser = it }
+                _loadingUser.value = it
+            }
             .launchIn(viewModelScope)
     }
 
