@@ -43,9 +43,9 @@ fun MainNavGraph(
     }
     ProvideWindowInsets {
         NavHost(navController = navController, startDestination = NavScreen.Home.route) {
-            composable(NavScreen.Home.route) { backStackEntry ->
+            composable(NavScreen.Home.route) {
                 StartApp(
-                    viewModel = hiltViewModel(backStackEntry = backStackEntry),
+                    viewModel = hiltViewModel(),
                     navigateToDetailsRepo = actions.navigateToDetailsRepo,
                 )
             }
@@ -56,7 +56,7 @@ fun MainNavGraph(
                 backStackEntry.arguments?.let {
                     DetailsRepo(
                         it.getLong(NavScreen.DetailsRepo.argument0),
-                        viewModel = hiltViewModel(backStackEntry = backStackEntry),
+                        viewModel = hiltViewModel(),
                         upPress = actions.upPress
                     )
                 }

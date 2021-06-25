@@ -20,11 +20,11 @@ package com.keygenqt.internal
 
 object Versions {
     // jetpack
-    const val ktxCore = "1.6.0-beta02"
+    const val ktxCore = "1.5.0"
 
     // compose
-    const val compose = "1.0.0-beta08"
-    const val constraint = "1.0.0-alpha07"
+    const val compose = "1.0.0-beta09"
+    const val constraint = "1.0.0-alpha08"
     const val pagingCompose = "1.0.0-alpha09"
     const val paging = "3.0.0"
     const val accompanist = "0.11.1"
@@ -35,7 +35,7 @@ object Versions {
     // di
     const val hilt = "1.0.0"
     const val hiltCore = "2.36"
-    const val hiltComposeNavigation = "1.0.0-alpha02"
+    const val hiltComposeNavigation = "1.0.0-alpha03"
 
     // security
     const val securityCrypto = "1.1.0-alpha03"
