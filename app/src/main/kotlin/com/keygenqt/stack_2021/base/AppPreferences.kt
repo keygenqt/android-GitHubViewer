@@ -16,12 +16,13 @@
  
 package com.keygenqt.stack_2021.base
 
+import android.content.SharedPreferences
 import com.keygenqt.stack_2021.models.ModelUser
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class SharedPreferences(private val p: android.content.SharedPreferences) {
+class AppPreferences(private val p: SharedPreferences) {
 
     companion object {
         private const val USER = "USER"
@@ -40,5 +41,7 @@ class SharedPreferences(private val p: android.content.SharedPreferences) {
 
     var modelUser: ModelUser?
         get() = p.getString(USER, null)?.let { Json.decodeFromString<ModelUser>(it) }
-        set(value) = value?.let { p.edit().putString(USER, Json.encodeToString(value)).apply() } ?: run { p.edit().remove(USER).apply() }
+        set(value) = value
+            ?.let { p.edit().putString(USER, Json.encodeToString(value)).apply() }
+            ?: p.edit().remove(USER).apply()
 }

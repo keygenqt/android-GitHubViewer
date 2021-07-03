@@ -17,7 +17,8 @@
 package com.keygenqt.stack_2021.data.followers.impl
 
 import com.keygenqt.stack_2021.base.ResponseResult
-import com.keygenqt.stack_2021.base.SharedPreferences
+import com.keygenqt.stack_2021.base.AppPreferences
+import com.keygenqt.stack_2021.base.executeWithResponse
 import com.keygenqt.stack_2021.data.followers.ServiceFollower
 import com.keygenqt.stack_2021.extension.toModelFollowers
 import com.keygenqt.stack_2021.models.ModelFollower
@@ -27,20 +28,17 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RepositoryFollower @Inject constructor(
-    private val preferences: SharedPreferences,
+    private val preferences: AppPreferences,
     private val service: ServiceFollower
 ) {
     suspend fun getModels(page: Int): ResponseResult<List<ModelFollower>> {
         return withContext(Dispatchers.IO) {
-            try {
-                delay(1000) // slow internet
-                service.listFollowers(preferences.followersUrl, page).body()?.toModelFollowers()?.let { models ->
-                    ResponseResult.Success(models)
-                } ?: run {
-                    ResponseResult.Success(emptyList())
-                }
-            } catch (ex: Exception) {
-                ResponseResult.Error(ex)
+            delay(1000) // slow internet
+            executeWithResponse {
+                service.listFollowers(preferences.followersUrl, page)
+                    .body()
+                    ?.toModelFollowers()
+                    ?: emptyList()
             }
         }
     }

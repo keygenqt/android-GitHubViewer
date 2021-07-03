@@ -18,7 +18,7 @@ package com.keygenqt.stack_2021.di
 
 import android.content.Context
 import com.keygenqt.stack_2021.R
-import com.keygenqt.stack_2021.base.SharedPreferences
+import com.keygenqt.stack_2021.base.AppPreferences
 import com.keygenqt.stack_2021.data.followers.ServiceFollower
 import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import com.keygenqt.stack_2021.data.repos.ServiceRepo
@@ -39,7 +39,7 @@ object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideRepositoryRepo(
-        preferences: SharedPreferences,
+        preferences: AppPreferences,
         service: ServiceRepo
     ): RepositoryRepo {
         return RepositoryRepo(preferences, service)
@@ -48,7 +48,7 @@ object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideRepositoryFollower(
-        preferences: SharedPreferences,
+        preferences: AppPreferences,
         service: ServiceFollower,
     ): RepositoryFollower {
         return RepositoryFollower(preferences, service)

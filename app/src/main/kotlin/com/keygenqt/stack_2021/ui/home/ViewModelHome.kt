@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 package com.keygenqt.stack_2021.ui.home
 
 import androidx.annotation.MainThread
@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.keygenqt.stack_2021.base.ResponseResult
-import com.keygenqt.stack_2021.base.SharedPreferences
+import com.keygenqt.stack_2021.base.AppPreferences
 import com.keygenqt.stack_2021.data.AppDatabase
 import com.keygenqt.stack_2021.data.followers.impl.RepositoryFollower
 import com.keygenqt.stack_2021.data.followers.paging.PageSourceFollower
@@ -43,7 +43,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class ViewModelHome @Inject constructor(
     private val db: AppDatabase,
-    private val preferences: SharedPreferences,
+    private val preferences: AppPreferences,
     repositoryRepo: RepositoryRepo,
     repositoryFollower: RepositoryFollower,
     private val repositoryUser: RepositoryUser

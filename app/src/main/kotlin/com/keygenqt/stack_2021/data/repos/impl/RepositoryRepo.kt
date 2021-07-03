@@ -17,7 +17,7 @@
 package com.keygenqt.stack_2021.data.repos.impl
 
 import com.keygenqt.stack_2021.base.NotFoundException
-import com.keygenqt.stack_2021.base.SharedPreferences
+import com.keygenqt.stack_2021.base.AppPreferences
 import com.keygenqt.stack_2021.data.repos.ServiceRepo
 import com.keygenqt.stack_2021.extension.toModelRepos
 import com.keygenqt.stack_2021.models.ModelRepo
@@ -25,15 +25,11 @@ import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class RepositoryRepo @Inject constructor(
-    private val preferences: SharedPreferences,
+    private val preferences: AppPreferences,
     private val service: ServiceRepo
 ) {
     suspend fun getModels(page: Int): List<ModelRepo> {
         delay(1000) // slow internet
-        return service.listRepo(preferences.reposUrl, page).body()?.toModelRepos(page)?.let { models ->
-            models
-        } ?: run {
-            throw NotFoundException()
-        }
+        return service.listRepo(preferences.reposUrl, page).body()?.toModelRepos(page) ?: throw NotFoundException()
     }
 }

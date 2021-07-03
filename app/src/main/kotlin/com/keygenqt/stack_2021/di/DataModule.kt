@@ -18,7 +18,6 @@ package com.keygenqt.stack_2021.di
 
 import android.app.Application
 import androidx.room.Room
-import com.keygenqt.stack_2021.R
 import com.keygenqt.stack_2021.data.AppDatabase
 import com.keygenqt.stack_2021.data.repos.DaoRepo
 import dagger.Module
@@ -37,14 +36,13 @@ object DataModule {
         return Room.databaseBuilder(
             application,
             AppDatabase::class.java,
-            application.getString(R.string.database)
+            "stack_2021.db"
         )
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Provides
-    @Singleton
     fun provideDaoRepo(appDatabase: AppDatabase): DaoRepo {
         return appDatabase.repo()
     }

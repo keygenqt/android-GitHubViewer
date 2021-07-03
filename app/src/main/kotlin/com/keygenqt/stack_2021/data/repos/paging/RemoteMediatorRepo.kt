@@ -21,7 +21,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.keygenqt.stack_2021.base.SharedPreferences
+import com.keygenqt.stack_2021.base.AppPreferences
 import com.keygenqt.stack_2021.data.AppDatabase
 import com.keygenqt.stack_2021.data.repos.DaoRepo
 import com.keygenqt.stack_2021.data.repos.impl.RepositoryRepo
@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit
 @ExperimentalPagingApi
 class RemoteMediatorRepo(
     private val database: AppDatabase,
-    private val preferences: SharedPreferences,
+    private val preferences: AppPreferences,
     private val repositoryRepo: RepositoryRepo,
 ) : RemoteMediator<Int, ModelRepo>() {
 
