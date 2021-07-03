@@ -60,7 +60,7 @@ fun TabsHome(
     val tabId: Int by viewModel.selectedTab.collectAsState(initial = 0)
     val lazyRepos: LazyPagingItems<ModelRepo> = viewModel.repos.collectAsLazyPagingItems()
     val lazyFollowers: LazyPagingItems<ModelFollower> = viewModel.followers.collectAsLazyPagingItems()
-    val showSnackBar: Boolean by LocalBaseViewModel.current.showSnackBar.collectAsState()
+    val showSnackBar: Boolean by LocalBaseViewModel.current.isShowSnackBar.collectAsState()
 
     Scaffold(
         topBar = {

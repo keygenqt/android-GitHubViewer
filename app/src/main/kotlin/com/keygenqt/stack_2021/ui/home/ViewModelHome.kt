@@ -51,7 +51,7 @@ class ViewModelHome @Inject constructor(
 
     // change tabs
     private val _selectedTab: MutableStateFlow<Int> = MutableStateFlow(0)
-    val selectedTab: StateFlow<Int> = _selectedTab
+    val selectedTab: StateFlow<Int> = _selectedTab.asStateFlow()
 
     // first query to get user
     private val _loadingUser: MutableStateFlow<ResponseResult<ModelUser>?> = MutableStateFlow(null)

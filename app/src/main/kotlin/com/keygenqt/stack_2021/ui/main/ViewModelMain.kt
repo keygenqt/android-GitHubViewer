@@ -13,31 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.main
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelMain @Inject constructor() : ViewModel() {
 
     private val _showSnackBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val showSnackBar: StateFlow<Boolean> get() = _showSnackBar
-
-    fun isShowSnackBar(): Boolean {
-        return _showSnackBar.value
-    }
+    val isShowSnackBar: StateFlow<Boolean> get() = _showSnackBar.asStateFlow()
 
     fun toggleSnackBar() {
         _showSnackBar.tryEmit(true)
-        Handler(Looper.getMainLooper()).postDelayed({
+        viewModelScope.launch {
+            delay(1500)
             _showSnackBar.tryEmit(false)
-        }, 1500)
+        }
     }
 }

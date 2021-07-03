@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onBackPressed() {
         when (navController.currentDestination?.route) {
-            NavScreen.Home.route -> if (viewModel.isShowSnackBar()) finishAffinity() else viewModel.toggleSnackBar()
+            NavScreen.Home.route -> if (viewModel.isShowSnackBar.value) finishAffinity() else viewModel.toggleSnackBar()
             else -> super.onBackPressed()
         }
     }
