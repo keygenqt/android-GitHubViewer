@@ -92,6 +92,7 @@ dependencies {
         implementation(insets)
         implementation(glide)
         implementation(swipeRefresh)
+        implementation(systemuicontroller)
     }
 
     dep.hilt.apply { // https://dagger.dev/hilt/

@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.keygenqt.stack_2021.ui.main
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -42,26 +46,34 @@ fun MainNavGraph(
         MainActions(navController)
     }
     ProvideWindowInsets {
-        NavHost(navController = navController, startDestination = NavScreen.Home.route) {
-            composable(NavScreen.Home.route) {
-                StartApp(
-                    viewModel = hiltViewModel(),
-                    navigateToDetailsRepo = actions.navigateToDetailsRepo,
-                )
-            }
-            composable(
-                route = NavScreen.DetailsRepo.routeWithArgument,
-                arguments = listOf(navArgument(NavScreen.DetailsRepo.argument0) { type = NavType.LongType })
-            ) { backStackEntry ->
-                backStackEntry.arguments?.let {
-                    DetailsRepo(
-                        it.getLong(NavScreen.DetailsRepo.argument0),
+        Box(
+            modifier = Modifier
+                .background(Color.Red)
+        ) {
+            NavHost(navController = navController, startDestination = NavScreen.Home.route) {
+                composable(NavScreen.Home.route) {
+                    StartApp(
                         viewModel = hiltViewModel(),
-                        upPress = actions.upPress
+                        navigateToDetailsRepo = actions.navigateToDetailsRepo,
                     )
+                }
+                composable(
+                    route = NavScreen.DetailsRepo.routeWithArgument,
+                    arguments = listOf(navArgument(NavScreen.DetailsRepo.argument0) {
+                        type = NavType.LongType
+                    })
+                ) { backStackEntry ->
+                    backStackEntry.arguments?.let {
+                        DetailsRepo(
+                            it.getLong(NavScreen.DetailsRepo.argument0),
+                            viewModel = hiltViewModel(),
+                            upPress = actions.upPress
+                        )
+                    }
                 }
             }
         }
+
     }
 }
 

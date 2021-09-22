@@ -37,4 +37,6 @@ object Accompanist {
      * [Swipe Refresh](https://google.github.io/accompanist/swiperefresh/)
      */
     const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
+
+    const val systemuicontroller = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
 }

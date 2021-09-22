@@ -16,10 +16,13 @@
  
 package com.keygenqt.stack_2021.ui.home
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.paging.ExperimentalPagingApi
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.keygenqt.stack_2021.extension.isError
 import com.keygenqt.stack_2021.extension.isSucceeded
 import com.keygenqt.stack_2021.ui.common.ErrorConnect
@@ -32,6 +35,12 @@ fun StartApp(
     viewModel: ViewModelHome,
     navigateToDetailsRepo: (Long) -> Unit,
 ) {
+
+    rememberSystemUiController().setStatusBarColor(
+        color = MaterialTheme.colors.primaryVariant,
+        darkIcons = isSystemInDarkTheme()
+    )
+
     val user by viewModel.loadingUser.collectAsState(initial = null)
     when {
         user.isSucceeded -> {
