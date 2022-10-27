@@ -23,18 +23,18 @@ object Versions {
     const val ktxCore = "1.5.0"
 
     // compose
-    const val compose = "1.0.0-beta09"
-    const val constraint = "1.0.0-alpha08"
-    const val pagingCompose = "1.0.0-alpha09"
+    const val compose = "1.0.2"
+    const val constraint = "1.0.0-rc01"
+    const val pagingCompose = "1.0.0-alpha12"
     const val paging = "3.0.0"
-    const val accompanist = "0.11.1"
+    const val accompanist = "0.17.0"
 
     // android
     const val material = "1.4.0-rc01"
 
     // di
     const val hilt = "1.0.0"
-    const val hiltCore = "2.36"
+    const val hiltCore = "2.38.1"
     const val hiltComposeNavigation = "1.0.0-alpha03"
 
     // security

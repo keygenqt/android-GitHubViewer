@@ -90,7 +90,6 @@ dependencies {
 
     dep.accompanist.apply { // https://google.github.io/accompanist/
         implementation(insets)
-        implementation(glide)
         implementation(swipeRefresh)
         implementation(systemuicontroller)
     }
